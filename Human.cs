@@ -26,9 +26,21 @@ namespace WarGame
         public Human() :
             base()
         { }
-        public override Texture2D SelfTexture { get => selfTexture; set => selfTexture = value; }
-        public override int FrameSizeX { get => frameSizeX; set => frameSizeX = value; } 
-        public override int FrameSizeY { get => frameSizeY; set => frameSizeY = value; }
+        public override Texture2D SelfTexture 
+        { 
+            get => selfTexture; 
+            set => selfTexture = value; 
+        }
+        public override int FrameSizeX 
+        { 
+            get => frameSizeX; 
+            set => frameSizeX = value; 
+        } 
+        public override int FrameSizeY 
+        { 
+            get => frameSizeY; 
+            set => frameSizeY = value; 
+        }
         public override int NumberOfFramesX
         {
             get => numberOfFramesX;

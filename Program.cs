@@ -7,8 +7,8 @@ namespace WarGame
         [STAThread]
         static void Main()
         {
-            using (var game = new GameWindow())
-                game.Run();
+        using (var game = new GameWindow())
+            game.Run();
         }
     }
 }
