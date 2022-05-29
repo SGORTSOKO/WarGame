@@ -6,15 +6,35 @@ using System;
 
 namespace WarGame
 {
+    /// <summary>
+    /// Class CreatureList.
+    /// </summary>
     public class CreatureList
     {
         #region Fields
+        /// <summary>
+        /// The main list
+        /// </summary>
         private List<Creatures> mainList;
+        /// <summary>
+        /// To delete
+        /// </summary>
         private List<Creatures> toDelete;
+        /// <summary>
+        /// The left player
+        /// </summary>
         private static Player leftPlayer;
+        /// <summary>
+        /// The right player
+        /// </summary>
         private static Player rightPlayer;
         #endregion
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreatureList"/> class.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
         public CreatureList(Player left, Player right) 
         {
             leftPlayer = left;
@@ -24,10 +44,17 @@ namespace WarGame
         }
         #endregion
         #region Methods
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
         public void Clear()
         {
             mainList.Clear();
         }
+        /// <summary>
+        /// Adds the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
         public void Add(Creatures input)  //
         {
             if (!mainList.Contains(input))
@@ -36,6 +63,13 @@ namespace WarGame
             }
         }
 
+        /// <summary>
+        /// Adds the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="inputPlayer">The input player.</param>
+        /// <param name="inputNowPositionX">The input now position x.</param>
+        /// <param name="inputTexture">The input texture.</param>
         public void Add(string input, Player inputPlayer, int inputNowPositionX, Texture2D inputTexture)  //
         {
             if (input == "Human")
@@ -48,17 +82,29 @@ namespace WarGame
                         ));
             }
         }
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
         public int Count
         {
             get => mainList.Count;
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Creatures"/> with the specified index1.
+        /// </summary>
+        /// <param name="index1">The index1.</param>
+        /// <returns>Creatures.</returns>
         public Creatures this[int index1]
         {
             get => mainList[index1];
             set => mainList[index1] = value;
         }
 
+        /// <summary>
+        /// Rands the sort.
+        /// </summary>
         public void RandSort()
         {
             if (mainList.Count != 0)
@@ -74,6 +120,9 @@ namespace WarGame
                 }
             }
         }
+        /// <summary>
+        /// Resets the stats.
+        /// </summary>
         public void ResetStats()
         {
             foreach (Creatures Creature in mainList)
@@ -82,6 +131,10 @@ namespace WarGame
             }
         }
 
+        /// <summary>
+        /// Deletes some.
+        /// </summary>
+        /// <param name="count">The count.</param>
         public void DeleteSome(int count)
         {
             if (mainList.Count > count*5)
@@ -92,6 +145,10 @@ namespace WarGame
                 } 
             }
         }
+        /// <summary>
+        /// Steps all.
+        /// </summary>
+        /// <returns>Player.</returns>
         public Player StepAll()
         {
             foreach (Creatures Creature in mainList)
@@ -123,6 +180,9 @@ namespace WarGame
             }
             return null;
         }
+        /// <summary>
+        /// Attacks the round.
+        /// </summary>
         public void AttackRound()
         {
             foreach (Creatures Attaker in mainList)

@@ -7,36 +7,92 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
+    /// <summary>
+    /// Class Button.
+    /// Implements the <see cref="WarGame.Component" />
+    /// </summary>
+    /// <seealso cref="WarGame.Component" />
     public class Button : Component
     {
         #region Fields
+        /// <summary>
+        /// The current mouse
+        /// </summary>
         private MouseState currentMouse;
+        /// <summary>
+        /// The font
+        /// </summary>
         private SpriteFont font;
+        /// <summary>
+        /// The is hovering
+        /// </summary>
         private bool isHovering;
+        /// <summary>
+        /// The previous mouse
+        /// </summary>
         private MouseState previousMouse;
+        /// <summary>
+        /// The texture
+        /// </summary>
         private Texture2D texture;
+        /// <summary>
+        /// My x
+        /// </summary>
         private float myX = -10;
+        /// <summary>
+        /// My y
+        /// </summary>
         private float myY = -10;
         #endregion
 
         #region Properties
         public event EventHandler Click;
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Button"/> is clicked.
+        /// </summary>
+        /// <value><c>true</c> if clicked; otherwise, <c>false</c>.</value>
         public bool Clicked { get; private set; }
+        /// <summary>
+        /// Gets or sets the pen colour.
+        /// </summary>
+        /// <value>The pen colour.</value>
         public Color PenColour { get; set; }
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
+        /// <value>The position.</value>
         public Vector2 Position { get; set; }
+        /// <summary>
+        /// Gets the rectangle.
+        /// </summary>
+        /// <value>The rectangle.</value>
         public Rectangle Rectangle
         {
             get => new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height);
         }
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text { get; set; }
         #endregion
         #region Methods
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Button"/> class.
+        /// </summary>
+        /// <param name="inputtexture">The inputtexture.</param>
+        /// <param name="inputfont">The inputfont.</param>
         public Button(Texture2D inputtexture, SpriteFont inputfont)
         {
             texture = inputtexture;
             font = inputfont;
             PenColour = Color.Black;
         }
+        /// <summary>
+        /// Draws the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var colour = Color.White;
@@ -52,6 +108,10 @@ namespace WarGame
                 spriteBatch.DrawString(font, Text, new Vector2(myX, myY), PenColour);
             }
         }
+        /// <summary>
+        /// Updates the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
         {
             previousMouse = currentMouse;

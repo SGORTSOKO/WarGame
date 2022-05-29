@@ -8,22 +8,76 @@ using WarGame.States;
 
 namespace WarGame
 {
+    /// <summary>
+    /// Class StateSingleplayer.
+    /// Implements the <see cref="State" />
+    /// </summary>
+    /// <seealso cref="State" />
     class StateSingleplayer : State
     {
+        /// <summary>
+        /// The list of textures
+        /// </summary>
         private List<Texture2D> listOfTextures = new List<Texture2D>();
+        /// <summary>
+        /// The back ground
+        /// </summary>
         private Texture2D backGround;
+        /// <summary>
+        /// The rand
+        /// </summary>
         private Random rand = new Random();
+        /// <summary>
+        /// The text block2
+        /// </summary>
         private SpriteFont textBlock2;
+        /// <summary>
+        /// The last mouse state
+        /// </summary>
         private MouseState lastMouseState;
+        /// <summary>
+        /// The mouse position
+        /// </summary>
         private Vector2 mousePosition;
+        /// <summary>
+        /// The left
+        /// </summary>
         private Player left;
+        /// <summary>
+        /// The right
+        /// </summary>
         private Player right;
+        /// <summary>
+        /// The winner
+        /// </summary>
         private Player winner;
+        /// <summary>
+        /// The play list
+        /// </summary>
         private CreatureList playList;
+        /// <summary>
+        /// The game components
+        /// </summary>
         private List<Component> gameComponents;
+        /// <summary>
+        /// The score manager
+        /// </summary>
         private ScoreManager scoreManager;
+        /// <summary>
+        /// The timer
+        /// </summary>
         private int timer, timer2, timer3;
+        /// <summary>
+        /// The single
+        /// </summary>
         private bool single;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StateSingleplayer"/> class.
+        /// </summary>
+        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGraphicsDevice">The input graphics device.</param>
+        /// <param name="inputContent">Content of the input.</param>
+        /// <param name="inputScreenSize">Size of the input screen.</param>
         public StateSingleplayer(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
             : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
@@ -50,6 +104,10 @@ namespace WarGame
             };
         }
 
+        /// <summary>
+        /// Updates the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
         {
             timer2++;
@@ -128,6 +186,11 @@ namespace WarGame
                 component.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draws the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
@@ -146,21 +209,41 @@ namespace WarGame
             }
             else
             {
-                spriteBatch.DrawString(textBlock2, Convert.ToString(left.HP), new Vector2(thisScreenSize.X * 0.1f, thisScreenSize.Y * 0.9f), left.Color); // - textBlock2.MeasureString(Convert.ToString(left.HP)).X
+                spriteBatch.DrawString(textBlock2, Convert.ToString(left.HP), new Vector2(thisScreenSize.X * 0.1f, thisScreenSize.Y * 0.9f), left.Color);
                 spriteBatch.DrawString(textBlock2, Convert.ToString(right.HP), new Vector2(thisScreenSize.X * 0.9f - textBlock2.MeasureString(Convert.ToString(right.HP)).X, thisScreenSize.Y * 0.9f), right.Color);
-                spriteBatch.DrawString(textBlock2, Convert.ToString(timer), new Vector2(thisScreenSize.X * 0.5f - textBlock2.MeasureString(Convert.ToString(playList.Count)).X, thisScreenSize.Y * 0.9f), Color.Black); //playList.Count
-                //spriteBatch.DrawString(textBlock2, Convert.ToString(random), new Vector2(screenSize.X * 0.5f, screenSize.Y * 0.1f), Color.Black);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(timer), new Vector2(thisScreenSize.X * 0.5f - textBlock2.MeasureString(Convert.ToString(playList.Count)).X, thisScreenSize.Y * 0.9f), Color.Black);
             }
             spriteBatch.End();
         }
+        /// <summary>
+        /// Handles the Click event of the QuitButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void QuitButton_Click(object sender, System.EventArgs e)
         {
             thisGame.Exit();
         }
+        /// <summary>
+        /// Handles the Click event of the MenuButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void MenuButton_Click(object sender, System.EventArgs e)
         {
+            playList.Clear();
+            scoreManager.Add(new Score()
+            {
+                PlayerName = left.Name,
+                Value = timer + (10000000 - right.HP) * (int)Math.Log10(timer),
+            });
+            ScoreManager.Save(scoreManager);
             thisGame.ChangeState(new MenuState(thisGame, thisGraphicsDevice, thisContent, thisScreenSize));
         }
+        /// <summary>
+        /// Posts the update.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void PostUpdate(GameTime gameTime)
         {
 

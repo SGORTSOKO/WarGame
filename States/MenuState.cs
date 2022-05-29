@@ -6,10 +6,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WarGame.States
 {
+    /// <summary>
+    /// Class MenuState.
+    /// Implements the <see cref="WarGame.States.State" />
+    /// </summary>
+    /// <seealso cref="WarGame.States.State" />
     public class MenuState : State
     {
+        /// <summary>
+        /// The components
+        /// </summary>
         private List<Component> components;
+        /// <summary>
+        /// The back ground
+        /// </summary>
         private Texture2D backGround;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuState"/> class.
+        /// </summary>
+        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGraphicsDevice">The input graphics device.</param>
+        /// <param name="inputContent">Content of the input.</param>
+        /// <param name="inputScreenSize">Size of the input screen.</param>
         public MenuState(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
         : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
@@ -25,14 +43,14 @@ namespace WarGame.States
         };
 
         newGameButton.Click += NewGameButton_Click;
-/*
-        var continueButton = new Button(continueButtonTexture, buttonFont)
-        {
-            Position = new Vector2(300, 250),
-        };
+        /*
+                var continueButton = new Button(continueButtonTexture, buttonFont)
+                {
+                    Position = new Vector2(300, 250),
+                };
 
-        continueButton.Click += ContinueButton_Click;
-*/
+                continueButton.Click += ContinueButton_Click;
+        */
         var scoreButton = new Button(scoreButtonTexture, buttonFont)
         {
             Position = new Vector2(300, 250),
@@ -55,6 +73,11 @@ namespace WarGame.States
         quitGameButton,
         };
         }
+        /// <summary>
+        /// Draws the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -63,31 +86,59 @@ namespace WarGame.States
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
+        /// <summary>
+        /// Handles the Click event of the ContinueButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ContinueButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Load Game");
         }
 
+        /// <summary>
+        /// Creates new gamebutton_click.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             thisGame.ChangeState(new StateSingleplayer(thisGame, thisGraphicsDevice, thisContent, thisScreenSize));
         }
 
+        /// <summary>
+        /// Handles the Click event of the ScoreButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ScoreButton_Click(object sender, EventArgs e)
         {
             thisGame.ChangeState(new ScoreState(thisGame, thisGraphicsDevice, thisContent, thisScreenSize));
         }
 
+        /// <summary>
+        /// Updates the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
         {
             foreach (var component in components)
                 component.Update(gameTime);
         }
 
+        /// <summary>
+        /// Handles the Click event of the QuitGameButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void QuitGameButton_Click(object sender, EventArgs e)
         {
             thisGame.Exit();
         }
+        /// <summary>
+        /// Posts the update.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void PostUpdate(GameTime gameTime)
         {
             // remove sprites if they're not needed

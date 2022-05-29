@@ -7,12 +7,36 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WarGame.States
 {
+    /// <summary>
+    /// Class ScoreState.
+    /// Implements the <see cref="WarGame.States.State" />
+    /// </summary>
+    /// <seealso cref="WarGame.States.State" />
     class ScoreState : State
     {
+        /// <summary>
+        /// The font
+        /// </summary>
         private SpriteFont font;
+        /// <summary>
+        /// The components
+        /// </summary>
         private List<Component> components;
+        /// <summary>
+        /// The back ground
+        /// </summary>
         private Texture2D backGround;
+        /// <summary>
+        /// The score manager
+        /// </summary>
         private ScoreManager scoreManager;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScoreState"/> class.
+        /// </summary>
+        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGraphicsDevice">The input graphics device.</param>
+        /// <param name="inputContent">Content of the input.</param>
+        /// <param name="inputScreenSize">Size of the input screen.</param>
         public ScoreState(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
         : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
@@ -30,6 +54,11 @@ namespace WarGame.States
         menuButton,
         };
         }
+        /// <summary>
+        /// Draws the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -41,15 +70,28 @@ namespace WarGame.States
         }
 
 
+        /// <summary>
+        /// Updates the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
         {
             foreach (var component in components)
                 component.Update(gameTime);
         }
+        /// <summary>
+        /// Posts the update.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public override void PostUpdate(GameTime gameTime)
         {
             // remove sprites if they're not needed
         }
+        /// <summary>
+        /// Handles the Click event of the MenuButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void MenuButton_Click(object sender, System.EventArgs e)
         {
             thisGame.ChangeState(new MenuState(thisGame, thisGraphicsDevice, thisContent, thisScreenSize));
