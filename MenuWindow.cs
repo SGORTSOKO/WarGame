@@ -6,12 +6,10 @@ using System;
 
 namespace WarGame
 {
-    class Play : GameWindow
+    class MenuWindow : Game
     {
-        public Play() { }
         protected override void LoadContent()
         {
-
         }
 
         protected override void Update(GameTime gameTime)

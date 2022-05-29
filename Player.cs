@@ -6,7 +6,7 @@ using System;
 
 namespace WarGame
 {
-    class Player
+    public class Player
     {
         private Color preferColor;
         private string name;

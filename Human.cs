@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
-    class Human : Creatures
+    public class Human : Creatures
     {
         
         public Human(Texture2D inputTexture, int inputNowPositionX, int inputNowPositionY,

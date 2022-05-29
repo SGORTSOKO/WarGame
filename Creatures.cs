@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
-   abstract class Creatures
+   public abstract class Creatures
     {
         protected Texture2D selfTexture;
         protected Vector2 position;

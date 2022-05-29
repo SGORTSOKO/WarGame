@@ -6,7 +6,7 @@ using System;
 
 namespace WarGame
 {
-    class CreatureList
+    public class CreatureList
     {
         private List<Creatures> mainList;
         private List<Creatures> toDelete;
