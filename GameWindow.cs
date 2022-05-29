@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
 using WarGame.States;
 
 namespace WarGame
@@ -24,8 +21,7 @@ namespace WarGame
         }
         protected override void Initialize()
         {
-            screenSize = new XY(1920, 1080);
-            //GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
+            screenSize = new XY(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             mainGraphics.PreferredBackBufferWidth = screenSize.X;
             mainGraphics.PreferredBackBufferHeight = screenSize.Y;
             mainGraphics.ApplyChanges();

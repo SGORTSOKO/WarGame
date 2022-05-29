@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using WarGame.States;
 
 namespace WarGame
@@ -23,10 +21,12 @@ namespace WarGame
         private Player winner;
         private CreatureList playList;
         private List<Component> gameComponents;
+        private ScoreManager scoreManager;
         private int timer;
         public StateSingleplayer(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
             : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
+            scoreManager = ScoreManager.Load();
             textBlock2 = inputContent.Load<SpriteFont>("Fonts/TimesNewRoman");
             listOfTextures.Add(inputContent.Load<Texture2D>("Creatures/Human"));
             backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
@@ -54,15 +54,29 @@ namespace WarGame
         public override void Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.F1))
+            if (keyboardState.IsKeyDown(Keys.F1))
             {
                 thisGame.mainGraphics.IsFullScreen = false;
                 thisGame.mainGraphics.ApplyChanges();
             }
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.F2))
+            if (keyboardState.IsKeyDown(Keys.F2))
             {
                 thisGame.mainGraphics.IsFullScreen = true;
                 thisGame.mainGraphics.ApplyChanges();
+            }
+            if (keyboardState.IsKeyUp(Keys.F3))
+            {
+                if (thisGame.TargetElapsedTime.Milliseconds < 900)
+                {
+                    thisGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, thisGame.TargetElapsedTime.Milliseconds + 1);
+                }
+            }
+            if (keyboardState.IsKeyUp(Keys.F4))
+            {
+                if (thisGame.TargetElapsedTime.Milliseconds > 10)
+                {
+                    thisGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, thisGame.TargetElapsedTime.Milliseconds - 1);
+                }
             }
             MouseState currentMouseState = Mouse.GetState();
             if (currentMouseState.X != lastMouseState.X || currentMouseState.Y != lastMouseState.Y)
@@ -73,6 +87,12 @@ namespace WarGame
             if (winner != null)
             {
                 playList.Clear();
+                scoreManager.Add(new Score()
+                {
+                    PlayerName = left.Name,
+                    Value = timer,
+                });
+                ScoreManager.Save(scoreManager);
             }
             else
             {
@@ -80,7 +100,7 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    playList.Add("Human", left, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    //playList.Add("Human", left, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
                     playList.Add("Human", right, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);
                     playList.Add("Human", left, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
                     playList.Add("Human", right, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);
@@ -96,10 +116,10 @@ namespace WarGame
                 {
                     playList.DeleteSome(10);
                 }
+                timer++;
             }
             foreach (Component component in gameComponents)
                 component.Update(gameTime);
-            timer++;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
