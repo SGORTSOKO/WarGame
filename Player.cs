@@ -14,6 +14,7 @@ namespace WarGame
         private int playerHP;
         private bool type;
         private int hitBoxPosition;
+        private int screenSizeX;
         #endregion
         #region Constructors
         public Player(string newName, Color color, int newHP, bool newType, XY inputScreenSize)
@@ -23,6 +24,7 @@ namespace WarGame
             HP = newHP;
             Current = newType;
             HitBoxPositionX = inputScreenSize.X;
+            ScreenSizeX = inputScreenSize.X;
         }
         #endregion
         #region Properties
@@ -55,6 +57,11 @@ namespace WarGame
                     hitBoxPosition = value;
                 }
             }
+        }
+        public int ScreenSizeX
+        {
+            get => screenSizeX;
+            set => screenSizeX = value;
         }
         public Color Color
         {

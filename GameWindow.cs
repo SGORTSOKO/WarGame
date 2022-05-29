@@ -23,6 +23,7 @@ namespace WarGame
         private XY screenSize;
         private int random = 0;
         private List<Component> gameComponents;
+        private Play newGame;
         public GameWindow()
         {
             graphics = new GraphicsDeviceManager(this);

@@ -172,7 +172,7 @@ namespace WarGame
                 {
                     nowFrameNumberX = 0;
                 }
-                if (position.X > 1920 + frameSizeX / 2)
+                if (position.X > player.ScreenSizeX + frameSizeX / 2)
                 {
                     return Power;
                 }

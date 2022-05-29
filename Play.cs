@@ -6,5 +6,9 @@ namespace WarGame
 {
     class Play
     {
+        protected void LoadContent()
+        {
+
+        }
     }
 }
