@@ -14,7 +14,7 @@ namespace WarGame.States
         : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
         Texture2D newGameButtonTexture = inputContent.Load<Texture2D>("Buttons/NewGame");
-        Texture2D continueButtonTexture = inputContent.Load<Texture2D>("Buttons/Continue");
+        //Texture2D continueButtonTexture = inputContent.Load<Texture2D>("Buttons/Continue");
         Texture2D quitButtonTexture = inputContent.Load<Texture2D>("Buttons/Exit");
         Texture2D scoreButtonTexture = inputContent.Load<Texture2D>("Buttons/Scores");
         backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
@@ -25,24 +25,24 @@ namespace WarGame.States
         };
 
         newGameButton.Click += NewGameButton_Click;
-
+/*
         var continueButton = new Button(continueButtonTexture, buttonFont)
         {
             Position = new Vector2(300, 250),
         };
 
         continueButton.Click += ContinueButton_Click;
-
+*/
         var scoreButton = new Button(scoreButtonTexture, buttonFont)
         {
-            Position = new Vector2(300, 300),
+            Position = new Vector2(300, 250),
         };
 
         scoreButton.Click += ScoreButton_Click;
 
         var quitGameButton = new Button(quitButtonTexture, buttonFont)
         {
-            Position = new Vector2(300, 350),
+            Position = new Vector2(300, 300),
         };
 
         quitGameButton.Click += QuitGameButton_Click;
@@ -50,7 +50,7 @@ namespace WarGame.States
         components = new List<Component>()
         {
         newGameButton,
-        continueButton,
+        //continueButton,
         scoreButton,
         quitGameButton,
         };

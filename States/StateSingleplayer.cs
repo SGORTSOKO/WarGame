@@ -35,7 +35,7 @@ namespace WarGame
             textBlock2 = inputContent.Load<SpriteFont>("Fonts/TimesNewRoman");
             listOfTextures.Add(inputContent.Load<Texture2D>("Creatures/Human"));
             backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
-            left = new Player("Player", Color.Blue, 100, true, thisScreenSize);
+            left = new Player("Player", Color.Blue, 1000, true, thisScreenSize);
             right = new Player("Bot", Color.Red, 10000000, false, thisScreenSize);
             winner = null;
             playList = new CreatureList(left, right);
@@ -142,7 +142,7 @@ namespace WarGame
             }
             if (winner != null)
             {
-                spriteBatch.DrawString(textBlock2, winner.Name + " Won", new Vector2((thisScreenSize.X) / 2.0f - textBlock2.MeasureString(left.Name + " Won").X, thisScreenSize.Y * 0.8f), winner.Color);
+                spriteBatch.DrawString(textBlock2, "Game Over", new Vector2((thisScreenSize.X) / 2.0f - textBlock2.MeasureString(left.Name + " Won").X, thisScreenSize.Y * 0.8f), winner.Color);
             }
             else
             {
