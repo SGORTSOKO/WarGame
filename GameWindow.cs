@@ -11,7 +11,7 @@ namespace WarGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private List<Texture2D> listOfTextures = new List<Texture2D>();
-        private Texture2D backGround, mouseImage;
+        private Texture2D backGround;
         private Random rand = new Random();
         private SpriteFont textBlock, textBlock2;
         private MouseState lastMouseState;
@@ -91,8 +91,8 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    playList.Add("Human", left, rand.Next(0, 1079 - 340), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add("Human", right, rand.Next(0, 1079 - 340), listOfTextures[0]);
+                    //playList.Add("Human", left, rand.Next(0, 70), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    playList.Add("Human", right, rand.Next(0, 70), listOfTextures[0]);
                 }
                 playList.AttackRound();
                 winner = playList.StepAll();
@@ -113,34 +113,25 @@ namespace WarGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            spriteBatch.Draw(backGround, new Vector2(0, 0), new Rectangle(0, 0, 1920, 1080), Color.White, 0f, Vector2.Zero, 1.1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(backGround, new Vector2(0, 0), new Rectangle(0, 0, screenSize.X, screenSize.Y), Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0f);
             foreach (Component component in gameComponents)
             {
                 component.Draw(gameTime, spriteBatch);
             }
             for (int i = 0; i < playList.Count; i++)
             {
-                spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition,
-                    playList[i].GetRectangleImage(),
-                    playList[i].Player.Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition, playList[i].GetRectangleImage(), playList[i].Player.Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             if (winner != null)
             {
-                if (winner == left)
-                {
-                    spriteBatch.DrawString(textBlock2, left.Name + " Won", new Vector2(900, 980), left.Color);
-                }
-                else
-                {
-                    spriteBatch.DrawString(textBlock2, right.Name + " Won", new Vector2(900, 980), right.Color);
-                }
+                spriteBatch.DrawString(textBlock2, winner.Name + " Won", new Vector2((screenSize.X) / 2.0f - textBlock.MeasureString(left.Name + " Won").X, screenSize.Y * 0.8f), winner.Color);
             }
             else
             {
-                spriteBatch.DrawString(textBlock2, Convert.ToString(left.HP), new Vector2(100, 980), left.Color);
-                spriteBatch.DrawString(textBlock2, Convert.ToString(right.HP), new Vector2(1700, 980), right.Color);
-                spriteBatch.DrawString(textBlock2, Convert.ToString(playList.Count), new Vector2(900, 980), Color.Black);
-                spriteBatch.DrawString(textBlock2, Convert.ToString(random), new Vector2(900, 100), Color.Black);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(left.HP), new Vector2(screenSize.X * 0.1f - textBlock.MeasureString(Convert.ToString(left.HP)).X, screenSize.Y * 0.9f), left.Color);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(right.HP), new Vector2(screenSize.X * 0.9f - textBlock.MeasureString(Convert.ToString(right.HP)).X, screenSize.Y * 0.9f), right.Color);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(playList.Count), new Vector2(screenSize.X * 0.5f - textBlock.MeasureString(Convert.ToString(playList.Count)).X, screenSize.Y * 0.9f), Color.Black);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(random), new Vector2(screenSize.X * 0.5f, screenSize.Y * 0.1f), Color.Black);
             }
             spriteBatch.End();
             base.Draw(gameTime);

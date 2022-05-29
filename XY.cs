@@ -23,6 +23,14 @@ namespace WarGame
             get => y;
             set => y = value;
         }
+        public int X0
+        {
+            get => 0;
+        }
+        public int Y0
+        {
+            get => 0;
+        }
         public XY(int x, int y)
         {
             X = x;
