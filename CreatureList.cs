@@ -10,8 +10,8 @@ namespace WarGame
     {
         private List<Creatures> mainList;
         private List<Creatures> toDelete;
-        public static Player leftPlayer;
-        public static Player rightPlayer;
+        private static Player leftPlayer;
+        private static Player rightPlayer;
         public CreatureList(Player left, Player right) 
         {
             leftPlayer = left;

@@ -25,7 +25,7 @@ namespace WarGame
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
-            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 50); //глобальная частота обновления
+            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 30); //глобальная частота обновления
             IsMouseVisible = true;
         }
         protected override void Initialize()
@@ -44,8 +44,8 @@ namespace WarGame
             backGround = Content.Load<Texture2D>("Road");
             mouseImage = Content.Load<Texture2D>("2");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            left = new Player("Left", Color.Blue, 10000, true);
-            right = new Player("Right", Color.Red, 10000, false);
+            left = new Player("Left", Color.Blue, 100, true);
+            right = new Player("Right", Color.Red, 100, false);
             winner = null;
             playList = new CreatureList(left, right);
         }
@@ -73,8 +73,6 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    playList.Add(new Human(listOfTextures[0], -108, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, left, left.Color, 1000, 50, 1));//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add(new Human(listOfTextures[0], 2000, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, right, right.Color, 1000, 50, 1));
                     playList.Add(new Human(listOfTextures[0], -108, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, left, left.Color, 1000, 50, 1));//rand.Next(0, 1079 - 140) //currentMouseState.X
                     playList.Add(new Human(listOfTextures[0], 2000, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, right, right.Color, 1000, 50, 1));
                 }

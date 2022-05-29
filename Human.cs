@@ -91,6 +91,7 @@ namespace WarGame
             get => player;
             set
             {
+                player = value;
                 if (value.Current == true)
                 {
                     NowFrameNumberY = 0;
@@ -99,7 +100,6 @@ namespace WarGame
                 {
                     NowFrameNumberY = 1;
                 }
-                player = value;
             }
         }
         public override int HP
