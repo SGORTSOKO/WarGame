@@ -10,18 +10,59 @@ namespace WarGame
     public class Human : Creatures
     {
         
-        public Human(Texture2D inputTexture, int inputNowPositionX, int inputNowPositionY,
-            int inputFrameSizeX, int inputFrameSizeY, int inputNumberOfFramesX,
-            int inputNumberOfFramesY, int inputNowFrameNumberX, int inputNowFrameNumberY,
-            float inputSpeedX, float inputSpeedY, Player inputPlayer, 
-            Color inputCreatureColor, int inputHP, int inputPower, 
+        public Human(
+            Texture2D inputTexture, 
+            int inputNowPositionX, 
+            int inputNowPositionY,
+            int inputFrameSizeX, 
+            int inputFrameSizeY, 
+            int inputNumberOfFramesX,
+            int inputNumberOfFramesY, 
+            int inputNowFrameNumberX, 
+            int inputNowFrameNumberY,
+            float inputSpeedX, 
+            float inputSpeedY, 
+            Player inputPlayer, 
+            int inputHP, 
+            int inputPower, 
             int inputStamina):
-            base(inputTexture, inputNowPositionX, inputNowPositionY,
-            inputFrameSizeX, inputFrameSizeY, inputNumberOfFramesX,
-            inputNumberOfFramesY, inputNowFrameNumberX, inputNowFrameNumberY,
-            inputSpeedX, inputSpeedY, inputPlayer, 
-            inputCreatureColor, inputHP, inputPower, 
-            inputStamina)
+            base(
+                inputTexture, 
+                inputNowPositionX, 
+                inputNowPositionY,
+                inputFrameSizeX, 
+                inputFrameSizeY, 
+                inputNumberOfFramesX,
+                inputNumberOfFramesY, 
+                inputNowFrameNumberX, 
+                inputNowFrameNumberY,
+                inputSpeedX, 
+                inputSpeedY, 
+                inputPlayer, 
+                inputHP, 
+                inputPower, 
+                inputStamina)
+        { }
+        public Human(
+            Texture2D inputTexture, 
+            Player inputPlayer, 
+            int inputNowPositionY) :
+            base(
+                inputTexture,
+                inputPlayer.HitBoxPositionX,
+                inputNowPositionY,
+                inputTexture.Width / 8,
+                inputTexture.Height / 2,
+                8,
+                2,
+                0,
+                0,
+                30,
+                0,
+                inputPlayer,
+                100,
+                20,
+                1)
         { }
         public Human() :
             base()
@@ -116,11 +157,6 @@ namespace WarGame
         {
             get => stamina;
             set => stamina = value;
-        }
-        public override Color CreatureColor
-        {
-            get => creatureColor;
-            set => creatureColor = value;
         }
         public override int Step()
         {

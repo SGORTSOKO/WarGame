@@ -8,18 +8,18 @@ namespace WarGame
 {
     public class GameWindow : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        List<Texture2D> listOfTextures = new List<Texture2D>();
-        Texture2D backGround, mouseImage;
-        Random rand = new Random();
-        SpriteFont textBlock, textBlock2;
-        MouseState lastMouseState;
-        Vector2 mousePosition;
-        Player left;
-        Player right;
-        Player winner;
-        CreatureList playList;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private List<Texture2D> listOfTextures = new List<Texture2D>();
+        private Texture2D backGround, mouseImage;
+        private Random rand = new Random();
+        private SpriteFont textBlock, textBlock2;
+        private MouseState lastMouseState;
+        private Vector2 mousePosition;
+        private Player left;
+        private Player right;
+        private Player winner;
+        private CreatureList playList;
         public GameWindow()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -73,8 +73,8 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    playList.Add(new Human(listOfTextures[0], -108, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, left, left.Color, 1000, 50, 1));//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add(new Human(listOfTextures[0], 2000, rand.Next(0, 1080 - 140), 108, 140, 8, 2, 0, 0, 100, 10, right, right.Color, 1000, 50, 1));
+                    playList.Add("Human", left, rand.Next(0, 1079 - 140), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    playList.Add("Human", right, rand.Next(0, 1079 - 140), listOfTextures[0]);
                 }
                 playList.AttackRound();
                 winner = playList.StepAll();
@@ -100,7 +100,7 @@ namespace WarGame
             {
                 spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition,
                     playList[i].GetRectangleImage(),
-                    playList[i].CreatureColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    playList[i].Player.Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             if (winner != null)
             {

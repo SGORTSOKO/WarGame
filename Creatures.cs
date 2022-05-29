@@ -11,7 +11,6 @@ namespace WarGame
     {
         protected Texture2D selfTexture;
         protected Vector2 position;
-        protected Color creatureColor;
         protected int frameSizeX;
         protected int frameSizeY;
         protected int numberOfFramesX;
@@ -40,7 +39,6 @@ namespace WarGame
         public virtual int HP { get; set; }
         public virtual int Power { get; set; }
         public virtual int Stamina { get; set; }
-        public virtual Color CreatureColor { get; set; }
         /*
         public static bool operator ==(Creatures first, Creatures second)
         {
@@ -57,11 +55,22 @@ namespace WarGame
                 return false;
         }
         */
-        public Creatures(Texture2D inputTexture, int inputNowPositionX, int inputNowPositionY, 
-            int inputFrameSizeX, int inputFrameSizeY, int inputNumberOfFramesX, 
-            int inputNumberOfFramesY, int inputNowFrameNumberX, int inputNowFrameNumberY, 
-            float inputSpeedX, float inputSpeedY, Player inputPlayer, 
-            Color inputCreatureColor, int inputHP, int inputPower, int inputStamina)
+        public Creatures(
+            Texture2D inputTexture, 
+            int inputNowPositionX, 
+            int inputNowPositionY, 
+            int inputFrameSizeX, 
+            int inputFrameSizeY, 
+            int inputNumberOfFramesX, 
+            int inputNumberOfFramesY, 
+            int inputNowFrameNumberX, 
+            int inputNowFrameNumberY, 
+            float inputSpeedX, 
+            float inputSpeedY, 
+            Player inputPlayer, 
+            int inputHP, 
+            int inputPower, 
+            int inputStamina)
         {
             SelfTexture = inputTexture;
             NowPositionX = inputNowPositionX;
@@ -72,7 +81,6 @@ namespace WarGame
             NumberOfFramesY = inputNumberOfFramesY;
             NowFrameNumberX = inputNowFrameNumberX;
             NowFrameNumberY = inputNowFrameNumberY;
-            CreatureColor = inputCreatureColor;
             SpeedX = inputSpeedX;
             SpeedY = inputSpeedY;
             Player = inputPlayer;

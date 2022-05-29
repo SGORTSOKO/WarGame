@@ -31,6 +31,18 @@ namespace WarGame
             }
         }
 
+        public void Add(string input, Player inputPlayer, int inputNowPositionX, Texture2D inputTexture)  //
+        {
+            if (input == "Human")
+            {
+                mainList.Add(
+                    new Human(
+                        inputTexture,
+                        inputPlayer,
+                        inputNowPositionX
+                        ));
+            }
+        }
         public int Count
         {
             get => mainList.Count;

@@ -35,6 +35,20 @@ namespace WarGame
             get => type;
             set => type = value;
         }
+        public int HitBoxPositionX
+        {
+            get
+            {
+                if (Current == true)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1920;
+                }
+            }
+        }
         public Color Color
         {
             get => preferColor;
