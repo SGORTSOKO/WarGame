@@ -33,7 +33,7 @@ namespace WarGame
         }
         protected override void Initialize()
         {
-            screenSize = new XY(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            screenSize = new XY(1600, 900); //GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
             graphics.PreferredBackBufferWidth = screenSize.X;
             graphics.PreferredBackBufferHeight = screenSize.Y;
             graphics.ApplyChanges();
@@ -47,18 +47,18 @@ namespace WarGame
             listOfTextures.Add(Content.Load<Texture2D>("Creatures/Human"));
             backGround = Content.Load<Texture2D>("BackGrounds/Road");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            left = new Player("Left", Color.Blue, 100, true);
-            right = new Player("Right", Color.Red, 100, false);
+            left = new Player("Left", Color.Blue, 100, true, screenSize);
+            right = new Player("Right", Color.Red, 100, false, screenSize);
             winner = null;
             playList = new CreatureList(left, right);
             Button randomButton = new Button(Content.Load<Texture2D>("Buttons/NewGameButton"), Content.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
-                Position = new Vector2(50, 900)
+                Position = new Vector2(screenSize.X * 0.05f, screenSize.Y*0.8f)
             };
             randomButton.Click += RandomButton_Click;
             var quitButton = new Button(Content.Load<Texture2D>("Buttons/ExitButton"), Content.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
-                Position = new Vector2(50, 930),
+                Position = new Vector2(screenSize.X * 0.05f, screenSize.Y * 0.85f),
             };
             quitButton.Click += QuitButton_Click;
             gameComponents = new List<Component>()
@@ -91,14 +91,18 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    //playList.Add("Human", left, rand.Next(0, 70), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add("Human", right, rand.Next(0, 70), listOfTextures[0]);
+                    playList.Add("Human", left, rand.Next(0, (int)(screenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    playList.Add("Human", right, rand.Next(0, (int)(screenSize.Y * 0.8)), listOfTextures[0]);
+                    playList.Add("Human", left, rand.Next(0, (int)(screenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    playList.Add("Human", right, rand.Next(0, (int)(screenSize.Y * 0.8)), listOfTextures[0]);
                 }
                 playList.AttackRound();
                 winner = playList.StepAll();
+                /*
                 if (currentMouseState.LeftButton == ButtonState.Pressed)
                 {
                 }
+                */
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
                     playList.DeleteSome(10);
@@ -120,7 +124,7 @@ namespace WarGame
             }
             for (int i = 0; i < playList.Count; i++)
             {
-                spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition, playList[i].GetRectangleImage(), playList[i].Player.Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition , playList[i].GetRectangleImage(), playList[i].Player.Color, 0, Vector2.Zero, screenSize.X/1920f, SpriteEffects.None, 0);
             }
             if (winner != null)
             {

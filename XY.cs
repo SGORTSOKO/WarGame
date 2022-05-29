@@ -6,35 +6,45 @@ using System.Threading.Tasks;
 
 namespace WarGame
 {
-    class XY
+    public class XY
     {
         #region Fields
-        private int x;
-        private int y;
+        private float x;
+        private float y;
         #endregion
         #region Properties
-        public int X
+        public float Xf
         {
             get => x;
             set => x = value;
         }
-        public int Y
+        public float Yf
         {
             get => y;
             set => y = value;
         }
-        public int X0
+        public int X
+        {
+            get => (int)x;
+            set => x = value;
+        }
+        public int Y
+        {
+            get => (int)y;
+            set => y = value;
+        }
+        public float X0
         {
             get => 0;
         }
-        public int Y0
+        public float Y0
         {
             get => 0;
         }
-        public XY(int x, int y)
+        public XY(float x, float y)
         {
-            X = x;
-            Y = y;
+            Xf = x;
+            Yf = y;
         }
         #endregion
         #region Operators

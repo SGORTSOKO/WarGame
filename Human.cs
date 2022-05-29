@@ -49,7 +49,7 @@ namespace WarGame
             int inputNowPositionY) :
             base(
                 inputTexture,
-                inputPlayer.HitBoxPositionX,
+                inputPlayer.HitBoxPositionX - inputTexture.Width / 16,
                 inputNowPositionY,
                 inputTexture.Width / 8,
                 inputTexture.Height / 2,
