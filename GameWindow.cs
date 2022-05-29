@@ -28,7 +28,7 @@ namespace WarGame
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
-            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 30); //глобальная частота обновления
+            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 50); //глобальная частота обновления
             IsMouseVisible = true;
         }
         protected override void Initialize()
@@ -42,26 +42,23 @@ namespace WarGame
         }
         protected override void LoadContent()
         {
-            textBlock = Content.Load<SpriteFont>("Arial");
-            textBlock2 = Content.Load<SpriteFont>("TimesNewRoman");
-            listOfTextures.Add(Content.Load<Texture2D>("textsprite"));
-            backGround = Content.Load<Texture2D>("Road");
-            mouseImage = Content.Load<Texture2D>("Cursor");
+            textBlock = Content.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
+            textBlock2 = Content.Load<SpriteFont>("Fonts/TimesNewRoman");
+            listOfTextures.Add(Content.Load<Texture2D>("Creatures/Human"));
+            backGround = Content.Load<Texture2D>("BackGrounds/Road");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             left = new Player("Left", Color.Blue, 100, true);
             right = new Player("Right", Color.Red, 100, false);
             winner = null;
             playList = new CreatureList(left, right);
-            Button randomButton = new Button(Content.Load<Texture2D>("Button"), Content.Load<SpriteFont>("Font"))
+            Button randomButton = new Button(Content.Load<Texture2D>("Buttons/NewGameButton"), Content.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
-                Position = new Vector2(350, 200),
-                Text = "Something",
+                Position = new Vector2(50, 900)
             };
             randomButton.Click += RandomButton_Click;
-            var quitButton = new Button(Content.Load<Texture2D>("Button"), Content.Load<SpriteFont>("Font"))
+            var quitButton = new Button(Content.Load<Texture2D>("Buttons/ExitButton"), Content.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
-                Position = new Vector2(350, 250),
-                Text = "Quit",
+                Position = new Vector2(50, 930),
             };
             quitButton.Click += QuitButton_Click;
             gameComponents = new List<Component>()
@@ -94,8 +91,8 @@ namespace WarGame
                 playList.ResetStats();
                 if (true)
                 {
-                    playList.Add("Human", left, rand.Next(0, 1079 - 140), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add("Human", right, rand.Next(0, 1079 - 140), listOfTextures[0]);
+                    playList.Add("Human", left, rand.Next(0, 1079 - 340), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
+                    playList.Add("Human", right, rand.Next(0, 1079 - 340), listOfTextures[0]);
                 }
                 playList.AttackRound();
                 winner = playList.StepAll();
@@ -114,11 +111,13 @@ namespace WarGame
 
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             spriteBatch.Draw(backGround, new Vector2(0, 0), new Rectangle(0, 0, 1920, 1080), Color.White, 0f, Vector2.Zero, 1.1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mouseImage, mousePosition, Color.Black);
+            foreach (Component component in gameComponents)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
             for (int i = 0; i < playList.Count; i++)
             {
                 spriteBatch.Draw(playList[i].SelfTexture, playList[i].NowPosition,
@@ -143,8 +142,6 @@ namespace WarGame
                 spriteBatch.DrawString(textBlock2, Convert.ToString(playList.Count), new Vector2(900, 980), Color.Black);
                 spriteBatch.DrawString(textBlock2, Convert.ToString(random), new Vector2(900, 100), Color.Black);
             }
-            foreach (Component component in gameComponents)
-                component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

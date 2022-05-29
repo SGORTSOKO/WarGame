@@ -15,6 +15,8 @@ namespace WarGame
         private bool isHovering;
         private MouseState previousMouse;
         private Texture2D texture;
+        private float myX = -10;
+        private float myY = -10;
         #endregion
 
         #region Properties
@@ -43,9 +45,11 @@ namespace WarGame
             spriteBatch.Draw(texture, Rectangle, colour);
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2);
-                spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColour);
+                if (myX <= 0)
+                    myX = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
+                if (myY <= 0)
+                    myY = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2);
+                spriteBatch.DrawString(font, Text, new Vector2(myX, myY), PenColour);
             }
         }
         public override void Update(GameTime gameTime)
