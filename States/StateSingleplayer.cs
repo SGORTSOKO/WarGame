@@ -23,9 +23,11 @@ namespace WarGame
         private List<Component> gameComponents;
         private ScoreManager scoreManager;
         private int timer;
+        private bool single;
         public StateSingleplayer(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
             : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
+            single = true;
             scoreManager = ScoreManager.Load();
             textBlock2 = inputContent.Load<SpriteFont>("Fonts/TimesNewRoman");
             listOfTextures.Add(inputContent.Load<Texture2D>("Creatures/Human"));
@@ -34,20 +36,14 @@ namespace WarGame
             right = new Player("Right", Color.Red, 100, false, thisScreenSize);
             winner = null;
             playList = new CreatureList(left, right);
-            Button MenuButton = new Button(inputContent.Load<Texture2D>("Buttons/MenuButton"), inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
+            Button menuButton = new Button(inputContent.Load<Texture2D>("Buttons/Menu"), inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
                 Position = new Vector2(thisScreenSize.X * 0.01f, thisScreenSize.Y * 0.9f)
             };
-            MenuButton.Click += MenuButton_Click;
-            var quitButton = new Button(inputContent.Load<Texture2D>("Buttons/ExitButton"), inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
-            {
-                Position = new Vector2(thisScreenSize.X * 0.01f, thisScreenSize.Y * 0.95f),
-            };
-            quitButton.Click += QuitButton_Click;
+            menuButton.Click += MenuButton_Click;
             gameComponents = new List<Component>()
             {
-                MenuButton,
-                quitButton,
+                menuButton,
             };
         }
 
@@ -86,13 +82,17 @@ namespace WarGame
             lastMouseState = currentMouseState;
             if (winner != null)
             {
-                playList.Clear();
-                scoreManager.Add(new Score()
+                if (single)
                 {
-                    PlayerName = left.Name,
-                    Value = timer,
-                });
-                ScoreManager.Save(scoreManager);
+                    single = false;
+                    playList.Clear();
+                    scoreManager.Add(new Score()
+                    {
+                        PlayerName = left.Name,
+                        Value = timer,
+                    });
+                    ScoreManager.Save(scoreManager);
+                }
             }
             else
             {

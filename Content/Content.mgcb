@@ -25,7 +25,7 @@
 /processorParam:TextureFormat=Color
 /build:BackGrounds/Road.png
 
-#begin Buttons/ConnectLocalButton.png
+#begin Buttons/ConnectLocal.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/ConnectLocalButton.png
+/build:Buttons/ConnectLocal.png
 
-#begin Buttons/ContinueButton.png
+#begin Buttons/Continue.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/ContinueButton.png
+/build:Buttons/Continue.png
 
-#begin Buttons/CreateLocalButton.png
+#begin Buttons/CreateLocal.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/CreateLocalButton.png
+/build:Buttons/CreateLocal.png
 
-#begin Buttons/ExitButton.png
+#begin Buttons/Exit.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/ExitButton.png
+/build:Buttons/Exit.png
 
-#begin Buttons/MenuButton.png
+#begin Buttons/Menu.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/MenuButton.png
+/build:Buttons/Menu.png
 
-#begin Buttons/NewGameButton.png
+#begin Buttons/NewGame.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/NewGameButton.png
+/build:Buttons/NewGame.png
 
-#begin Buttons/SettingsButton.png
+#begin Buttons/Scores.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,7 +107,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/SettingsButton.png
+/build:Buttons/Scores.png
+
+#begin Buttons/Settings.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/Settings.png
 
 #begin Creatures/Human.png
 /importer:TextureImporter

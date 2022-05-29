@@ -16,7 +16,7 @@ namespace WarGame
         public ScoreManager()
             : this(new List<Score>())
         {
-
+            
         }
         public ScoreManager(List<Score> inputScores)
         {
@@ -60,3 +60,11 @@ namespace WarGame
         }
     }
 }
+/*
+ * using (var writer = new StreamWriter(new FileStream(filename, FileMode.Create)))
+            {
+                var serilizer = new XmlSerializer(typeof(List<Score>));
+
+                serilizer.Serialize(writer, new List<Score>() { new Score() {PlayerName = "first", Value = 10000 }, new Score() { PlayerName = "second", Value = 10000 } });
+            }
+ * */
