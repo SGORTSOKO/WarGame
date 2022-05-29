@@ -21,6 +21,8 @@ namespace WarGame
         private Player winner;
         private CreatureList playList;
         private XY screenSize;
+        private int random = 0;
+        private List<Component> gameComponents;
         public GameWindow()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,12 +46,29 @@ namespace WarGame
             textBlock2 = Content.Load<SpriteFont>("TimesNewRoman");
             listOfTextures.Add(Content.Load<Texture2D>("textsprite"));
             backGround = Content.Load<Texture2D>("Road");
-            mouseImage = Content.Load<Texture2D>("2");
+            mouseImage = Content.Load<Texture2D>("Cursor");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             left = new Player("Left", Color.Blue, 100, true);
             right = new Player("Right", Color.Red, 100, false);
             winner = null;
             playList = new CreatureList(left, right);
+            Button randomButton = new Button(Content.Load<Texture2D>("Button"), Content.Load<SpriteFont>("Font"))
+            {
+                Position = new Vector2(350, 200),
+                Text = "Something",
+            };
+            randomButton.Click += RandomButton_Click;
+            var quitButton = new Button(Content.Load<Texture2D>("Button"), Content.Load<SpriteFont>("Font"))
+            {
+                Position = new Vector2(350, 250),
+                Text = "Quit",
+            };
+            quitButton.Click += QuitButton_Click;
+            gameComponents = new List<Component>()
+            {
+                randomButton,
+                quitButton,
+            };
         }
 
         protected override void Update(GameTime gameTime)
@@ -88,6 +107,8 @@ namespace WarGame
                     playList.DeleteSome(10);
                 }
             }
+            foreach (Component component in gameComponents)
+                component.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -120,9 +141,20 @@ namespace WarGame
                 spriteBatch.DrawString(textBlock2, Convert.ToString(left.HP), new Vector2(100, 980), left.Color);
                 spriteBatch.DrawString(textBlock2, Convert.ToString(right.HP), new Vector2(1700, 980), right.Color);
                 spriteBatch.DrawString(textBlock2, Convert.ToString(playList.Count), new Vector2(900, 980), Color.Black);
+                spriteBatch.DrawString(textBlock2, Convert.ToString(random), new Vector2(900, 100), Color.Black);
             }
+            foreach (Component component in gameComponents)
+                component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+        private void QuitButton_Click(object sender, System.EventArgs e)
+        {
+            Exit();
+        }
+        private void RandomButton_Click(object sender, System.EventArgs e)
+        {
+            random = rand.Next();
         }
     }
 }
