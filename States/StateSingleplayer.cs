@@ -22,18 +22,21 @@ namespace WarGame
         private CreatureList playList;
         private List<Component> gameComponents;
         private ScoreManager scoreManager;
-        private int timer;
+        private int timer, timer2, timer3;
         private bool single;
         public StateSingleplayer(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
             : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
+            timer = 0;
+            timer2 = 0;
+            timer3 = 0;
             single = true;
             scoreManager = ScoreManager.Load();
             textBlock2 = inputContent.Load<SpriteFont>("Fonts/TimesNewRoman");
             listOfTextures.Add(inputContent.Load<Texture2D>("Creatures/Human"));
             backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
-            left = new Player("Left", Color.Blue, 100, true, thisScreenSize);
-            right = new Player("Right", Color.Red, 100, false, thisScreenSize);
+            left = new Player("Player", Color.Blue, 100, true, thisScreenSize);
+            right = new Player("Bot", Color.Red, 10000000, false, thisScreenSize);
             winner = null;
             playList = new CreatureList(left, right);
             Button menuButton = new Button(inputContent.Load<Texture2D>("Buttons/Menu"), inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
@@ -49,6 +52,8 @@ namespace WarGame
 
         public override void Update(GameTime gameTime)
         {
+            timer2++;
+            timer3++;
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.F1))
             {
@@ -80,6 +85,7 @@ namespace WarGame
                 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
             }
             lastMouseState = currentMouseState;
+
             if (winner != null)
             {
                 if (single)
@@ -89,7 +95,7 @@ namespace WarGame
                     scoreManager.Add(new Score()
                     {
                         PlayerName = left.Name,
-                        Value = timer,
+                        Value = timer + (10000000 - right.HP) * (int)Math.Log10(timer),
                     });
                     ScoreManager.Save(scoreManager);
                 }
@@ -98,20 +104,20 @@ namespace WarGame
             {
                 playList.RandSort();
                 playList.ResetStats();
-                if (true)
+                if (timer2 % (10 - (int)Math.Log10(timer2)) == 0)
                 {
-                    //playList.Add("Human", left, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
-                    playList.Add("Human", right, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);
-                    playList.Add("Human", left, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);//rand.Next(0, 1079 - 140) //currentMouseState.X
                     playList.Add("Human", right, rand.Next(0, (int)(thisScreenSize.Y * 0.8)), listOfTextures[0]);
                 }
                 playList.AttackRound();
                 winner = playList.StepAll();
-                /*
                 if (currentMouseState.LeftButton == ButtonState.Pressed)
                 {
+                    if (0 <= currentMouseState.Y && currentMouseState.Y <= thisScreenSize.Y * 0.8f && timer3 > 8 - (int)Math.Log10(timer2))
+                    {
+                        timer3 = 0;
+                        playList.Add("Human", left, currentMouseState.Y, listOfTextures[0]);
+                    }
                 }
-                */
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
                     playList.DeleteSome(10);

@@ -18,13 +18,13 @@ namespace WarGame
 
         public GameWindow()
         {
-            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 70);
+            TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 80);
             mainGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
         protected override void Initialize()
         {
-            screenSize = new XY(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            screenSize = new XY(1600, 900);
             mainGraphics.PreferredBackBufferWidth = screenSize.X;
             mainGraphics.PreferredBackBufferHeight = screenSize.Y;
             mainGraphics.ApplyChanges();
