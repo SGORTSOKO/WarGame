@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
-   public abstract class Creatures
+    public abstract class Creatures
     {
+        #region Fields
         protected Texture2D selfTexture;
         protected Vector2 position;
         protected int frameSizeX;
@@ -23,6 +24,8 @@ namespace WarGame
         protected int hitPoints;
         protected int power;
         protected int stamina;
+        #endregion
+        #region Properties
         public virtual Texture2D SelfTexture { get; set; }
         public virtual Vector2 NowPosition { get; set; }
         public virtual float SpeedX { get; set; }
@@ -39,22 +42,8 @@ namespace WarGame
         public virtual int HP { get; set; }
         public virtual int Power { get; set; }
         public virtual int Stamina { get; set; }
-        /*
-        public static bool operator ==(Creatures first, Creatures second)
-        {
-            if (new Rectangle((int)first.NowPositionX, (int)first.NowPositionY, first.FrameSizeX, first.FrameSizeY ).Intersects(new Rectangle((int)second.NowPositionX, (int)second.NowPositionY, second.FrameSizeX, second.FrameSizeY)))
-                return true;
-            else
-                return false;
-        }
-        public static bool operator !=(Creatures first, Creatures second)
-        {
-            if (!new Rectangle((int)first.NowPositionX, (int)first.NowPositionY, first.FrameSizeX, first.FrameSizeY).Intersects(new Rectangle((int)second.NowPositionX, (int)second.NowPositionY, second.FrameSizeX, second.FrameSizeY)))
-                return true;
-            else
-                return false;
-        }
-        */
+        #endregion
+        #region Constructors
         public Creatures(
             Texture2D inputTexture, 
             int inputNowPositionX, 
@@ -88,10 +77,31 @@ namespace WarGame
             Power = inputPower;
             Stamina = inputStamina;
         }
+        #endregion
+        #region Methods
         public Creatures() { }
         public abstract int Step();
         public abstract Rectangle GetRectangleImage();
         public abstract Rectangle GetRectanglePos();
         public abstract bool HitCreature(Creatures defender);
+        #endregion
     }
 }
+#region Sketches
+/*
+public static bool operator ==(Creatures first, Creatures second)
+{
+    if (new Rectangle((int)first.NowPositionX, (int)first.NowPositionY, first.FrameSizeX, first.FrameSizeY ).Intersects(new Rectangle((int)second.NowPositionX, (int)second.NowPositionY, second.FrameSizeX, second.FrameSizeY)))
+        return true;
+    else
+        return false;
+}
+public static bool operator !=(Creatures first, Creatures second)
+{
+    if (!new Rectangle((int)first.NowPositionX, (int)first.NowPositionY, first.FrameSizeX, first.FrameSizeY).Intersects(new Rectangle((int)second.NowPositionX, (int)second.NowPositionY, second.FrameSizeX, second.FrameSizeY)))
+        return true;
+    else
+        return false;
+}
+*/
+#endregion

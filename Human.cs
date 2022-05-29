@@ -9,7 +9,7 @@ namespace WarGame
 {
     public class Human : Creatures
     {
-        
+        #region Constructors
         public Human(
             Texture2D inputTexture, 
             int inputNowPositionX, 
@@ -67,6 +67,8 @@ namespace WarGame
         public Human() :
             base()
         { }
+        #endregion
+        #region Properties
         public override Texture2D SelfTexture 
         { 
             get => selfTexture; 
@@ -158,6 +160,8 @@ namespace WarGame
             get => stamina;
             set => stamina = value;
         }
+        #endregion
+        #region Methods
         public override int Step()
         {
             if (player.Current == true)
@@ -211,5 +215,6 @@ namespace WarGame
         {
             return new Rectangle((int)NowPositionX, (int)NowPositionY, FrameSizeX, FrameSizeY);
         }
+#endregion
     }
 }

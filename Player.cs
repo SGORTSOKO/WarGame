@@ -8,11 +8,13 @@ namespace WarGame
 {
     public class Player
     {
+        #region Fields
         private Color preferColor;
         private string name;
         private int playerHP;
         private bool type;
-
+        #endregion
+        #region Constructors
         public Player(string newName, Color color, int newHP, bool newType)
         {
             Name = newName;
@@ -20,6 +22,8 @@ namespace WarGame
             HP = newHP;
             Current = newType;
         }
+        #endregion
+        #region Properties
         public string Name
         {
             get => name;
@@ -54,9 +58,12 @@ namespace WarGame
             get => preferColor;
             set => preferColor = value;
         }
+        #endregion
+        #region Methods
         public void AttackMe(int power)
         {
             HP -= power;
         }
+        #endregion
     }
 }

@@ -8,10 +8,13 @@ namespace WarGame
 {
     public class CreatureList
     {
+        #region Fields
         private List<Creatures> mainList;
         private List<Creatures> toDelete;
         private static Player leftPlayer;
         private static Player rightPlayer;
+        #endregion
+        #region Constructors
         public CreatureList(Player left, Player right) 
         {
             leftPlayer = left;
@@ -19,6 +22,8 @@ namespace WarGame
             mainList = new List<Creatures>();
             toDelete = new List<Creatures>();
         }
+        #endregion
+        #region Methods
         public void Clear()
         {
             mainList.Clear();
@@ -152,5 +157,6 @@ namespace WarGame
             }
             toDelete.Clear();
         }
+        #endregion
     }
 }

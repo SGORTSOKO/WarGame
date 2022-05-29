@@ -20,6 +20,7 @@ namespace WarGame
         private Player right;
         private Player winner;
         private CreatureList playList;
+        private XY screenSize;
         public GameWindow()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -30,8 +31,9 @@ namespace WarGame
         }
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            screenSize = new XY(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            graphics.PreferredBackBufferWidth = screenSize.X;
+            graphics.PreferredBackBufferHeight = screenSize.Y;
             graphics.ApplyChanges();
             base.Initialize();
 

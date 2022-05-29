@@ -7,12 +7,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
-    class ScreenObject
+    public abstract class Component
     {
-        private MouseState currentMouse;
-        private MouseState previousMouse;
-        private SpriteFont font;
-        private bool isHovering;
-        private Texture2D texture;
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Update(GameTime gameTime);
     }
 }
