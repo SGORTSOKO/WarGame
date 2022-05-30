@@ -15,15 +15,15 @@ namespace WarGame.States
     class ScoreState : State
     {
         /// <summary>
-        /// The font
+        /// The font of score list
         /// </summary>
         private SpriteFont font;
         /// <summary>
-        /// The components
+        /// The components (for buttons)
         /// </summary>
         private List<Component> components;
         /// <summary>
-        /// The back ground
+        /// The back ground image
         /// </summary>
         private Texture2D backGround;
         /// <summary>
@@ -33,10 +33,10 @@ namespace WarGame.States
         /// <summary>
         /// Initializes a new instance of the <see cref="ScoreState"/> class.
         /// </summary>
-        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGame">The base GameWindow.</param>
         /// <param name="inputGraphicsDevice">The input graphics device.</param>
-        /// <param name="inputContent">Content of the input.</param>
-        /// <param name="inputScreenSize">Size of the input screen.</param>
+        /// <param name="inputContent">The input. ContentManager</param>
+        /// <param name="inputScreenSize">Size of the screen.</param>
         public ScoreState(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
         : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
@@ -55,7 +55,7 @@ namespace WarGame.States
         };
         }
         /// <summary>
-        /// Draws the specified game time.
+        /// Draws the game state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
@@ -68,10 +68,8 @@ namespace WarGame.States
             spriteBatch.DrawString(font, "Highscores:\n" + string.Join("\n", scoreManager.Highscores.Select(c => c.PlayerName + ": " + c.Value).ToArray()), new Vector2(300, 10), Color.Black);
             spriteBatch.End();
         }
-
-
         /// <summary>
-        /// Updates the specified game time.
+        /// Updates the game state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
@@ -80,12 +78,11 @@ namespace WarGame.States
                 component.Update(gameTime);
         }
         /// <summary>
-        /// Posts the update.
+        /// Action after update. (to delete contect)
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public override void PostUpdate(GameTime gameTime)
         {
-            // remove sprites if they're not needed
         }
         /// <summary>
         /// Handles the Click event of the MenuButton control.

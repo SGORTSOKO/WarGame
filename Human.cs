@@ -18,21 +18,21 @@ namespace WarGame
         /// <summary>
         /// Initializes a new instance of the <see cref="Human"/> class.
         /// </summary>
-        /// <param name="inputTexture">The input texture.</param>
-        /// <param name="inputNowPositionX">The input now position x.</param>
-        /// <param name="inputNowPositionY">The input now position y.</param>
-        /// <param name="inputFrameSizeX">The input frame size x.</param>
-        /// <param name="inputFrameSizeY">The input frame size y.</param>
-        /// <param name="inputNumberOfFramesX">The input number of frames x.</param>
-        /// <param name="inputNumberOfFramesY">The input number of frames y.</param>
-        /// <param name="inputNowFrameNumberX">The input now frame number x.</param>
-        /// <param name="inputNowFrameNumberY">The input now frame number y.</param>
-        /// <param name="inputSpeedX">The input speed x.</param>
-        /// <param name="inputSpeedY">The input speed y.</param>
-        /// <param name="inputPlayer">The input player.</param>
-        /// <param name="inputHP">The input hp.</param>
-        /// <param name="inputPower">The input power.</param>
-        /// <param name="inputStamina">The input stamina.</param>
+        /// <param name="inputTexture">The human texture</param>
+        /// <param name="inputNowPositionX">The input human position x.</param>
+        /// <param name="inputNowPositionY">The input human position y.</param>
+        /// <param name="inputFrameSizeX">The input human frame size x.</param>
+        /// <param name="inputFrameSizeY">The input human frame size y.</param>
+        /// <param name="inputNumberOfFramesX">The input human number of frames x.</param>
+        /// <param name="inputNumberOfFramesY">The input human number of frames y.</param>
+        /// <param name="inputNowFrameNumberX">The input human now frame number x.</param>
+        /// <param name="inputNowFrameNumberY">The input human now frame number y.</param>
+        /// <param name="inputSpeedX">The input human speed x.</param>
+        /// <param name="inputSpeedY">The input human speed y.</param>
+        /// <param name="inputPlayer">The input human player.</param>
+        /// <param name="inputHP">The input human hp.</param>
+        /// <param name="inputPower">The input human power.</param>
+        /// <param name="inputStamina">The input human stamina.</param>
         public Human(
             Texture2D inputTexture, 
             int inputNowPositionX, 
@@ -69,9 +69,9 @@ namespace WarGame
         /// <summary>
         /// Initializes a new instance of the <see cref="Human"/> class.
         /// </summary>
-        /// <param name="inputTexture">The input texture.</param>
-        /// <param name="inputPlayer">The input player.</param>
-        /// <param name="inputNowPositionY">The input now position y.</param>
+        /// <param name="inputTexture">The human texture.</param>
+        /// <param name="inputPlayer">The human player.</param>
+        /// <param name="inputNowPositionY">The input human position y.</param>
         public Human(
             Texture2D inputTexture, 
             Player inputPlayer, 
@@ -259,9 +259,9 @@ namespace WarGame
         #endregion
         #region Methods
         /// <summary>
-        /// Steps this instance.
+        /// move human in the screen
         /// </summary>
-        /// <returns>System.Int32.</returns>
+        /// <returns>System.Int32. - power to attack enemy`s player</returns>
         public override int Step()
         {
             if (player.Current == true)
@@ -294,10 +294,10 @@ namespace WarGame
 
         }
         /// <summary>
-        /// Hits the creature.
+        /// Hits the creature of another player.
         /// </summary>
-        /// <param name="defender">The defender.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="defender">The defender creature</param>
+        /// <returns><c>true</c> if defender now is dead, <c>false</c> otherwise.</returns>
         public override bool HitCreature(Creatures defender)
         {
             if (stamina > 0)
@@ -313,7 +313,7 @@ namespace WarGame
             return false;
         }
         /// <summary>
-        /// Gets the rectangle image.
+        /// Gets the Rectangle object for check of creatures intersection
         /// </summary>
         /// <returns>Rectangle.</returns>
         public override Rectangle GetRectangleImage()
@@ -321,7 +321,7 @@ namespace WarGame
             return new Rectangle(NowFrameNumberX * FrameSizeX, nowFrameNumberY * FrameSizeY, FrameSizeX, FrameSizeY);
         }
         /// <summary>
-        /// Gets the rectangle position.
+        /// Gets the human Rectangle position.
         /// </summary>
         /// <returns>Rectangle.</returns>
         public override Rectangle GetRectanglePos()

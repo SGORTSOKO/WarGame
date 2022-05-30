@@ -14,20 +14,20 @@ namespace WarGame.States
     public class MenuState : State
     {
         /// <summary>
-        /// The components
+        /// The components of screen
         /// </summary>
         private List<Component> components;
         /// <summary>
-        /// The back ground
+        /// The back ground image
         /// </summary>
         private Texture2D backGround;
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuState"/> class.
         /// </summary>
-        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGame">The base GameWindow</param>
         /// <param name="inputGraphicsDevice">The input graphics device.</param>
-        /// <param name="inputContent">Content of the input.</param>
-        /// <param name="inputScreenSize">Size of the input screen.</param>
+        /// <param name="inputContent">The input ContentManager</param>
+        /// <param name="inputScreenSize">Size of the screen.</param>
         public MenuState(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
         : base(inputGame, inputGraphicsDevice, inputContent, inputScreenSize)
         {
@@ -74,7 +74,7 @@ namespace WarGame.States
         };
         }
         /// <summary>
-        /// Draws the specified game time.
+        /// Draws the game state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
@@ -117,7 +117,7 @@ namespace WarGame.States
         }
 
         /// <summary>
-        /// Updates the specified game time.
+        /// Updates buttons.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)
@@ -127,7 +127,7 @@ namespace WarGame.States
         }
 
         /// <summary>
-        /// Handles the Click event of the QuitGameButton control.
+        /// Handles the Click event of the QuitGameButton control to quit the game.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -136,7 +136,7 @@ namespace WarGame.States
             thisGame.Exit();
         }
         /// <summary>
-        /// Posts the update.
+        /// Action after update
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public override void PostUpdate(GameTime gameTime)

@@ -16,31 +16,31 @@ namespace WarGame
     {
         #region Fields
         /// <summary>
-        /// The current mouse
+        /// The current mouse state
         /// </summary>
         private MouseState currentMouse;
         /// <summary>
-        /// The font
+        /// The font for text in button
         /// </summary>
         private SpriteFont font;
         /// <summary>
-        /// The is hovering
+        /// Button hovering state
         /// </summary>
         private bool isHovering;
         /// <summary>
-        /// The previous mouse
+        /// The previous mouse state
         /// </summary>
         private MouseState previousMouse;
         /// <summary>
-        /// The texture
+        /// The button texture
         /// </summary>
         private Texture2D texture;
         /// <summary>
-        /// My x
+        /// shifting the text from the center of the button along the X axis
         /// </summary>
         private float myX = -10;
         /// <summary>
-        /// My y
+        /// shifting the text from the center of the button along the Y axis
         /// </summary>
         private float myY = -10;
         #endregion
@@ -58,12 +58,12 @@ namespace WarGame
         /// <value>The pen colour.</value>
         public Color PenColour { get; set; }
         /// <summary>
-        /// Gets or sets the position.
+        /// Gets or sets the button position.
         /// </summary>
         /// <value>The position.</value>
         public Vector2 Position { get; set; }
         /// <summary>
-        /// Gets the rectangle.
+        /// Gets the button rectangle area.
         /// </summary>
         /// <value>The rectangle.</value>
         public Rectangle Rectangle
@@ -71,7 +71,7 @@ namespace WarGame
             get => new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height);
         }
         /// <summary>
-        /// Gets or sets the text.
+        /// Gets or sets the text in the button.
         /// </summary>
         /// <value>The text.</value>
         public string Text { get; set; }
@@ -80,8 +80,8 @@ namespace WarGame
         /// <summary>
         /// Initializes a new instance of the <see cref="Button"/> class.
         /// </summary>
-        /// <param name="inputtexture">The inputtexture.</param>
-        /// <param name="inputfont">The inputfont.</param>
+        /// <param name="inputtexture">The button texture.</param>
+        /// <param name="inputfont">The button text font.</param>
         public Button(Texture2D inputtexture, SpriteFont inputfont)
         {
             texture = inputtexture;
@@ -89,7 +89,7 @@ namespace WarGame
             PenColour = Color.Black;
         }
         /// <summary>
-        /// Draws the specified game time.
+        /// Draws the button.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
@@ -109,7 +109,7 @@ namespace WarGame
             }
         }
         /// <summary>
-        /// Updates the specified game time.
+        /// Updates button state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public override void Update(GameTime gameTime)

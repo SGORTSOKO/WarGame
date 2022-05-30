@@ -14,59 +14,59 @@ namespace WarGame
     {
         #region Fields
         /// <summary>
-        /// The self texture
+        /// The creature texture
         /// </summary>
         protected Texture2D selfTexture;
         /// <summary>
-        /// The position
+        /// The position of creature
         /// </summary>
         protected Vector2 position;
         /// <summary>
-        /// The frame size x
+        /// The creature frame size x
         /// </summary>
         protected int frameSizeX;
         /// <summary>
-        /// The frame size y
+        /// The creature frame size y
         /// </summary>
         protected int frameSizeY;
         /// <summary>
-        /// The number of frames x
+        /// The creature number of frames x
         /// </summary>
         protected int numberOfFramesX;
         /// <summary>
-        /// The number of frames y
+        /// The creature number of frames y
         /// </summary>
         protected int numberOfFramesY;
         /// <summary>
-        /// The now frame number x
+        /// The creature current frame number x
         /// </summary>
         protected int nowFrameNumberX;
         /// <summary>
-        /// The now frame number y
+        /// The creature current frame number y
         /// </summary>
         protected int nowFrameNumberY;
         /// <summary>
-        /// The speed x
+        /// The creature`s speed x
         /// </summary>
         protected float speedX;
         /// <summary>
-        /// The speed y
+        /// The creature`s speed y
         /// </summary>
         protected float speedY;
         /// <summary>
-        /// The player
+        /// The creature`s player
         /// </summary>
         protected Player player;
         /// <summary>
-        /// The hit points
+        /// The creature hit points
         /// </summary>
         protected int hitPoints;
         /// <summary>
-        /// The power
+        /// The creature power
         /// </summary>
         protected int power;
         /// <summary>
-        /// The stamina
+        /// The creature stamina
         /// </summary>
         protected int stamina;
         #endregion
@@ -74,103 +74,103 @@ namespace WarGame
         /// <summary>
         /// Gets or sets the self texture.
         /// </summary>
-        /// <value>The self texture.</value>
+        /// <value>The creature texture.</value>
         public virtual Texture2D SelfTexture { get; set; }
         /// <summary>
-        /// Gets or sets the now position.
+        /// Gets or sets the creature position.
         /// </summary>
-        /// <value>The now position.</value>
+        /// <value>The creature position.</value>
         public virtual Vector2 NowPosition { get; set; }
         /// <summary>
-        /// Gets or sets the speed x.
+        /// Gets or sets the creature speed x.
         /// </summary>
-        /// <value>The speed x.</value>
+        /// <value>The creature speed x.</value>
         public virtual float SpeedX { get; set; }
         /// <summary>
-        /// Gets or sets the speed y.
+        /// Gets or sets the creature speed y.
         /// </summary>
-        /// <value>The speed y.</value>
+        /// <value>The creature speed y.</value>
         public virtual float SpeedY { get; set; }
         /// <summary>
-        /// Gets or sets the frame size x.
+        /// Gets or sets the creature frame size x.
         /// </summary>
-        /// <value>The frame size x.</value>
+        /// <value>The creature frame size x.</value>
         public virtual int FrameSizeX { get; set; }
         /// <summary>
-        /// Gets or sets the frame size y.
+        /// Gets or sets the creature frame size y.
         /// </summary>
-        /// <value>The frame size y.</value>
+        /// <value>The creature frame csize y.</value>
         public virtual int FrameSizeY { get; set; }
         /// <summary>
-        /// Gets or sets the number of frames x.
+        /// Gets or sets the creature number of frames x.
         /// </summary>
-        /// <value>The number of frames x.</value>
+        /// <value>The creature number of frames x.</value>
         public virtual int NumberOfFramesX { get; set; }
         /// <summary>
-        /// Gets or sets the number of frames y.
+        /// Gets or sets the creature number of frames y.
         /// </summary>
-        /// <value>The number of frames y.</value>
+        /// <value>The creature number of frames y.</value>
         public virtual int NumberOfFramesY { get; set; }
         /// <summary>
-        /// Gets or sets the now frame number x.
+        /// Gets or sets the creature frame number x.
         /// </summary>
-        /// <value>The now frame number x.</value>
+        /// <value>The creature frame number x.</value>
         public virtual int NowFrameNumberX { get; set; }
         /// <summary>
-        /// Gets or sets the now frame number y.
+        /// Gets or sets the creature frame number y.
         /// </summary>
-        /// <value>The now frame number y.</value>
+        /// <value>The creature frame number y.</value>
         public virtual int NowFrameNumberY { get; set; }
         /// <summary>
-        /// Gets or sets the now position x.
+        /// Gets or sets the creature now position x.
         /// </summary>
-        /// <value>The now position x.</value>
+        /// <value>The creature now position x.</value>
         public virtual float NowPositionX { get; set; }
         /// <summary>
-        /// Gets or sets the now position y.
+        /// Gets or sets creature the now position y.
         /// </summary>
-        /// <value>The now position y.</value>
+        /// <value>The creature now position y.</value>
         public virtual float NowPositionY { get; set; }
         /// <summary>
-        /// Gets or sets the player.
+        /// Gets or sets the creature player.
         /// </summary>
-        /// <value>The player.</value>
+        /// <value>The creature player.</value>
         public virtual Player Player { get; set; }
         /// <summary>
-        /// Gets or sets the hp.
+        /// Gets or sets the creature hp.
         /// </summary>
-        /// <value>The hp.</value>
+        /// <value>The creature hp.</value>
         public virtual int HP { get; set; }
         /// <summary>
-        /// Gets or sets the power.
+        /// Gets or sets the creature power.
         /// </summary>
-        /// <value>The power.</value>
+        /// <value>The creature power.</value>
         public virtual int Power { get; set; }
         /// <summary>
-        /// Gets or sets the stamina.
+        /// Gets or sets the creature stamina.
         /// </summary>
-        /// <value>The stamina.</value>
+        /// <value>The creature stamina.</value>
         public virtual int Stamina { get; set; }
         #endregion
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Creatures"/> class.
         /// </summary>
-        /// <param name="inputTexture">The input texture.</param>
-        /// <param name="inputNowPositionX">The input now position x.</param>
-        /// <param name="inputNowPositionY">The input now position y.</param>
-        /// <param name="inputFrameSizeX">The input frame size x.</param>
-        /// <param name="inputFrameSizeY">The input frame size y.</param>
-        /// <param name="inputNumberOfFramesX">The input number of frames x.</param>
-        /// <param name="inputNumberOfFramesY">The input number of frames y.</param>
-        /// <param name="inputNowFrameNumberX">The input now frame number x.</param>
-        /// <param name="inputNowFrameNumberY">The input now frame number y.</param>
-        /// <param name="inputSpeedX">The input speed x.</param>
-        /// <param name="inputSpeedY">The input speed y.</param>
-        /// <param name="inputPlayer">The input player.</param>
-        /// <param name="inputHP">The input hp.</param>
-        /// <param name="inputPower">The input power.</param>
-        /// <param name="inputStamina">The input stamina.</param>
+        /// <param name="inputTexture">The input creature texture.</param>
+        /// <param name="inputNowPositionX">The input creature now position x.</param>
+        /// <param name="inputNowPositionY">The input creature now position y.</param>
+        /// <param name="inputFrameSizeX">The input creature frame size x.</param>
+        /// <param name="inputFrameSizeY">The input creature frame size y.</param>
+        /// <param name="inputNumberOfFramesX">The input creature number of frames x.</param>
+        /// <param name="inputNumberOfFramesY">The input creature number of frames y.</param>
+        /// <param name="inputNowFrameNumberX">The input now creature frame number x.</param>
+        /// <param name="inputNowFrameNumberY">The input now creature frame number y.</param>
+        /// <param name="inputSpeedX">The input creature speed x.</param>
+        /// <param name="inputSpeedY">The input creature speed y.</param>
+        /// <param name="inputPlayer">The input creature player.</param>
+        /// <param name="inputHP">The input creature hp.</param>
+        /// <param name="inputPower">The input creature power.</param>
+        /// <param name="inputStamina">The input creature stamina.</param>
         public Creatures(
             Texture2D inputTexture, 
             float inputNowPositionX,

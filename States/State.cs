@@ -11,19 +11,19 @@ namespace WarGame.States
     {
         #region Fields
         /// <summary>
-        /// The this content
+        /// The this contentManager of this game
         /// </summary>
         protected ContentManager thisContent;
         /// <summary>
-        /// The this graphics device
+        /// The this graphics device that draws the game state
         /// </summary>
         protected GraphicsDevice thisGraphicsDevice;
         /// <summary>
-        /// The this game
+        /// The lint to base Game Window
         /// </summary>
         protected GameWindow thisGame;
         /// <summary>
-        /// The this screen size
+        /// The game screen size
         /// </summary>
         protected XY thisScreenSize;
         #endregion
@@ -31,10 +31,10 @@ namespace WarGame.States
         /// <summary>
         /// Initializes a new instance of the <see cref="State"/> class.
         /// </summary>
-        /// <param name="inputGame">The input game.</param>
+        /// <param name="inputGame">The base GameWindow.</param>
         /// <param name="inputGraphicsDevice">The input graphics device.</param>
-        /// <param name="inputContent">Content of the input.</param>
-        /// <param name="inputScreenSize">Size of the input screen.</param>
+        /// <param name="inputContent">main ContentManager</param>
+        /// <param name="inputScreenSize">Size of the screen.</param>
         public State(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
         {
             thisGame = inputGame;
@@ -43,18 +43,18 @@ namespace WarGame.States
             thisScreenSize = inputScreenSize;
         }
         /// <summary>
-        /// Draws the specified game time.
+        /// Draws the game state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         /// <summary>
-        /// Posts the update.
+        /// Action after update
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public abstract void PostUpdate(GameTime gameTime);
         /// <summary>
-        /// Updates the specified game time.
+        /// Updates the game state.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public abstract void Update(GameTime gameTime);

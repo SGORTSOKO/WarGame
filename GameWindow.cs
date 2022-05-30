@@ -14,7 +14,7 @@ namespace WarGame
     public class GameWindow : Game
     {
         /// <summary>
-        /// The main graphics
+        /// The main graphics device
         /// </summary>
         public GraphicsDeviceManager mainGraphics;
         /// <summary>
@@ -68,7 +68,7 @@ namespace WarGame
         /// <summary>
         /// Данный метод выполняется, после LoadContent() или сразу после выполнения Draw()
         /// Содержит бизнес-логику приложения
-        /// <paramref name="gameTime" /> Чранит временное состояние игры
+        /// <paramref name="gameTime" /> Хранит временное состояние игры
         /// </summary>
         /// <param name="gameTime">The elapsed time since the last call to <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         protected override void Update(GameTime gameTime)
@@ -95,7 +95,7 @@ namespace WarGame
             base.Draw(gameTime);
         }
         /// <summary>
-        /// Производит переход между игровыми меню и игровыми режимами
+        /// Производит переход между игровыми меню и игровыми режимами   
         /// <paramref name="state" /> Объект абстрактного класса режимов игры и игровых меню
         /// </summary>
         /// <param name="state">The state.</param>

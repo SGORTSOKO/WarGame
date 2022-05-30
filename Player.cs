@@ -13,11 +13,11 @@ namespace WarGame
     {
         #region Fields
         /// <summary>
-        /// The prefer color
+        /// Color of Cretures
         /// </summary>
         private Color preferColor;
         /// <summary>
-        /// The name
+        /// The PlayerName
         /// </summary>
         private string name;
         /// <summary>
@@ -25,11 +25,13 @@ namespace WarGame
         /// </summary>
         private int playerHP;
         /// <summary>
-        /// The type
+        /// The player type 
+        /// false: bot, or client
+        /// true: host player
         /// </summary>
         private bool type;
         /// <summary>
-        /// The hit box position
+        /// The hit box position in screen
         /// </summary>
         private int hitBoxPosition;
         /// <summary>
@@ -42,10 +44,10 @@ namespace WarGame
         /// Initializes a new instance of the <see cref="Player"/> class.
         /// </summary>
         /// <param name="newName">The new name.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="newHP">The new hp.</param>
-        /// <param name="newType">if set to <c>true</c> [new type].</param>
-        /// <param name="inputScreenSize">Size of the input screen.</param>
+        /// <param name="color">The color of creatures</param>
+        /// <param name="newHP">The player hp.</param>
+        /// <param name="newType">player type</param>
+        /// <param name="inputScreenSize">Size of the screen.</param>
         public Player(string newName, Color color, int newHP, bool newType, XY inputScreenSize)
         {
             Name = newName;
@@ -85,7 +87,7 @@ namespace WarGame
             set => type = value;
         }
         /// <summary>
-        /// Gets or sets the hit box position x.
+        /// Gets or sets the hit box position x in screen
         /// </summary>
         /// <value>The hit box position x.</value>
         public int HitBoxPositionX
@@ -113,7 +115,7 @@ namespace WarGame
             set => screenSizeX = value;
         }
         /// <summary>
-        /// Gets or sets the color.
+        /// Gets or sets the color of players creatures
         /// </summary>
         /// <value>The color.</value>
         public Color Color
@@ -124,9 +126,9 @@ namespace WarGame
         #endregion
         #region Methods
         /// <summary>
-        /// Attacks me.
+        /// Attaks the player
         /// </summary>
-        /// <param name="power">The power.</param>
+        /// <param name="power">The power of creature</param>
         public void AttackMe(int power)
         {
             HP -= power;

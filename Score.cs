@@ -17,7 +17,7 @@ namespace WarGame
         /// <value>The name of the player.</value>
         public string PlayerName { get; set; }
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the player record.
         /// </summary>
         /// <value>The value.</value>
         public int Value { get; set; }

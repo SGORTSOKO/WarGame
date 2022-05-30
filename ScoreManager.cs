@@ -9,14 +9,14 @@ using System.Xml.Serialization;
 namespace WarGame
 {
     /// <summary>
-    /// Class ScoreManager.
+    /// Класс, отвечающий за сохранение результатов игры и вывод таблицы рекордов
     /// </summary>
     public class ScoreManager
     {
         /// <summary>
-        /// The filename
+        /// The scores filename into "bit" folder
         /// </summary>
-        private static string filename = "scores.xml"; // Since we don't give a path, this'll be saved in the "bin" folder
+        private static string filename = "scores.xml";
         /// <summary>
         /// Gets the highscores.
         /// </summary>
@@ -56,7 +56,7 @@ namespace WarGame
             UpdateHighscores();
         }
         /// <summary>
-        /// Loads this instance.
+        /// Loads scores from file.
         /// </summary>
         /// <returns>ScoreManager.</returns>
         public static ScoreManager Load()
@@ -73,7 +73,7 @@ namespace WarGame
             }
         }
         /// <summary>
-        /// Updates the highscores.
+        /// UpdTaker the first 5 elements
         /// </summary>
         public void UpdateHighscores()
         {
@@ -81,9 +81,9 @@ namespace WarGame
         }
 
         /// <summary>
-        /// Saves the specified score manager.
+        /// Saves the scores into file
         /// </summary>
-        /// <param name="scoreManager">The score manager.</param>
+        /// <param name="scoreManager">The score manager, contained current scores</param>
         public static void Save(ScoreManager scoreManager)
         {
             // Overrides the file if it alreadt exists

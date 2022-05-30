@@ -13,11 +13,11 @@ namespace WarGame
     {
         #region Fields
         /// <summary>
-        /// The main list
+        /// The main list of creatures
         /// </summary>
         private List<Creatures> mainList;
         /// <summary>
-        /// To delete
+        /// List To delete creatures from mainList
         /// </summary>
         private List<Creatures> toDelete;
         /// <summary>
@@ -33,8 +33,8 @@ namespace WarGame
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatureList"/> class.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="left">The left (current) player</param>
+        /// <param name="right">The right player</param>
         public CreatureList(Player left, Player right) 
         {
             leftPlayer = left;
@@ -45,16 +45,16 @@ namespace WarGame
         #endregion
         #region Methods
         /// <summary>
-        /// Clears this instance.
+        /// Clears list of cretures (that delete them all).
         /// </summary>
         public void Clear()
         {
             mainList.Clear();
         }
         /// <summary>
-        /// Adds the specified input.
+        /// Adds the creature in List (initialize).
         /// </summary>
-        /// <param name="input">The input.</param>
+        /// <param name="input">The new creature</param>
         public void Add(Creatures input)  //
         {
             if (!mainList.Contains(input))
@@ -64,13 +64,13 @@ namespace WarGame
         }
 
         /// <summary>
-        /// Adds the specified input.
+        /// Adds the creature in List (initialize).
         /// </summary>
-        /// <param name="input">The input.</param>
-        /// <param name="inputPlayer">The input player.</param>
-        /// <param name="inputNowPositionX">The input now position x.</param>
-        /// <param name="inputTexture">The input texture.</param>
-        public void Add(string input, Player inputPlayer, int inputNowPositionX, Texture2D inputTexture)  //
+        /// <param name="input">The new creature</param>
+        /// <param name="inputPlayer">The creature player.</param>
+        /// <param name="inputNowPositionY">The creature input now position y.</param>
+        /// <param name="inputTexture">The input creature texture.</param>
+        public void Add(string input, Player inputPlayer, int inputNowPositionY, Texture2D inputTexture)  //
         {
             if (input == "Human")
             {
@@ -78,12 +78,12 @@ namespace WarGame
                     new Human(
                         inputTexture,
                         inputPlayer,
-                        inputNowPositionX
+                        inputNowPositionY
                         ));
             }
         }
         /// <summary>
-        /// Gets the count.
+        /// Gets the count of List.
         /// </summary>
         /// <value>The count.</value>
         public int Count
@@ -103,7 +103,7 @@ namespace WarGame
         }
 
         /// <summary>
-        /// Rands the sort.
+        /// List random sort
         /// </summary>
         public void RandSort()
         {
@@ -113,7 +113,6 @@ namespace WarGame
                 for (int i = mainList.Count - 1; i >= 1; i--)
                 {
                     int j = rand.Next(i + 1);
-                    // обменять значения data[j] и data[i]
                     var temp = mainList[j];
                     mainList[j] = mainList[i];
                     mainList[i] = temp;
@@ -121,7 +120,7 @@ namespace WarGame
             }
         }
         /// <summary>
-        /// Resets the stats.
+        /// Resets the stats of creatures (now is only stamina).
         /// </summary>
         public void ResetStats()
         {
@@ -132,9 +131,9 @@ namespace WarGame
         }
 
         /// <summary>
-        /// Deletes some.
+        /// Deletes some creatures.
         /// </summary>
-        /// <param name="count">The count.</param>
+        /// <param name="count">The count of creatures to delete</param>
         public void DeleteSome(int count)
         {
             if (mainList.Count > count*5)
@@ -146,9 +145,9 @@ namespace WarGame
             }
         }
         /// <summary>
-        /// Steps all.
+        /// Move all creatures and try to attack another player
         /// </summary>
-        /// <returns>Player.</returns>
+        /// <returns><c>defeated player</c> if defeated player now is dead, <c>false</c> otherwise</returns>
         public Player StepAll()
         {
             foreach (Creatures Creature in mainList)
@@ -181,7 +180,7 @@ namespace WarGame
             return null;
         }
         /// <summary>
-        /// Attacks the round.
+        /// Attacks nearby creatures
         /// </summary>
         public void AttackRound()
         {
