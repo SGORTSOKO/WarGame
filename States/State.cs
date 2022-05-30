@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace WarGame.States
 {
     /// <summary>
-    /// Class State.
+    /// Абстрактный класс. Потомки этого класса - окна приложения (game states):
+    /// окно одиночной игры, таблица рекордов, меню
     /// </summary>
     public abstract class State
     {
