@@ -1,0 +1,26 @@
+var class_war_game_1_1_human =
+[
+    [ "Human", "class_war_game_1_1_human.html#ab94c4afb8af415cf188c93fd80466231", null ],
+    [ "Human", "class_war_game_1_1_human.html#a5469181f5aee00ee67d934bff0e4339f", null ],
+    [ "Human", "class_war_game_1_1_human.html#a367a45f059f10e0f45ff2cfca9b63639", null ],
+    [ "GetRectangleImage", "class_war_game_1_1_human.html#a26860744dc36734ed582027831bbec7c", null ],
+    [ "GetRectanglePos", "class_war_game_1_1_human.html#af42bde7b422038ebc26593636283b6f3", null ],
+    [ "HitCreature", "class_war_game_1_1_human.html#a3c8a18fab4aa21e205e76550b9a310c7", null ],
+    [ "Step", "class_war_game_1_1_human.html#ac2e5965a914230cbee42d959e2f0c004", null ],
+    [ "FrameSizeX", "class_war_game_1_1_human.html#a70366accbad240d323d6743253333475", null ],
+    [ "FrameSizeY", "class_war_game_1_1_human.html#a45a23485e6725a559d627af2973864d5", null ],
+    [ "HP", "class_war_game_1_1_human.html#a830ba8b5f5f566160c76232741c4446c", null ],
+    [ "NowFrameNumberX", "class_war_game_1_1_human.html#ac5065a2526b20b95e2d084302e5b07c6", null ],
+    [ "NowFrameNumberY", "class_war_game_1_1_human.html#a16a4c4e49f1e1f63d2b3e71e0e4bbee7", null ],
+    [ "NowPosition", "class_war_game_1_1_human.html#ac454ef5332bf558efd0fcc8d6f8e720f", null ],
+    [ "NowPositionX", "class_war_game_1_1_human.html#add731ca5f32d999c7766808e8366ac3b", null ],
+    [ "NowPositionY", "class_war_game_1_1_human.html#afde9bf7650b4f52f26934a978813e04d", null ],
+    [ "NumberOfFramesX", "class_war_game_1_1_human.html#a1b5f109a35f989a3c1a59d50223c86a3", null ],
+    [ "NumberOfFramesY", "class_war_game_1_1_human.html#aa5bd40847b9756bf391a38f258555b25", null ],
+    [ "Player", "class_war_game_1_1_human.html#aadf99c918229aa518a51e8b59daac5f1", null ],
+    [ "Power", "class_war_game_1_1_human.html#a032995c9f5849cda68a97b05ee913e11", null ],
+    [ "SelfTexture", "class_war_game_1_1_human.html#a61cfe4fe38c930b4118613c00890926b", null ],
+    [ "SpeedX", "class_war_game_1_1_human.html#a85adbe72df53f0468dc36366f362504b", null ],
+    [ "SpeedY", "class_war_game_1_1_human.html#aa0a1098602353a3fc2b98747833e5e01", null ],
+    [ "Stamina", "class_war_game_1_1_human.html#a8a6e5c6ea4eaa6e85cc0d338d0533dad", null ]
+];
