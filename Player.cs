@@ -1,8 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
 
 namespace WarGame
 {
@@ -72,9 +68,9 @@ namespace WarGame
         /// Gets or sets the hp.
         /// </summary>
         /// <value>The hp.</value>
-        public int HP 
-        { 
-            get => playerHP; 
+        public int HP
+        {
+            get => playerHP;
             set => playerHP = value;
         }
         /// <summary>

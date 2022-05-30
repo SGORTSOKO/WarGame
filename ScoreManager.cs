@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace WarGame
@@ -33,7 +30,7 @@ namespace WarGame
         public ScoreManager()
             : this(new List<Score>())
         {
-            
+
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="ScoreManager"/> class.

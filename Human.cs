@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
@@ -34,36 +30,36 @@ namespace WarGame
         /// <param name="inputPower">The input human power.</param>
         /// <param name="inputStamina">The input human stamina.</param>
         public Human(
-            Texture2D inputTexture, 
-            int inputNowPositionX, 
+            Texture2D inputTexture,
+            int inputNowPositionX,
             int inputNowPositionY,
-            int inputFrameSizeX, 
-            int inputFrameSizeY, 
+            int inputFrameSizeX,
+            int inputFrameSizeY,
             int inputNumberOfFramesX,
-            int inputNumberOfFramesY, 
-            int inputNowFrameNumberX, 
+            int inputNumberOfFramesY,
+            int inputNowFrameNumberX,
             int inputNowFrameNumberY,
-            float inputSpeedX, 
-            float inputSpeedY, 
-            Player inputPlayer, 
-            int inputHP, 
-            int inputPower, 
-            int inputStamina):
+            float inputSpeedX,
+            float inputSpeedY,
+            Player inputPlayer,
+            int inputHP,
+            int inputPower,
+            int inputStamina) :
             base(
-                inputTexture, 
-                inputNowPositionX, 
+                inputTexture,
+                inputNowPositionX,
                 inputNowPositionY,
-                inputFrameSizeX, 
-                inputFrameSizeY, 
+                inputFrameSizeX,
+                inputFrameSizeY,
                 inputNumberOfFramesX,
-                inputNumberOfFramesY, 
-                inputNowFrameNumberX, 
+                inputNumberOfFramesY,
+                inputNowFrameNumberX,
                 inputNowFrameNumberY,
-                inputSpeedX, 
-                inputSpeedY, 
-                inputPlayer, 
-                inputHP, 
-                inputPower, 
+                inputSpeedX,
+                inputSpeedY,
+                inputPlayer,
+                inputHP,
+                inputPower,
                 inputStamina)
         { }
         /// <summary>
@@ -73,8 +69,8 @@ namespace WarGame
         /// <param name="inputPlayer">The human player.</param>
         /// <param name="inputNowPositionY">The input human position y.</param>
         public Human(
-            Texture2D inputTexture, 
-            Player inputPlayer, 
+            Texture2D inputTexture,
+            Player inputPlayer,
             int inputNowPositionY) :
             base(
                 inputTexture,
@@ -105,28 +101,28 @@ namespace WarGame
         /// Gets or sets the self texture.
         /// </summary>
         /// <value>The self texture.</value>
-        public override Texture2D SelfTexture 
-        { 
-            get => selfTexture; 
-            set => selfTexture = value; 
+        public override Texture2D SelfTexture
+        {
+            get => selfTexture;
+            set => selfTexture = value;
         }
         /// <summary>
         /// Gets or sets the frame size x.
         /// </summary>
         /// <value>The frame size x.</value>
-        public override int FrameSizeX 
-        { 
-            get => frameSizeX; 
-            set => frameSizeX = value; 
+        public override int FrameSizeX
+        {
+            get => frameSizeX;
+            set => frameSizeX = value;
         }
         /// <summary>
         /// Gets or sets the frame size y.
         /// </summary>
         /// <value>The frame size y.</value>
-        public override int FrameSizeY 
-        { 
-            get => frameSizeY; 
-            set => frameSizeY = value; 
+        public override int FrameSizeY
+        {
+            get => frameSizeY;
+            set => frameSizeY = value;
         }
         /// <summary>
         /// Gets or sets the number of frames x.
@@ -328,6 +324,6 @@ namespace WarGame
         {
             return new Rectangle((int)NowPositionX, (int)NowPositionY, FrameSizeX, FrameSizeY);
         }
-#endregion
+        #endregion
     }
 }

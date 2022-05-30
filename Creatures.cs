@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace WarGame
 {
@@ -172,7 +168,7 @@ namespace WarGame
         /// <param name="inputPower">The input creature power.</param>
         /// <param name="inputStamina">The input creature stamina.</param>
         public Creatures(
-            Texture2D inputTexture, 
+            Texture2D inputTexture,
             float inputNowPositionX,
             float inputNowPositionY,
             int inputFrameSizeX,
@@ -180,12 +176,12 @@ namespace WarGame
             int inputNumberOfFramesX,
             int inputNumberOfFramesY,
             int inputNowFrameNumberX,
-            int inputNowFrameNumberY, 
-            float inputSpeedX, 
-            float inputSpeedY, 
-            Player inputPlayer, 
-            int inputHP, 
-            int inputPower, 
+            int inputNowFrameNumberY,
+            float inputSpeedX,
+            float inputSpeedY,
+            Player inputPlayer,
+            int inputHP,
+            int inputPower,
             int inputStamina)
         {
             SelfTexture = inputTexture;

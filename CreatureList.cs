@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace WarGame
 {
@@ -35,7 +32,7 @@ namespace WarGame
         /// </summary>
         /// <param name="left">The left (current) player</param>
         /// <param name="right">The right player</param>
-        public CreatureList(Player left, Player right) 
+        public CreatureList(Player left, Player right)
         {
             leftPlayer = left;
             rightPlayer = right;
@@ -136,12 +133,12 @@ namespace WarGame
         /// <param name="count">The count of creatures to delete</param>
         public void DeleteSome(int count)
         {
-            if (mainList.Count > count*5)
+            if (mainList.Count > count * 5)
             {
                 for (int i = 0; i < count; i++)
                 {
                     mainList.RemoveAt(i);
-                } 
+                }
             }
         }
         /// <summary>
