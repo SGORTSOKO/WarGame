@@ -8,11 +8,20 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <Authors>Abrosimov Vladislav</Authors>
+    <Company>Kurgan State University</Company>
+    <Description>Игра</Description>
+    <PackageIcon>WarGame.ico</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
     <None Remove="Montserrat-Regular.spritefont" />
+    <None Include="Content\WarGame.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
