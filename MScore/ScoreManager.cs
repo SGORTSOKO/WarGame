@@ -1,4 +1,17 @@
-﻿using System.Collections.Generic;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 06-03-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-03-2022
+// ***********************************************************************
+// <copyright file="ScoreManager.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -11,31 +24,27 @@ namespace WarGame.MScore
     public class ScoreManager
     {
         /// <summary>
-        /// The scores filename into "bit" folder
+        /// Файл таблицы рекордов
         /// </summary>
         private static string filename = "scores.xml";
         /// <summary>
-        /// Gets the highscores.
+        /// Только строки таблицы на вывод
         /// </summary>
-        /// <value>The highscores.</value>
         public List<Score> Highscores { get; private set; }
         /// <summary>
-        /// Gets the scores.
+        /// Все строки таблицы
         /// </summary>
-        /// <value>The scores.</value>
         public List<Score> Scores { get; private set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="ScoreManager"/> class.
+        /// Конструктор класса <see cref="ScoreManager" />.
         /// </summary>
         public ScoreManager()
             : this(new List<Score>())
-        {
-
-        }
+        { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="ScoreManager"/> class.
+        /// Конструктор класса <see cref="ScoreManager" />.
         /// </summary>
-        /// <param name="inputScores">The input scores.</param>
+        /// <param name="inputScores">Таблица лидеров</param>
         public ScoreManager(List<Score> inputScores)
         {
             Scores = inputScores;
@@ -43,9 +52,9 @@ namespace WarGame.MScore
             UpdateHighscores();
         }
         /// <summary>
-        /// Adds the specified input score.
+        /// Добавить строку таблицы.
         /// </summary>
-        /// <param name="inputScore">The input score.</param>
+        /// <param name="inputScore"> Строка таблицы лидеров </param>
         public void Add(Score inputScore)
         {
             Scores.Add(inputScore);
@@ -53,41 +62,46 @@ namespace WarGame.MScore
             UpdateHighscores();
         }
         /// <summary>
-        /// Loads scores from file.
+        /// Загрузить таблицу из файла
         /// </summary>
-        /// <returns>ScoreManager.</returns>
+        /// <returns>Менеджер таблицы</returns>
         public static ScoreManager Load()
         {
-            // If there isn't a file to load - create a new instance of "ScoreManager"
+            // Если файл не существет, то создать пустой менеджер
             if (!File.Exists(filename))
                 return new ScoreManager();
-            // Otherwise we load the file
+
+            //Прочитать файл
             using (var reader = new StreamReader(new FileStream(filename, FileMode.Open)))
             {
+                //Сериализатор записи
                 var serilizer = new XmlSerializer(typeof(List<Score>));
+                //Считать данные из формата xml
                 var scores = (List<Score>)serilizer.Deserialize(reader);
+
                 return new ScoreManager(scores);
             }
         }
         /// <summary>
-        /// UpdTaker the first 5 elements
+        /// Выделить 25 лучших результатов
         /// </summary>
         public void UpdateHighscores()
         {
-            Highscores = Scores.Take(25).ToList(); // Takes the first 5 elements
+            Highscores = Scores.Take(25).ToList();
         }
 
         /// <summary>
-        /// Saves the scores into file
+        /// Сохранить все результаты в файл
         /// </summary>
-        /// <param name="scoreManager">The score manager, contained current scores</param>
+        /// <param name="scoreManager">Менеджер таблицы</param>
         public static void Save(ScoreManager scoreManager)
         {
-            // Overrides the file if it alreadt exists
+            // Открыть файл для записи в режиме создания нового файла
             using (var writer = new StreamWriter(new FileStream(filename, FileMode.Create)))
             {
+                //Сериализатор записи
                 var serilizer = new XmlSerializer(typeof(List<Score>));
-
+                //Записать данные в xml формате
                 serilizer.Serialize(writer, scoreManager.Scores);
             }
         }

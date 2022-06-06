@@ -1,19 +1,30 @@
-﻿namespace WarGame.MScore
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 06-03-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-03-2022
+// ***********************************************************************
+// <copyright file="Score.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace WarGame.MScore
 {
     /// <summary>
-    /// Class Score.
+    /// Структура строки таблицы рекордов
     /// </summary>
     public struct Score
     {
         /// <summary>
-        /// Gets or sets the name of the player.
+        /// Установить или получить имя игрока
         /// </summary>
-        /// <value>The name of the player.</value>
         public string PlayerName { get; set; }
         /// <summary>
-        /// Gets or sets the player record.
+        /// Установить или получить счёт игрока
         /// </summary>
-        /// <value>The value.</value>
         public int Value { get; set; }
     }
 }

@@ -1,4 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 05-29-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="State.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,35 +25,35 @@ namespace WarGame.States
     {
         #region Fields
         /// <summary>
-        /// The this contentManager of this game
+        /// TМенеджер контента игры
         /// </summary>
         protected ContentManager thisContent;
         /// <summary>
-        /// The this graphics device that draws the game state
+        /// Графическое устройство
         /// </summary>
         protected GraphicsDevice thisGraphicsDevice;
         /// <summary>
-        /// The lint to base Game Window
+        /// TИнициализатор игры
         /// </summary>
         protected Initializer thisGame;
         /// <summary>
-        /// The game screen size
+        /// Размеры экрана
         /// </summary>
-        protected XY thisScreenSize;
+        protected CoordinatesXY thisScreenSize;
         #endregion
         #region Methods
         /// <summary>
-        /// Initializes a new instance of the <see cref="State"/> class.
+        /// Конструктор класса <see cref="State" />.
         /// </summary>
-        /// <param name="inputGame">The base GameWindow.</param>
-        /// <param name="inputGraphicsDevice">The input graphics device.</param>
-        /// <param name="inputContent">main ContentManager</param>
-        /// <param name="inputScreenSize">Size of the screen.</param>
+        /// <param name="inputGame"> Класс-инициализатор</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство.</param>
+        /// <param name="inputContent">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размеры экрана</param>
         public State(
             Initializer inputGame,
             GraphicsDevice inputGraphicsDevice,
             ContentManager inputContent,
-            XY inputScreenSize)
+            CoordinatesXY inputScreenSize)
         {
             thisGame = inputGame;
             thisGraphicsDevice = inputGraphicsDevice;
@@ -48,20 +61,20 @@ namespace WarGame.States
             thisScreenSize = inputScreenSize;
         }
         /// <summary>
-        /// Draws the game state.
+        /// Отрисовать экран
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="spriteBatch">The sprite batch.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         /// <summary>
-        /// Action after update
+        /// Дейтсвие после обновления
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public abstract void PostUpdate(GameTime gameTime);
         /// <summary>
-        /// Updates the game state.
+        /// Обновить логику
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public abstract void Update(GameTime gameTime);
         #endregion
     }

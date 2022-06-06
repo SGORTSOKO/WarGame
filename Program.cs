@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 05-16-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="Program.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 
 namespace WarGame
 {

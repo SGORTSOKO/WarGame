@@ -1,4 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 05-16-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="Initializer.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WarGame.States;
 
@@ -11,25 +24,25 @@ namespace WarGame
     public class Initializer : Game
     {
         /// <summary>
-        /// The main graphics device
+        /// Менеджер графического устройства приложения
         /// </summary>
         public GraphicsDeviceManager mainGraphics;
         /// <summary>
-        /// The sprite batch
+        /// Объект оптимизатора графической отрисовки
         /// </summary>
         public SpriteBatch spriteBatch;
         /// <summary>
-        /// The current state
+        /// Открытая страница игры
         /// </summary>
         private State currentState;
         /// <summary>
-        /// The next state
+        /// Следующая страница игры
         /// </summary>
         private State nextState;
         /// <summary>
-        /// The screen size
+        /// Размер экрана
         /// </summary>
-        XY screenSize;
+        CoordinatesXY screenSize;
 
         /// <summary>
         /// Конструктор класса GameWindow
@@ -37,11 +50,12 @@ namespace WarGame
         public Initializer()
         {
             TargetElapsedTime = new System.TimeSpan(
-                0, 
-                0, 
                 0,
-                0, 
-                50);
+                0,
+                0,
+                0,
+                50
+                );
 
             mainGraphics = new GraphicsDeviceManager(this);
 
@@ -53,11 +67,14 @@ namespace WarGame
         /// </summary>
         protected override void Initialize()
         {
-            screenSize = new XY(1600, 900);
+            screenSize = new CoordinatesXY(1600, 900);
+
             mainGraphics.PreferredBackBufferWidth = screenSize.X;
             mainGraphics.PreferredBackBufferHeight = screenSize.Y;
             mainGraphics.ApplyChanges();
+
             IsMouseVisible = true;
+
             base.Initialize();
         }
         /// <summary>
@@ -67,46 +84,52 @@ namespace WarGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             currentState = new MenuState(
-                this, 
-                mainGraphics.GraphicsDevice, 
-                Content, 
-                screenSize);
+                this,
+                mainGraphics.GraphicsDevice,
+                Content,
+                screenSize
+                );
         }
         /// <summary>
         /// Данный метод выполняется, после LoadContent() или сразу после выполнения Draw()
         /// Содержит бизнес-логику приложения
-        /// <paramref name="gameTime" /> Хранит временное состояние игры
         /// </summary>
-        /// <param name="gameTime">The elapsed time since the last call to <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Если определена следующая страница, то сменить
             if (nextState != null)
             {
                 currentState = nextState;
                 nextState = null;
             }
+            //Обновить логику
             currentState.Update(gameTime);
+            //Очистка
             currentState.PostUpdate(gameTime);
+
             base.Update(gameTime);
         }
         /// <summary>
         /// Данный метод выполняется, после Update()
         /// Генерирует графическое содержание окна игры на основе данных метода Update()
-        /// <paramref name="gameTime" /> Чранит временное состояние игры
         /// </summary>
-        /// <param name="gameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> instance containing the elapsed time since the last call to <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> and the total time elapsed since the game started.</param>
+        /// <param name="gameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
         protected override void Draw(GameTime gameTime)
         {
+            //Настроить цвет фона
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            //Отрисовать текущую страницу
             currentState.Draw(gameTime, spriteBatch);
+
             base.Draw(gameTime);
         }
         /// <summary>
-        /// Производит переход между игровыми меню и игровыми режимами   
-        /// <paramref name="state" /> Объект абстрактного класса режимов игры и игровых меню
+        /// Производит переход между игровыми меню и игровыми режимами> 
         /// </summary>
-        /// <param name="state">The state.</param>
+        /// <param name="state">Объект абстрактного класса режимов игры и игровых меню</param>
         public void ChangeState(State state)
         {
             nextState = state;

@@ -1,34 +1,47 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 06-06-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="Human.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame
+namespace WarGame.SingleGame
 {
     /// <summary>
-    /// Class Human.
-    /// Implements the <see cref="WarGame.Creatures" />
+    /// Класс сущетсва Human.
+    /// Унаследовано от <see cref="WarGame.Creatures" />
     /// </summary>
     /// <seealso cref="WarGame.Creatures" />
     public class Human : Creatures
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Human"/> class.
+        /// Конструктор класса <see cref="Creatures" />.
         /// </summary>
-        /// <param name="inputTexture">The human texture</param>
-        /// <param name="inputNowPositionX">The input human position x.</param>
-        /// <param name="inputNowPositionY">The input human position y.</param>
-        /// <param name="inputFrameSizeX">The input human frame size x.</param>
-        /// <param name="inputFrameSizeY">The input human frame size y.</param>
-        /// <param name="inputNumberOfFramesX">The input human number of frames x.</param>
-        /// <param name="inputNumberOfFramesY">The input human number of frames y.</param>
-        /// <param name="inputNowFrameNumberX">The input human now frame number x.</param>
-        /// <param name="inputNowFrameNumberY">The input human now frame number y.</param>
-        /// <param name="inputSpeedX">The input human speed x.</param>
-        /// <param name="inputSpeedY">The input human speed y.</param>
-        /// <param name="inputPlayer">The input human player.</param>
-        /// <param name="inputHP">The input human hp.</param>
-        /// <param name="inputPower">The input human power.</param>
-        /// <param name="inputStamina">The input human stamina.</param>
+        /// <param name="inputTexture">Текстура существа</param>
+        /// <param name="inputNowPositionX">Позиция Х существа</param>
+        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="inputFrameSizeX">Размер фрейма по Х</param>
+        /// <param name="inputFrameSizeY">Размер фрейма по У</param>
+        /// <param name="inputNumberOfFramesX">Всего фреймов по Х</param>
+        /// <param name="inputNumberOfFramesY">Всего фреймов по У</param>
+        /// <param name="inputNowFrameNumberX">Текущий фрейм по Х</param>
+        /// <param name="inputNowFrameNumberY">Текущий фрейм по У</param>
+        /// <param name="inputSpeedX">Скорость существа по Х</param>
+        /// <param name="inputSpeedY">Скорость сущетства по У</param>
+        /// <param name="inputPlayer">Чье существо</param>
+        /// <param name="inputHP">Здоровье существа</param>
+        /// <param name="inputPower">Сила атаки существа</param>
+        /// <param name="inputStamina">Выносливость существа</param>
         public Human(
             Texture2D inputTexture,
             int inputNowPositionX,
@@ -63,11 +76,11 @@ namespace WarGame
                 inputStamina)
         { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="Human"/> class.
+        /// Конструктор класса <see cref="Human" />.
         /// </summary>
-        /// <param name="inputTexture">The human texture.</param>
-        /// <param name="inputPlayer">The human player.</param>
-        /// <param name="inputNowPositionY">The input human position y.</param>
+        /// <param name="inputTexture">Текстура существа</param>
+        /// <param name="inputPlayer">Чье существо</param>
+        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
         public Human(
             Texture2D inputTexture,
             Player inputPlayer,
@@ -90,7 +103,7 @@ namespace WarGame
                 1)
         { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="Human"/> class.
+        /// Конструктор класса <see cref="Human" />.
         /// </summary>
         public Human() :
             base()
@@ -98,123 +111,112 @@ namespace WarGame
         #endregion
         #region Properties
         /// <summary>
-        /// Gets or sets the self texture.
+        /// Установить или вернуть текстуру существа
         /// </summary>
-        /// <value>The self texture.</value>
         public override Texture2D SelfTexture
         {
             get => selfTexture;
             set => selfTexture = value;
         }
         /// <summary>
-        /// Gets or sets the frame size x.
+        /// Установить или вернуть зармер фрейма по Х
         /// </summary>
-        /// <value>The frame size x.</value>
         public override int FrameSizeX
         {
             get => frameSizeX;
             set => frameSizeX = value;
         }
         /// <summary>
-        /// Gets or sets the frame size y.
+        /// Установить или вернуть размер фрейма по У
         /// </summary>
-        /// <value>The frame size y.</value>
         public override int FrameSizeY
         {
             get => frameSizeY;
             set => frameSizeY = value;
         }
         /// <summary>
-        /// Gets or sets the number of frames x.
+        /// Установить или вернуть количество фреймов по Ч
         /// </summary>
-        /// <value>The number of frames x.</value>
         public override int NumberOfFramesX
         {
             get => numberOfFramesX;
             set => numberOfFramesX = value;
         }
         /// <summary>
-        /// Gets or sets the number of frames y.
+        /// Установить или вернуть количество фреймов по У
         /// </summary>
-        /// <value>The number of frames y.</value>
         public override int NumberOfFramesY
         {
             get => numberOfFramesY;
             set => numberOfFramesY = value;
         }
         /// <summary>
-        /// Gets or sets the now frame number x.
+        /// Установить или вернуть номер текущего фрейма по X
         /// </summary>
-        /// <value>The now frame number x.</value>
         public override int NowFrameNumberX
         {
             get => nowFrameNumberX;
             set => nowFrameNumberX = value;
         }
         /// <summary>
-        /// Gets or sets the now frame number y.
+        /// Установить или вернуть номер текущего фрейма по У
         /// </summary>
-        /// <value>The now frame number y.</value>
         public override int NowFrameNumberY
         {
             get => nowFrameNumberY;
             set => nowFrameNumberY = value;
         }
         /// <summary>
-        /// Gets or sets the now position x.
+        /// Установить или вернуть текущую позицию по Х
         /// </summary>
-        /// <value>The now position x.</value>
         public override float NowPositionX
         {
             get => position.X;
             set => position.X = value;
         }
         /// <summary>
-        /// Gets or sets the now position y.
+        /// Установить или вернуть текущую позицию по У
         /// </summary>
-        /// <value>The now position y.</value>
         public override float NowPositionY
         {
             get => position.Y;
             set => position.Y = value;
         }
         /// <summary>
-        /// Gets or sets the now position.
+        /// Установить или вернуть текущую позицию
         /// </summary>
-        /// <value>The now position.</value>
+        /// <value> Vector2 позиция</value>
         public override Vector2 NowPosition
         {
             get => position;
             set => position = value;
         }
         /// <summary>
-        /// Gets or sets the speed x.
+        /// Установить или вернуть скорость по Х
         /// </summary>
-        /// <value>The speed x.</value>
         public override float SpeedX
         {
             get => speedX;
             set => speedX = value;
         }
         /// <summary>
-        /// Gets or sets the speed y.
+        /// Установить или вернуть скорость по У
         /// </summary>
-        /// <value>The speed y.</value>
         public override float SpeedY
         {
             get => speedY;
             set => speedY = value;
         }
         /// <summary>
-        /// Gets or sets the player.
+        /// Установить или вернуть игрока существа
         /// </summary>
-        /// <value>The player.</value>
         public override Player Player
         {
             get => player;
             set
             {
                 player = value;
+                //Автоматически определить текущий фрейм по Y
                 if (value.Current == true)
                 {
                     NowFrameNumberY = 0;
@@ -226,27 +228,24 @@ namespace WarGame
             }
         }
         /// <summary>
-        /// Gets or sets the hp.
+        /// Установить или вернуть здоровье существа
         /// </summary>
-        /// <value>The hp.</value>
         public override int HP
         {
             get => hitPoints;
             set => hitPoints = value;
         }
         /// <summary>
-        /// Gets or sets the power.
+        /// Установить или вернуть силу атаки существа
         /// </summary>
-        /// <value>The power.</value>
         public override int Power
         {
             get => power;
             set => power = value;
         }
         /// <summary>
-        /// Gets or sets the stamina.
+        /// Установить или вернуть выносливость
         /// </summary>
-        /// <value>The stamina.</value>
         public override int Stamina
         {
             get => stamina;
@@ -255,19 +254,22 @@ namespace WarGame
         #endregion
         #region Methods
         /// <summary>
-        /// move human in the screen
+        /// Движение существа
         /// </summary>
-        /// <returns>System.Int32. - power to attack enemy`s player</returns>
+        /// <returns>Сила атаки по игроку</returns>
         public override int Step()
-        {
+        { 
+            //Если левый (текущий), то
             if (player.Current == true)
             {
+                //Движение вправо
                 position.X += SpeedX;
                 nowFrameNumberX++;
                 if (nowFrameNumberX == numberOfFramesX)
                 {
                     nowFrameNumberX = 0;
                 }
+                //Если достиг края экрана
                 if (position.X > player.ScreenSizeX + frameSizeX / 2)
                 {
                     return Power;
@@ -275,12 +277,14 @@ namespace WarGame
             }
             else
             {
+                //Движение влево
                 position.X -= SpeedX;
                 if (nowFrameNumberX == 0)
                 {
                     nowFrameNumberX = numberOfFramesX;
                 }
                 nowFrameNumberX--;
+                //Если достиг края экрана
                 if (position.X < 0 - frameSizeX / 2)
                 {
                     return Power;
@@ -290,16 +294,18 @@ namespace WarGame
 
         }
         /// <summary>
-        /// Hits the creature of another player.
+        /// Атаковать иное существо
         /// </summary>
-        /// <param name="defender">The defender creature</param>
-        /// <returns><c>true</c> if defender now is dead, <c>false</c> otherwise.</returns>
+        /// <param name="defender">Защищающееся существо</param>
+        /// <returns><c>true</c> если защищающийся мертв, иначе <c>false</c>.</returns>
         public override bool HitCreature(Creatures defender)
         {
+            //Если атакующий еще имеет выносливость
             if (stamina > 0)
             {
                 stamina--;
                 defender.HP -= Power;
+                //Если здоровье защищающегося ниже 0
                 if (defender.HP <= 0)
                 {
                     defender.Power = 0;
@@ -309,27 +315,27 @@ namespace WarGame
             return false;
         }
         /// <summary>
-        /// Gets the Rectangle object for check of creatures intersection
+        /// размеры фрейма отрисовки
         /// </summary>
-        /// <returns>Rectangle.</returns>
+        /// <returns>Rectangle</returns>
         public override Rectangle GetRectangleImage()
         {
             return new Rectangle(
-                NowFrameNumberX * FrameSizeX, 
-                nowFrameNumberY * FrameSizeY, 
-                FrameSizeX, 
+                NowFrameNumberX * FrameSizeX,
+                nowFrameNumberY * FrameSizeY,
+                FrameSizeX,
                 FrameSizeY);
         }
         /// <summary>
-        /// Gets the human Rectangle position.
+        /// размеры фрейма движения
         /// </summary>
         /// <returns>Rectangle.</returns>
         public override Rectangle GetRectanglePos()
         {
             return new Rectangle(
-                (int)NowPositionX, 
-                (int)NowPositionY, 
-                FrameSizeX, 
+                (int)NowPositionX,
+                (int)NowPositionY,
+                FrameSizeX,
                 FrameSizeY);
         }
         #endregion

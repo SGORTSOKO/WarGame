@@ -1,10 +1,23 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 06-06-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="Creatures.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame
+namespace WarGame.SingleGame
 {
     /// <summary>
-    /// Class Creatures.
+    /// Класс существ Creatures.
     /// </summary>
     public abstract class Creatures
     {
@@ -150,23 +163,23 @@ namespace WarGame
         #endregion
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Creatures"/> class.
+        /// Конструктор класса <see cref="Creatures" />.
         /// </summary>
-        /// <param name="inputTexture">The input creature texture.</param>
-        /// <param name="inputNowPositionX">The input creature now position x.</param>
-        /// <param name="inputNowPositionY">The input creature now position y.</param>
-        /// <param name="inputFrameSizeX">The input creature frame size x.</param>
-        /// <param name="inputFrameSizeY">The input creature frame size y.</param>
-        /// <param name="inputNumberOfFramesX">The input creature number of frames x.</param>
-        /// <param name="inputNumberOfFramesY">The input creature number of frames y.</param>
-        /// <param name="inputNowFrameNumberX">The input now creature frame number x.</param>
-        /// <param name="inputNowFrameNumberY">The input now creature frame number y.</param>
-        /// <param name="inputSpeedX">The input creature speed x.</param>
-        /// <param name="inputSpeedY">The input creature speed y.</param>
-        /// <param name="inputPlayer">The input creature player.</param>
-        /// <param name="inputHP">The input creature hp.</param>
-        /// <param name="inputPower">The input creature power.</param>
-        /// <param name="inputStamina">The input creature stamina.</param>
+        /// <param name="inputTexture">Текстура существа</param>
+        /// <param name="inputNowPositionX">Позиция Х существа</param>
+        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="inputFrameSizeX">Размер фрейма по Х</param>
+        /// <param name="inputFrameSizeY">Размер фрейма по У</param>
+        /// <param name="inputNumberOfFramesX">Всего фреймов по Х</param>
+        /// <param name="inputNumberOfFramesY">Всего фреймов по У</param>
+        /// <param name="inputNowFrameNumberX">Текущий фрейм по Х</param>
+        /// <param name="inputNowFrameNumberY">Текущий фрейм по У</param>
+        /// <param name="inputSpeedX">Скорость существа по Х</param>
+        /// <param name="inputSpeedY">Скорость сущетства по У</param>
+        /// <param name="inputPlayer">Чье существо</param>
+        /// <param name="inputHP">Здоровье существа</param>
+        /// <param name="inputPower">Сила атаки существа</param>
+        /// <param name="inputStamina">Выносливость существа</param>
         public Creatures(
             Texture2D inputTexture,
             float inputNowPositionX,
@@ -203,29 +216,29 @@ namespace WarGame
         #endregion
         #region Methods
         /// <summary>
-        /// Initializes a new instance of the <see cref="Creatures"/> class.
+        /// Конструктор класса <see cref="Creatures" />.
         /// </summary>
         public Creatures() { }
         /// <summary>
-        /// Steps this instance.
+        /// Сдвинуть существ
         /// </summary>
-        /// <returns>System.Int32.</returns>
+        /// <returns>Урон существа, достигшего края экрана</returns>
         public abstract int Step();
         /// <summary>
-        /// Gets the rectangle image.
+        /// Размеры существа для отрисовки размера
         /// </summary>
-        /// <returns>Rectangle.</returns>
+        /// <returns>Rectangle</returns>
         public abstract Rectangle GetRectangleImage();
         /// <summary>
-        /// Gets the rectangle position.
+        /// Размеры существа для отрисовки положения
         /// </summary>
-        /// <returns>Rectangle.</returns>
+        /// <returns>Rectangle</returns>
         public abstract Rectangle GetRectanglePos();
         /// <summary>
-        /// Hits the creature.
+        /// Атака существа существом
         /// </summary>
-        /// <param name="defender">The defender.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="defender">Кто защищается</param>
+        /// <returns><c>true</c> если защищающийся убит, иначе <c>false</c></returns>
         public abstract bool HitCreature(Creatures defender);
         #endregion
     }

@@ -1,106 +1,125 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : WarGame
+// Author           : abros
+// Created          : 05-29-2022
+//
+// Last Modified By : abros
+// Last Modified On : 06-06-2022
+// ***********************************************************************
+// <copyright file="MenuState.cs" company="Kurgan State University">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using WarGame.ScreenComponent;
 
 namespace WarGame.States
 {
     /// <summary>
-    /// Class MenuState.
-    /// Implements the <see cref="WarGame.States.State" />
+    /// Класс игрового меню MenuState.
+    /// Унаследовано от <see cref="WarGame.States.State" />
     /// </summary>
     /// <seealso cref="WarGame.States.State" />
     public class MenuState : State
     {
         /// <summary>
-        /// The components of screen
+        /// Компоненты экрана
         /// </summary>
         private List<Component> components;
         /// <summary>
-        /// The back ground image
+        /// Фоновое изображение
         /// </summary>
         private Texture2D backGround;
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuState"/> class.
+        /// Конструктор класса <see cref="MenuState" />.
         /// </summary>
-        /// <param name="inputGame">The base GameWindow</param>
-        /// <param name="inputGraphicsDevice">The input graphics device.</param>
-        /// <param name="inputContent">The input ContentManager</param>
-        /// <param name="inputScreenSize">Size of the screen.</param>
+        /// <param name="inputGame">Инициализатор игры</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство</param>
+        /// <param name="inputContent">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размеры экрана</param>
         public MenuState(
-            Initializer inputGame, 
-            GraphicsDevice inputGraphicsDevice, 
-            ContentManager inputContent, 
-            XY inputScreenSize)
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContent,
+            CoordinatesXY inputScreenSize)
         : base(
-              inputGame, 
-              inputGraphicsDevice, 
-              inputContent, 
+              inputGame,
+              inputGraphicsDevice,
+              inputContent,
               inputScreenSize)
         {
             Texture2D newGameButtonTexture = inputContent.Load<Texture2D>("Buttons/NewGame");
             Texture2D quitButtonTexture = inputContent.Load<Texture2D>("Buttons/Exit");
             Texture2D scoreButtonTexture = inputContent.Load<Texture2D>("Buttons/Scores");
             Texture2D fieldTexture = inputContent.Load<Texture2D>("Buttons/ClearFieldBig");
-            Texture2D settingsTexture= inputContent.Load<Texture2D>("Buttons/Settings");
+            Texture2D settingsTexture = inputContent.Load<Texture2D>("Buttons/Settings");
             backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
             SpriteFont buttonFont = inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
 
+            //Кнопка новой игры
             Button newGameButton = new Button(newGameButtonTexture, buttonFont)
             {
                 Position = new Vector2(200, 200),
             };
-
             newGameButton.Click += NewGameButton_Click;
+
+            //Кнопка перехода к таблице рекордов
             var scoreButton = new Button(scoreButtonTexture, buttonFont)
             {
                 Position = new Vector2(200, 250),
             };
-
             scoreButton.Click += ScoreButton_Click;
 
+            //переход к настройкам
             var settingsButton = new Button(settingsTexture, buttonFont)
             {
                 Position = new Vector2(200, 300),
             };
-
             settingsButton.Click += SettingsButton_Click;
+
+            //Выход из игры
             var quitGameButton = new Button(quitButtonTexture, buttonFont)
             {
                 Position = new Vector2(200, 350),
             };
-
             quitGameButton.Click += QuitGameButton_Click;
+
+            //список компонентов экрана
             components = new List<Component>()
-        {
-        newGameButton,
-        settingsButton,
-        scoreButton,
-        quitGameButton,
-        };
+            {
+                newGameButton,
+                settingsButton,
+                scoreButton,
+                quitGameButton,
+            };
         }
         /// <summary>
-        /// Draws the game state.
+        /// Отрисовать экран
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="spriteBatch">The sprite batch.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
+            //отрисовать фон
             spriteBatch.Draw(
                 backGround,
                 new Vector2(0, 0),
                 new Rectangle(0, 0, thisScreenSize.X, thisScreenSize.Y),
                 Color.White,
-                0f, 
+                0f,
                 Vector2.Zero,
                 1.0f,
                 SpriteEffects.None,
                 0f);
 
+            //Отрисовать компоненты
             foreach (var component in components)
                 component.Draw(gameTime, spriteBatch);
 
@@ -108,25 +127,25 @@ namespace WarGame.States
         }
 
         /// <summary>
-        /// Creates new gamebutton_click.
+        /// Событие нажатия кнопки новой игры
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">Источник события</param>
+        /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             thisGame.ChangeState(new StateSingleplayer(
-                thisGame, 
-                thisGraphicsDevice, 
-                thisContent, 
+                thisGame,
+                thisGraphicsDevice,
+                thisContent,
                 thisScreenSize));
         }
 
 
         /// <summary>
-        /// Open settingsk.
+        /// Событие нажатия кнопки настроек
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">Источник события</param>
+        /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             thisGame.ChangeState(new SettingsState(
@@ -137,23 +156,23 @@ namespace WarGame.States
         }
 
         /// <summary>
-        /// Handles the Click event of the ScoreButton control.
+        /// Событие нажатия кнопки таблицы рекордов
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">Истоник события</param>
+        /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void ScoreButton_Click(object sender, EventArgs e)
         {
             thisGame.ChangeState(new ScoreState(
-                thisGame, 
-                thisGraphicsDevice, 
-                thisContent, 
+                thisGame,
+                thisGraphicsDevice,
+                thisContent,
                 thisScreenSize));
         }
 
         /// <summary>
-        /// Updates buttons.
+        /// Обновить логику компонентов
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void Update(GameTime gameTime)
         {
             foreach (var component in components)
@@ -161,21 +180,20 @@ namespace WarGame.States
         }
 
         /// <summary>
-        /// Handles the Click event of the QuitGameButton control to quit the game.
+        /// Событие нажатия кнопки выход
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">Источник события</param>
+        /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void QuitGameButton_Click(object sender, EventArgs e)
         {
             thisGame.Exit();
         }
         /// <summary>
-        /// Action after update
+        /// Действие после обновления
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
+        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void PostUpdate(GameTime gameTime)
         {
-            // remove sprites if they're not needed
         }
     }
 }
