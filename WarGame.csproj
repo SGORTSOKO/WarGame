@@ -16,6 +16,7 @@
     <AssemblyName>WarGame</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="ClassDiagramm.cd" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
     <None Remove="Montserrat-Regular.spritefont" />

@@ -1,5 +1,0 @@
-var searchData=
-[
-  ['update_0',['Update',['../class_war_game_1_1_button.html#a42acabf4b89dc2861a33c8678d23b074',1,'WarGame.Button.Update()'],['../class_war_game_1_1_component.html#a8cc4f6b178eb69b4f5a33bbb8d3ee1c1',1,'WarGame.Component.Update()'],['../class_war_game_1_1_game_window.html#a19a07a38e6791b31503e50623fbb2315',1,'WarGame.GameWindow.Update()'],['../class_war_game_1_1_states_1_1_menu_state.html#a4023ac62b1c013fa77815495396d448b',1,'WarGame.States.MenuState.Update()'],['../class_war_game_1_1_states_1_1_score_state.html#a1a08f41aaed28988f5f0abddc1879cd0',1,'WarGame.States.ScoreState.Update()'],['../class_war_game_1_1_states_1_1_state.html#a3747775a2337e2bed11d90a074c75236',1,'WarGame.States.State.Update()'],['../class_war_game_1_1_state_singleplayer.html#af8db6c5e755d559faa87421f8c22921f',1,'WarGame.StateSingleplayer.Update()']]],
-  ['updatehighscores_1',['UpdateHighscores',['../class_war_game_1_1_score_manager.html#af58aa391b3868ceaf6851b3dbf31a9ab',1,'WarGame::ScoreManager']]]
-];

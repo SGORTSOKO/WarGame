@@ -67,7 +67,11 @@ namespace WarGame
         /// <param name="inputPlayer">The creature player.</param>
         /// <param name="inputNowPositionY">The creature input now position y.</param>
         /// <param name="inputTexture">The input creature texture.</param>
-        public void Add(string input, Player inputPlayer, int inputNowPositionY, Texture2D inputTexture)  //
+        public void Add(
+            string input, 
+            Player inputPlayer,
+            int inputNowPositionY,
+            Texture2D inputTexture)  //
         {
             if (input == "Human")
             {
@@ -188,7 +192,12 @@ namespace WarGame
                 {
                     foreach (Creatures Defender in mainList)
                     {
-                        if (!toDelete.Contains(Defender) && Attaker != Defender && Attaker.Player.Name != Defender.Player.Name && Attaker.GetRectanglePos().Intersects(Defender.GetRectanglePos()))
+                        if (
+                            !toDelete.Contains(Defender) && 
+                            Attaker != Defender && 
+                            Attaker.Player.Name != Defender.Player.Name && 
+                            Attaker.GetRectanglePos().Intersects(Defender.GetRectanglePos())
+                            )
                         {
                             attacking = true;
                             Attaker.SpeedX = 0;

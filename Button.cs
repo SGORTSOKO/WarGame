@@ -66,7 +66,11 @@ namespace WarGame
         /// <value>The rectangle.</value>
         public Rectangle Rectangle
         {
-            get => new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height);
+            get => new Rectangle(
+                (int)Position.X, 
+                (int)Position.Y, 
+                texture.Width, 
+                texture.Height);
         }
         /// <summary>
         /// Gets or sets the text in the button.
@@ -103,7 +107,11 @@ namespace WarGame
                     myX = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
                 if (myY <= 0)
                     myY = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2);
-                spriteBatch.DrawString(font, Text, new Vector2(myX, myY), PenColour);
+                spriteBatch.DrawString(
+                    font, 
+                    Text, 
+                    new Vector2(myX, myY), 
+                    PenColour);
             }
         }
         /// <summary>
@@ -114,7 +122,13 @@ namespace WarGame
         {
             previousMouse = currentMouse;
             currentMouse = Mouse.GetState();
-            var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
+
+            var mouseRectangle = new Rectangle(
+                currentMouse.X, 
+                currentMouse.Y, 
+                1, 
+                1);
+
             isHovering = false;
             if (mouseRectangle.Intersects(Rectangle))
             {

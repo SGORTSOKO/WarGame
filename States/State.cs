@@ -22,7 +22,7 @@ namespace WarGame.States
         /// <summary>
         /// The lint to base Game Window
         /// </summary>
-        protected GameWindow thisGame;
+        protected Initializer thisGame;
         /// <summary>
         /// The game screen size
         /// </summary>
@@ -36,7 +36,11 @@ namespace WarGame.States
         /// <param name="inputGraphicsDevice">The input graphics device.</param>
         /// <param name="inputContent">main ContentManager</param>
         /// <param name="inputScreenSize">Size of the screen.</param>
-        public State(GameWindow inputGame, GraphicsDevice inputGraphicsDevice, ContentManager inputContent, XY inputScreenSize)
+        public State(
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContent,
+            XY inputScreenSize)
         {
             thisGame = inputGame;
             thisGraphicsDevice = inputGraphicsDevice;

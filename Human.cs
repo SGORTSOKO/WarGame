@@ -314,7 +314,11 @@ namespace WarGame
         /// <returns>Rectangle.</returns>
         public override Rectangle GetRectangleImage()
         {
-            return new Rectangle(NowFrameNumberX * FrameSizeX, nowFrameNumberY * FrameSizeY, FrameSizeX, FrameSizeY);
+            return new Rectangle(
+                NowFrameNumberX * FrameSizeX, 
+                nowFrameNumberY * FrameSizeY, 
+                FrameSizeX, 
+                FrameSizeY);
         }
         /// <summary>
         /// Gets the human Rectangle position.
@@ -322,7 +326,11 @@ namespace WarGame
         /// <returns>Rectangle.</returns>
         public override Rectangle GetRectanglePos()
         {
-            return new Rectangle((int)NowPositionX, (int)NowPositionY, FrameSizeX, FrameSizeY);
+            return new Rectangle(
+                (int)NowPositionX, 
+                (int)NowPositionY, 
+                FrameSizeX, 
+                FrameSizeY);
         }
         #endregion
     }

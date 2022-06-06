@@ -44,7 +44,12 @@ namespace WarGame
         /// <param name="newHP">The player hp.</param>
         /// <param name="newType">player type</param>
         /// <param name="inputScreenSize">Size of the screen.</param>
-        public Player(string newName, Color color, int newHP, bool newType, XY inputScreenSize)
+        public Player(
+            string newName, 
+            Color color, 
+            int newHP, 
+            bool newType, 
+            XY inputScreenSize)
         {
             Name = newName;
             Color = color;

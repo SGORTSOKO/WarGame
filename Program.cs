@@ -13,7 +13,7 @@ namespace WarGame
         /// </summary>
         static void Main()
         {
-            using (var game = new GameWindow())
+            using (var game = new Initializer())
                 game.Run();
         }
     }
