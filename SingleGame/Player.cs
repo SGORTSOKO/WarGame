@@ -52,24 +52,24 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Конструктор класса <see cref="Player" />.
         /// </summary>
-        /// <param name="InputPlayerName">Имя игрока</param>
-        /// <param name="InputPlayerColor">Цвет существ игрока</param>
-        /// <param name="InputPlayerHP">Здоровье игрока</param>
-        /// <param name="InputPlayerType">Тип игрока</param>
-        /// <param name="InputScreenSize">Размер экрана по х</param>
+        /// <param name="inputPlayerName">Имя игрока</param>
+        /// <param name="inputPlayerColor">Цвет существ игрока</param>
+        /// <param name="inputPlayerHP">Здоровье игрока</param>
+        /// <param name="inputPlayerType">Тип игрока</param>
+        /// <param name="inputScreenSize">Размер экрана по х</param>
         public Player(
-            string InputPlayerName,
-            Color InputPlayerColor,
-            int InputPlayerHP,
-            bool InputPlayerType,
-            CoordinatesXY InputScreenSize)
+            string inputPlayerName,
+            Color inputPlayerColor,
+            int inputPlayerHP,
+            bool inputPlayerType,
+            CoordinatesXY inputScreenSize)
         {
-            Name = InputPlayerName;
-            Color = InputPlayerColor;
-            HP = InputPlayerHP;
-            Current = InputPlayerType;
-            HitBoxPositionX = InputScreenSize.CoordinateIntX;
-            ScreenSizeX = InputScreenSize.CoordinateIntX;
+            Name = inputPlayerName;
+            Color = inputPlayerColor;
+            HP = inputPlayerHP;
+            Current = inputPlayerType;
+            HitBoxPositionX = inputScreenSize.CoordinateIntX;
+            ScreenSizeX = inputScreenSize.CoordinateIntX;
         }
         #endregion
         #region Properties
@@ -137,10 +137,10 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Атаковать игрока
         /// </summary>
-        /// <param name="Power">Сила существа</param>
-        public void AttackMe(int Power)
+        /// <param name="power">Сила существа</param>
+        public void AttackMe(int power)
         {
-            HP -= Power;
+            HP -= power;
         }
         #endregion
     }

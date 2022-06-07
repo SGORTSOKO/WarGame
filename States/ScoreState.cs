@@ -50,27 +50,27 @@ namespace AKSU.States
         /// <summary>
         /// Конструктор класса <see cref="ScoreState" />.
         /// </summary>
-        /// <param name="InputGame">Инициализатор приложения</param>
-        /// <param name="InputGraphicsDevice">Графическое устройство</param>
-        /// <param name="InputContentManager">Менеджер контента</param>
-        /// <param name="InputScreenSize">Размеры экрана</param>
+        /// <param name="inputGame">Инициализатор приложения</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство</param>
+        /// <param name="inputContentManager">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размеры экрана</param>
         public ScoreState(
-            Initializer InputGame,
-            GraphicsDevice InputGraphicsDevice,
-            ContentManager InputContentManager,
-            CoordinatesXY InputScreenSize)
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContentManager,
+            CoordinatesXY inputScreenSize)
         : base(
-              InputGame,
-              InputGraphicsDevice,
-              InputContentManager,
-              InputScreenSize)
+              inputGame,
+              inputGraphicsDevice,
+              inputContentManager,
+              inputScreenSize)
         {
-            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
-            font = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
+            backGround = inputContentManager.Load<Texture2D>("BackGrounds/Road");
+            font = inputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
             currentScoreManager = ScoreManager.Load();
 
-            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
-                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка меню
+            Button MenuButton = new Button(inputContentManager.Load<Texture2D>("Buttons/Menu"), 
+                inputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка меню
             {
                 Position = new Vector2(thisScreenSize.CoordinateIntX * 0.01f, thisScreenSize.CoordinateIntY * 0.9f)
             };
@@ -84,13 +84,13 @@ namespace AKSU.States
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch)
         {
-            CurrentSpriteBatch.Begin();
+            currentSpriteBatch.Begin();
              
-            CurrentSpriteBatch.Draw( //Отрисовать фон
+            currentSpriteBatch.Draw( //Отрисовать фон
                 backGround,
                 new Vector2(0, 0),
                 new Rectangle(0,
@@ -105,9 +105,9 @@ namespace AKSU.States
                 0f);
 
             foreach (var Component in components) //Отрисовать компоненты
-                Component.Draw(CurrentGameTime, CurrentSpriteBatch);
+                Component.Draw(currentGameTime, currentSpriteBatch);
 
-            CurrentSpriteBatch.DrawString( //Отрисовать таблицу рекордов
+            currentSpriteBatch.DrawString( //Отрисовать таблицу рекордов
                 font,
                 "Highscores:\n" + 
                 string.Join(
@@ -120,30 +120,30 @@ namespace AKSU.States
                 new Vector2(300, 10),
                 Color.Black);
 
-            CurrentSpriteBatch.End();
+            currentSpriteBatch.End();
         }
         /// <summary>
         /// UОбновить логику компонентов
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime currentGameTime)
         {
             foreach (var Component in components)
-                Component.Update(CurrentGameTime);
+                Component.Update(currentGameTime);
         }
         /// <summary>
         /// Действие после обновления
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void PostUpdate(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void PostUpdate(GameTime currentGameTime)
         {
         }
         /// <summary>
         /// Обработчик события нажатия клавиши выхода в меню
         /// </summary>
-        /// <param name="Sender">Источник события</param>
+        /// <param name="sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        public void MenuButton_Click(object Sender, System.EventArgs e)
+        public void MenuButton_Click(object sender, System.EventArgs e)
         {
             currentGame.ChangeState(new MenuState(
                 currentGame,

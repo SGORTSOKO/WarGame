@@ -24,13 +24,13 @@ namespace AKSU.ScreenComponent
         /// <summary>
         /// Отрисовать компонент
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public abstract void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch);
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public abstract void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch);
         /// <summary>
         /// Обновить логику кнопки
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void Update(GameTime CurrentGameTime);
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void Update(GameTime currentGameTime);
     }
 }

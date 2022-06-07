@@ -41,28 +41,28 @@ namespace AKSU.States
         /// <summary>
         /// Конструктор класса <see cref="MenuState" />.
         /// </summary>
-        /// <param name="InputGame">Инициализатор игры</param>
-        /// <param name="InputGraphicsDevice">Графическое устройство</param>
-        /// <param name="InputContentManager">Менеджер контента</param>
-        /// <param name="InputScreenSize">Размеры экрана</param>
+        /// <param name="inputGame">Инициализатор игры</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство</param>
+        /// <param name="inputContentManager">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размеры экрана</param>
         public MenuState(
-            Initializer InputGame,
-            GraphicsDevice InputGraphicsDevice,
-            ContentManager InputContentManager,
-            CoordinatesXY InputScreenSize)
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContentManager,
+            CoordinatesXY inputScreenSize)
         : base(
-              InputGame,
-              InputGraphicsDevice,
-              InputContentManager,
-              InputScreenSize)
+              inputGame,
+              inputGraphicsDevice,
+              inputContentManager,
+              inputScreenSize)
         {
-            Texture2D NewGameButtonTexture = InputContentManager.Load<Texture2D>("Buttons/NewGame");
-            Texture2D QuitButtonTexture = InputContentManager.Load<Texture2D>("Buttons/Exit");
-            Texture2D ScoreButtonTexture = InputContentManager.Load<Texture2D>("Buttons/Scores");
-            Texture2D FieldTexture = InputContentManager.Load<Texture2D>("Buttons/ClearFieldBig");
-            Texture2D SettingsTexture = InputContentManager.Load<Texture2D>("Buttons/Settings");
-            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
-            SpriteFont ButtonFont = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
+            Texture2D NewGameButtonTexture = inputContentManager.Load<Texture2D>("Buttons/NewGame");
+            Texture2D QuitButtonTexture = inputContentManager.Load<Texture2D>("Buttons/Exit");
+            Texture2D ScoreButtonTexture = inputContentManager.Load<Texture2D>("Buttons/Scores");
+            Texture2D FieldTexture = inputContentManager.Load<Texture2D>("Buttons/ClearFieldBig");
+            Texture2D SettingsTexture = inputContentManager.Load<Texture2D>("Buttons/Settings");
+            backGround = inputContentManager.Load<Texture2D>("BackGrounds/Road");
+            SpriteFont ButtonFont = inputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
 
             Button NewGameButton = new Button(NewGameButtonTexture, ButtonFont) //Кнопка новой игры
             {
@@ -99,13 +99,13 @@ namespace AKSU.States
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch)
         {
-            CurrentSpriteBatch.Begin();
+            currentSpriteBatch.Begin();
 
-            CurrentSpriteBatch.Draw( //отрисовать фон
+            currentSpriteBatch.Draw( //отрисовать фон
                 backGround,
                 new Vector2(0, 0),
                 new Rectangle(0, 0, thisScreenSize.CoordinateIntX, thisScreenSize.CoordinateIntY),
@@ -117,17 +117,17 @@ namespace AKSU.States
                 0f);
 
             foreach (var Component in components) //Отрисовать компоненты
-                Component.Draw(CurrentGameTime, CurrentSpriteBatch);
+                Component.Draw(currentGameTime, currentSpriteBatch);
 
-            CurrentSpriteBatch.End();
+            currentSpriteBatch.End();
         }
 
         /// <summary>
         /// Событие нажатия кнопки новой игры
         /// </summary>
-        /// <param name="Sender">Источник события</param>
+        /// <param name="sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        private void NewGameButton_Click(object Sender, EventArgs e)
+        private void NewGameButton_Click(object sender, EventArgs e)
         {
             currentGame.ChangeState(new StateSingleplayer(
                 currentGame,
@@ -140,9 +140,9 @@ namespace AKSU.States
         /// <summary>
         /// Событие нажатия кнопки настроек
         /// </summary>
-        /// <param name="Sender">Источник события</param>
+        /// <param name="sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        private void SettingsButton_Click(object Sender, EventArgs e)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
             currentGame.ChangeState(new SettingsState(
                 currentGame,
@@ -154,9 +154,9 @@ namespace AKSU.States
         /// <summary>
         /// Событие нажатия кнопки таблицы рекордов
         /// </summary>
-        /// <param name="Sender">Истоник события</param>
+        /// <param name="sender">Истоник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        private void ScoreButton_Click(object Sender, EventArgs e)
+        private void ScoreButton_Click(object sender, EventArgs e)
         {
             currentGame.ChangeState(new ScoreState(
                 currentGame,
@@ -168,27 +168,27 @@ namespace AKSU.States
         /// <summary>
         /// Обновить логику компонентов
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime currentGameTime)
         {
             foreach (var Component in components)
-                Component.Update(CurrentGameTime);
+                Component.Update(currentGameTime);
         }
 
         /// <summary>
         /// Событие нажатия кнопки выход
         /// </summary>
-        /// <param name="Sender">Источник события</param>
+        /// <param name="sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        private void QuitGameButton_Click(object Sender, EventArgs e)
+        private void QuitGameButton_Click(object sender, EventArgs e)
         {
             currentGame.Exit();
         }
         /// <summary>
         /// Действие после обновления
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void PostUpdate(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void PostUpdate(GameTime currentGameTime)
         {
         }
     }

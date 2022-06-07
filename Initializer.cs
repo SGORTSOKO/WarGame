@@ -97,8 +97,8 @@ namespace AKSU
         /// Данный метод выполняется, после LoadContent() или сразу после выполнения Draw()
         /// Содержит бизнес-логику приложения
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        protected override void Update(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        protected override void Update(GameTime currentGameTime)
         {
             if (NextState != null) //Если определена следующая страница, то сменить
             {
@@ -106,32 +106,32 @@ namespace AKSU
                 NextState = null;
             }
             
-            CurrentState.Update(CurrentGameTime); //Обновить логику
+            CurrentState.Update(currentGameTime); //Обновить логику
             
-            CurrentState.PostUpdate(CurrentGameTime); //Очистка
+            CurrentState.PostUpdate(currentGameTime); //Очистка
 
-            base.Update(CurrentGameTime);
+            base.Update(currentGameTime);
         }
         /// <summary>
         /// Данный метод выполняется, после Update()
         /// Генерирует графическое содержание окна игры на основе данных метода Update()
         /// </summary>
-        /// <param name="CurrentgameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
-        protected override void Draw(GameTime CurrentgameTime)
+        /// <param name="сurrentGameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
+        protected override void Draw(GameTime сurrentGameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue); //Настроить цвет фона
             
-            CurrentState.Draw(CurrentgameTime, CurrentSpriteBatch); //Отрисовать текущую страницу
+            CurrentState.Draw(сurrentGameTime, CurrentSpriteBatch); //Отрисовать текущую страницу
 
-            base.Draw(CurrentgameTime);
+            base.Draw(сurrentGameTime);
         }
         /// <summary>
         /// Производит переход между игровыми меню и игровыми режимами> 
         /// </summary>
-        /// <param name="ChangeStateToNext">Объект абстрактного класса режимов игры и игровых меню</param>
-        public void ChangeState(BaseState ChangeStateToNext)
+        /// <param name="changeStateToNext">Объект абстрактного класса режимов игры и игровых меню</param>
+        public void ChangeState(BaseState changeStateToNext)
         {
-            NextState = ChangeStateToNext;
+            NextState = changeStateToNext;
         }
     }
 }

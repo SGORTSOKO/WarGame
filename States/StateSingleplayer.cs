@@ -114,20 +114,20 @@ namespace AKSU
         /// <summary>
         /// Конструктор класса <see cref="T:WarGame.StateSingleplayer" /> class.
         /// </summary>
-        /// <param name="InputGame">Класс-инициализатор</param>
-        /// <param name="InputGraphicsDevice">Графическое устройство</param>
-        /// <param name="InputContentManager">Менеджер контента</param>
-        /// <param name="InputScreenSize">Размер экрана</param>
+        /// <param name="inputGame">Класс-инициализатор</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство</param>
+        /// <param name="inputContentManager">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размер экрана</param>
         public StateSingleplayer(
-            Initializer InputGame,
-            GraphicsDevice InputGraphicsDevice,
-            ContentManager InputContentManager,
-            CoordinatesXY InputScreenSize)
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContentManager,
+            CoordinatesXY inputScreenSize)
             : base(
-                  InputGame,
-                  InputGraphicsDevice,
-                  InputContentManager,
-                  InputScreenSize)
+                  inputGame,
+                  inputGraphicsDevice,
+                  inputContentManager,
+                  inputScreenSize)
         {
 
             //счетчик очков
@@ -140,15 +140,15 @@ namespace AKSU
 
             currentScoreManager = ScoreManager.Load();
 
-            textBlock2 = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman"); //Загрузка шрифта
+            textBlock2 = inputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman"); //Загрузка шрифта
             
-            listOfTextures.Add(InputContentManager.Load<Texture2D>("Creatures/Human")); //Инициализаия списка существ с текстурами
+            listOfTextures.Add(inputContentManager.Load<Texture2D>("Creatures/Human")); //Инициализаия списка существ с текстурами
             
-            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road"); //Загрузка фона
+            backGround = inputContentManager.Load<Texture2D>("BackGrounds/Road"); //Загрузка фона
             
-            music = InputContentManager.Load<Song>("MainMusic"); // Загрузка музыки
+            music = inputContentManager.Load<Song>("MainMusic"); // Загрузка музыки
 
-            soundEnd = InputContentManager.Load<Song>("LoseSound"); //Загрузка звука окончания игры
+            soundEnd = inputContentManager.Load<Song>("LoseSound"); //Загрузка звука окончания игры
             
             MediaPlayer.Play(music); // Начать проигрывание мелодии
             
@@ -187,8 +187,8 @@ namespace AKSU
 
             MediaPlayer.Volume = 0.8f; //громкость музыки
 
-            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
-                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка выхода в меню
+            Button MenuButton = new Button(inputContentManager.Load<Texture2D>("Buttons/Menu"), 
+                inputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка выхода в меню
             {
                 Position = new Vector2(thisScreenSize.CoordinateIntX * 0.01f, 
                 thisScreenSize.CoordinateIntY * 0.9f)
@@ -204,8 +204,8 @@ namespace AKSU
         /// <summary>
         /// Обновление логики игры
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime currentGameTime)
         {
             timer2++;
             timer3++;
@@ -276,19 +276,19 @@ namespace AKSU
                 timer1++;
             }
             foreach (var Component in gameComponents) //Обновление игровых компонентов (кнопок)
-                Component.Update(CurrentGameTime);
+                Component.Update(currentGameTime);
         }
 
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch)
         {
-            CurrentSpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            currentSpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
-            CurrentSpriteBatch.Draw(
+            currentSpriteBatch.Draw(
                 backGround,
                 new Vector2(0, 0),
                 new Rectangle(
@@ -305,12 +305,12 @@ namespace AKSU
 
             foreach (var Component in gameComponents) //Отрисовать игровые компоненты
             {
-                Component.Draw(CurrentGameTime, CurrentSpriteBatch);
+                Component.Draw(currentGameTime, currentSpriteBatch);
             }
 
             for (int i = 0; i < playList.Count; i++) //Отрисовать существ
             {
-                CurrentSpriteBatch.Draw(
+                currentSpriteBatch.Draw(
                     playList[i].SelfTexture,
                     playList[i].NowPosition,
                     playList[i].GetRectangleImage(),
@@ -324,7 +324,7 @@ namespace AKSU
 
             if (winner != null) //Отрисовать надпись окончания игры
             {
-                CurrentSpriteBatch.DrawString(
+                currentSpriteBatch.DrawString(
                     textBlock2,
                     "GAME OVER",
                     new Vector2((thisScreenSize.CoordinateIntX) / 2.0f - 
@@ -333,13 +333,13 @@ namespace AKSU
             }
             else
             {
-                CurrentSpriteBatch.DrawString(
+                currentSpriteBatch.DrawString(
                     textBlock2,
                     Convert.ToString(leftPlayer.HP),
                     new Vector2(thisScreenSize.CoordinateIntX * 0.1f, thisScreenSize.CoordinateIntY * 0.9f),
                     leftPlayer.Color); //Отрисовывать здоровье игрока (левый)
 
-                CurrentSpriteBatch.DrawString(
+                currentSpriteBatch.DrawString(
                     textBlock2,
                     Convert.ToString(rightPlayer.HP),
                     new Vector2(thisScreenSize.CoordinateIntX * 0.9f - 
@@ -347,7 +347,7 @@ namespace AKSU
                         thisScreenSize.CoordinateIntY * 0.9f),
                     rightPlayer.Color); //Отрисовывать здоровье игрока (правй)
 
-                CurrentSpriteBatch.DrawString(
+                currentSpriteBatch.DrawString(
                     textBlock2,
                     Convert.ToString(timer1),
                     new Vector2(thisScreenSize.CoordinateIntX * 0.5f - 
@@ -355,14 +355,14 @@ namespace AKSU
                         thisScreenSize.CoordinateIntY * 0.9f),
                     Color.Black); //Отрисовывать текущий счёт
             }
-            CurrentSpriteBatch.End();
+            currentSpriteBatch.End();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки выхода в меню
         /// </summary>
-        /// <param name="Sender">Источник события</param>
+        /// <param name="sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        public void MenuButton_Click(object Sender, System.EventArgs e)
+        public void MenuButton_Click(object sender, System.EventArgs e)
         {
             MediaPlayer.Stop();
             currentGame.ChangeState(new MenuState(
@@ -374,8 +374,8 @@ namespace AKSU
         /// <summary>
         /// Действие после обновления
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void PostUpdate(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void PostUpdate(GameTime currentGameTime)
         {
         }
     }

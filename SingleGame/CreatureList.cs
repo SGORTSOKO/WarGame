@@ -63,12 +63,12 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Конструктор класса <see cref="CreatureList" />.
         /// </summary>
-        /// <param name="Left">Левый (текущий) игрок</param>
-        /// <param name="Right">Правый игрок</param>
-        public CreatureList(Player Left, Player Right)
+        /// <param name="inputLeftPlayer">Левый (текущий) игрок</param>
+        /// <param name="inputRightPlayer">Правый игрок</param>
+        public CreatureList(Player inputLeftPlayer, Player inputRightPlayer)
         {
-            leftPlayer = Left;
-            rightPlayer = Right;
+            leftPlayer = inputLeftPlayer;
+            rightPlayer = inputRightPlayer;
             mainList = new List<BaseCreatures>();
             toDelete = new List<BaseCreatures>();
         }
@@ -78,35 +78,35 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Добавить существо в список
         /// </summary>
-        /// <param name="InputCreature">The new creature</param>
-        public void Add(BaseCreatures InputCreature)
+        /// <param name="inputCreature">The new creature</param>
+        public void Add(BaseCreatures inputCreature)
         {
-            if (!mainList.Contains(InputCreature)) //Запрет дублирования  существ
+            if (!mainList.Contains(inputCreature)) //Запрет дублирования  существ
             {
-                mainList.Add(InputCreature);
+                mainList.Add(inputCreature);
             }
         }
 
         /// <summary>
         /// Добавить существо в список.
         /// </summary>
-        /// <param name="InputCreatureName">Имя (существа из предопределенных)</param>
-        /// <param name="InputPlayer">Кому принадлежит существо</param>
-        /// <param name="InputNowPositionY">Позиция существа по Y</param>
-        /// <param name="InputTexture">Текстура существа</param>
+        /// <param name="inputCreatureName">Имя (существа из предопределенных)</param>
+        /// <param name="inputPlayer">Кому принадлежит существо</param>
+        /// <param name="inputNowPositionY">Позиция существа по Y</param>
+        /// <param name="inputTexture">Текстура существа</param>
         public void Add(
-            string InputCreatureName,
-            Player InputPlayer,
-            int InputNowPositionY,
-            Texture2D InputTexture)
+            string inputCreatureName,
+            Player inputPlayer,
+            int inputNowPositionY,
+            Texture2D inputTexture)
         {
-            if (InputCreatureName == "Human")
+            if (inputCreatureName == "Human")
             {
                 mainList.Add(
                     new Human(
-                        InputTexture,
-                        InputPlayer,
-                        InputNowPositionY
+                        inputTexture,
+                        inputPlayer,
+                        inputNowPositionY
                         )
                     );
             }
@@ -167,12 +167,12 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Удалить несколько существ по требованию
         /// </summary>
-        /// <param name="Count">Количество к удалению</param>
-        public void DeleteSome(int Count)
+        /// <param name="count">Количество к удалению</param>
+        public void DeleteSome(int count)
         {
-            if (mainList.Count > Count * 5)
+            if (mainList.Count > count * 5)
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     mainList.RemoveAt(i);
                 }

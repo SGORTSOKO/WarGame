@@ -100,26 +100,26 @@ namespace AKSU.ScreenComponent
         /// <summary>
         /// Конструктор класса <see cref="Button" />.
         /// </summary>
-        /// <param name="InputTexture">Текстура кнопки</param>
-        /// <param name="InputFont">Шрифт кнопки</param>
-        public Button(Texture2D InputTexture, SpriteFont InputFont)
+        /// <param name="inputTexture">Текстура кнопки</param>
+        /// <param name="inputFont">Шрифт кнопки</param>
+        public Button(Texture2D inputTexture, SpriteFont inputFont)
         {
-            texture = InputTexture;
-            font = InputFont;
+            texture = inputTexture;
+            font = inputFont;
             PenColour = Color.Black;
         }
         /// <summary>
         /// Отрисовать кнопку
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch)
         {
             var colour = Color.White;
             if (isHovering)
                 colour = Color.Gray;
 
-            CurrentSpriteBatch.Draw(texture, Rectangle, colour);
+            currentSpriteBatch.Draw(texture, Rectangle, colour);
 
             
             if (!string.IsNullOrEmpty(Text)) //Если текст есть, то 
@@ -131,7 +131,7 @@ namespace AKSU.ScreenComponent
                     shiftY = (Rectangle.Y + (Rectangle.Height / 2)) - 
                         (font.MeasureString(Text).Y / 2);
 
-                CurrentSpriteBatch.DrawString( //Отрисовка текста
+                currentSpriteBatch.DrawString( //Отрисовка текста
                     font,
                     Text,
                     new Vector2(shiftX, shiftY),
@@ -142,8 +142,8 @@ namespace AKSU.ScreenComponent
         /// <summary>
         /// Расчет состояния кнопки
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime CurrentGameTime)
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime currentGameTime)
         {
             previousMouse = currentMouse; //Обновление состояния мыши
             currentMouse = Mouse.GetState();

@@ -45,37 +45,37 @@ namespace AKSU.States
         /// <summary>
         /// Конструктор класса <see cref="BaseState" />.
         /// </summary>
-        /// <param name="InputGame"> Класс-инициализатор</param>
-        /// <param name="InputGraphicsDevice">Графическое устройство.</param>
-        /// <param name="InputContentManager">Менеджер контента</param>
-        /// <param name="InputScreenSize">Размеры экрана</param>
+        /// <param name="inputGame"> Класс-инициализатор</param>
+        /// <param name="inputGraphicsDevice">Графическое устройство.</param>
+        /// <param name="inputContentManager">Менеджер контента</param>
+        /// <param name="inputScreenSize">Размеры экрана</param>
         public BaseState(
-            Initializer InputGame,
-            GraphicsDevice InputGraphicsDevice,
-            ContentManager InputContentManager,
-            CoordinatesXY InputScreenSize)
+            Initializer inputGame,
+            GraphicsDevice inputGraphicsDevice,
+            ContentManager inputContentManager,
+            CoordinatesXY inputScreenSize)
         {
-            currentGame = InputGame;
-            currentGraphicsDevice = InputGraphicsDevice;
-            currentContentManager = InputContentManager;
-            thisScreenSize = InputScreenSize;
+            currentGame = inputGame;
+            currentGraphicsDevice = inputGraphicsDevice;
+            currentContentManager = inputContentManager;
+            thisScreenSize = inputScreenSize;
         }
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
-        public abstract void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch);
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="currentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public abstract void Draw(GameTime currentGameTime, SpriteBatch currentSpriteBatch);
         /// <summary>
         /// Дейтсвие после обновления
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void PostUpdate(GameTime CurrentGameTime);
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void PostUpdate(GameTime currentGameTime);
         /// <summary>
         /// Обновить логику
         /// </summary>
-        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void Update(GameTime CurrentGameTime);
+        /// <param name="currentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void Update(GameTime currentGameTime);
         #endregion
     }
 }

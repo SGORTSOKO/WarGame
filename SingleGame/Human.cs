@@ -25,80 +25,29 @@ namespace AKSU.SingleGame
     {
         #region Constructors
         /// <summary>
-        /// Конструктор класса <see cref="BaseCreatures" />.
-        /// </summary>
-        /// <param name="InputTexture">Текстура существа</param>
-        /// <param name="InputNowPositionX">Позиция Х существа</param>
-        /// <param name="InputNowPositionY">Позиция У сущетсва</param>
-        /// <param name="InputFrameSizeX">Размер фрейма по Х</param>
-        /// <param name="InputFrameSizeY">Размер фрейма по У</param>
-        /// <param name="InputNumberOfFramesX">Всего фреймов по Х</param>
-        /// <param name="InputNumberOfFramesY">Всего фреймов по У</param>
-        /// <param name="InputNowFrameNumberX">Текущий фрейм по Х</param>
-        /// <param name="InputNowFrameNumberY">Текущий фрейм по У</param>
-        /// <param name="InputSpeedX">Скорость существа по Х</param>
-        /// <param name="InputSpeedY">Скорость сущетства по У</param>
-        /// <param name="InputPlayer">Чье существо</param>
-        /// <param name="InputHP">Здоровье существа</param>
-        /// <param name="InputPower">Сила атаки существа</param>
-        /// <param name="InputStamina">Выносливость существа</param>
-        public Human(
-            Texture2D InputTexture,
-            int InputNowPositionX,
-            int InputNowPositionY,
-            int InputFrameSizeX,
-            int InputFrameSizeY,
-            int InputNumberOfFramesX,
-            int InputNumberOfFramesY,
-            int InputNowFrameNumberX,
-            int InputNowFrameNumberY,
-            float InputSpeedX,
-            float InputSpeedY,
-            Player InputPlayer,
-            int InputHP,
-            int InputPower,
-            int InputStamina) :
-            base(
-                InputTexture,
-                InputNowPositionX,
-                InputNowPositionY,
-                InputFrameSizeX,
-                InputFrameSizeY,
-                InputNumberOfFramesX,
-                InputNumberOfFramesY,
-                InputNowFrameNumberX,
-                InputNowFrameNumberY,
-                InputSpeedX,
-                InputSpeedY,
-                InputPlayer,
-                InputHP,
-                InputPower,
-                InputStamina)
-        { }
-        /// <summary>
         /// Конструктор класса <see cref="Human" />.
         /// </summary>
-        /// <param name="InputTexture">Текстура существа</param>
-        /// <param name="InputPlayer">Чье существо</param>
-        /// <param name="InputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="inputTexture">Текстура существа</param>
+        /// <param name="inputPlayer">Чье существо</param>
+        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
         public Human(
-            Texture2D InputTexture,
-            Player InputPlayer,
-            int InputNowPositionY) :
+            Texture2D inputTexture,
+            Player inputPlayer,
+            int inputNowPositionY) :
             base(
-                InputTexture,
-                InputPlayer.HitBoxPositionX - 
-                    InputTexture.Width / 16,
-                InputNowPositionY,
-                InputTexture.Width / 8,
-                InputTexture.Height / 2,
+                inputTexture,
+                inputPlayer.HitBoxPositionX - 
+                    inputTexture.Width / 16,
+                inputNowPositionY,
+                inputTexture.Width / 8,
+                inputTexture.Height / 2,
                 8,
                 2,
                 0,
                 0,
                 30,
                 0,
-                InputPlayer,
+                inputPlayer,
                 100,
                 20,
                 1)
@@ -294,18 +243,18 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Атаковать иное существо
         /// </summary>
-        /// <param name="Вefender">Защищающееся существо</param>
+        /// <param name="defender">Защищающееся существо</param>
         /// <returns><c>true</c> если защищающийся мертв, иначе <c>false</c>.</returns>
-        public override bool HitCreature(BaseCreatures Вefender)
+        public override bool HitCreature(BaseCreatures defender)
         {
             if (сreatureStamina > 0) //Если атакующий еще имеет выносливость
             {
                 сreatureStamina--;
-                Вefender.HP -= Power;
+                defender.HP -= Power;
                 
-                if (Вefender.HP <= 0) //Если здоровье защищающегося ниже 0
+                if (defender.HP <= 0) //Если здоровье защищающегося ниже 0
                 {
-                    Вefender.Power = 0;
+                    defender.Power = 0;
                     return true;
                 }
             }

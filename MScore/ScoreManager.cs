@@ -44,20 +44,20 @@ namespace AKSU.MScore
         /// <summary>
         /// Конструктор класса <see cref="ScoreManager" />.
         /// </summary>
-        /// <param name="InputScores">Таблица лидеров</param>
-        public ScoreManager(List<Score> InputScores)
+        /// <param name="inputScores">Таблица лидеров</param>
+        public ScoreManager(List<Score> inputScores)
         {
-            Scores = InputScores;
+            Scores = inputScores;
 
             UpdateHighscores();
         }
         /// <summary>
         /// Добавить строку таблицы.
         /// </summary>
-        /// <param name="InputScore"> Строка таблицы лидеров </param>
-        public void Add(Score InputScore)
+        /// <param name="inputScore"> Строка таблицы лидеров </param>
+        public void Add(Score inputScore)
         {
-            Scores.Add(InputScore);
+            Scores.Add(inputScore);
             Scores = Scores.OrderByDescending(c => c.Value).ToList();
             UpdateHighscores();
         }
@@ -91,15 +91,15 @@ namespace AKSU.MScore
         /// <summary>
         /// Сохранить все результаты в файл
         /// </summary>
-        /// <param name="ScoreManager">Менеджер таблицы</param>
-        public static void Save(ScoreManager ScoreManager)
+        /// <param name="scoreManager">Менеджер таблицы</param>
+        public static void Save(ScoreManager scoreManager)
         {
             using (var Writer = new StreamWriter(
                 new FileStream(fileName, FileMode.Create))) // Открыть файл для записи в режиме создания нового файла
             {
                 var Serilizer = new XmlSerializer(typeof(List<Score>)); //Сериализатор записи
                 
-                Serilizer.Serialize(Writer, ScoreManager.Scores); //Записать данные в xml формате
+                Serilizer.Serialize(Writer, scoreManager.Scores); //Записать данные в xml формате
             }
         }
     }
