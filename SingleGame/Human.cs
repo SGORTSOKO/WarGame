@@ -14,13 +14,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame.SingleGame
+namespace AKSU.SingleGame
 {
     /// <summary>
     /// Класс сущетсва Human.
-    /// Унаследовано от <see cref="WarGame.Creatures" />
+    /// Унаследовано от <see cref="AKSU.Creatures" />
     /// </summary>
-    /// <seealso cref="WarGame.Creatures" />
+    /// <seealso cref="AKSU.Creatures" />
     public class Human : Creatures
     {
         #region Constructors
@@ -115,72 +115,72 @@ namespace WarGame.SingleGame
         /// </summary>
         public override Texture2D SelfTexture
         {
-            get => selfTexture;
-            set => selfTexture = value;
+            get => CreatureTexture;
+            set => CreatureTexture = value;
         }
         /// <summary>
         /// Установить или вернуть зармер фрейма по Х
         /// </summary>
         public override int FrameSizeX
         {
-            get => frameSizeX;
-            set => frameSizeX = value;
+            get => CreatureFrameSizeX;
+            set => CreatureFrameSizeX = value;
         }
         /// <summary>
         /// Установить или вернуть размер фрейма по У
         /// </summary>
         public override int FrameSizeY
         {
-            get => frameSizeY;
-            set => frameSizeY = value;
+            get => CreatureFrameSizeY;
+            set => CreatureFrameSizeY = value;
         }
         /// <summary>
         /// Установить или вернуть количество фреймов по Ч
         /// </summary>
         public override int NumberOfFramesX
         {
-            get => numberOfFramesX;
-            set => numberOfFramesX = value;
+            get => CreatureNumberOfFramesX;
+            set => CreatureNumberOfFramesX = value;
         }
         /// <summary>
         /// Установить или вернуть количество фреймов по У
         /// </summary>
         public override int NumberOfFramesY
         {
-            get => numberOfFramesY;
-            set => numberOfFramesY = value;
+            get => CreatureNumberOfFramesY;
+            set => CreatureNumberOfFramesY = value;
         }
         /// <summary>
         /// Установить или вернуть номер текущего фрейма по X
         /// </summary>
         public override int NowFrameNumberX
         {
-            get => nowFrameNumberX;
-            set => nowFrameNumberX = value;
+            get => CreatureNowFrameNumberX;
+            set => CreatureNowFrameNumberX = value;
         }
         /// <summary>
         /// Установить или вернуть номер текущего фрейма по У
         /// </summary>
         public override int NowFrameNumberY
         {
-            get => nowFrameNumberY;
-            set => nowFrameNumberY = value;
+            get => CreatureNowFrameNumberY;
+            set => CreatureNowFrameNumberY = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию по Х
         /// </summary>
         public override float NowPositionX
         {
-            get => position.X;
-            set => position.X = value;
+            get => CreaturePosition.X;
+            set => CreaturePosition.X = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию по У
         /// </summary>
         public override float NowPositionY
         {
-            get => position.Y;
-            set => position.Y = value;
+            get => CreaturePosition.Y;
+            set => CreaturePosition.Y = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию
@@ -188,34 +188,34 @@ namespace WarGame.SingleGame
         /// <value> Vector2 позиция</value>
         public override Vector2 NowPosition
         {
-            get => position;
-            set => position = value;
+            get => CreaturePosition;
+            set => CreaturePosition = value;
         }
         /// <summary>
         /// Установить или вернуть скорость по Х
         /// </summary>
         public override float SpeedX
         {
-            get => speedX;
-            set => speedX = value;
+            get => CreatureSpeedX;
+            set => CreatureSpeedX = value;
         }
         /// <summary>
         /// Установить или вернуть скорость по У
         /// </summary>
         public override float SpeedY
         {
-            get => speedY;
-            set => speedY = value;
+            get => CreatureSpeedY;
+            set => CreatureSpeedY = value;
         }
         /// <summary>
         /// Установить или вернуть игрока существа
         /// </summary>
         public override Player Player
         {
-            get => player;
+            get => CreaturePlayer;
             set
             {
-                player = value;
+                CreaturePlayer = value;
                 //Автоматически определить текущий фрейм по Y
                 if (value.Current == true)
                 {
@@ -232,24 +232,24 @@ namespace WarGame.SingleGame
         /// </summary>
         public override int HP
         {
-            get => hitPoints;
-            set => hitPoints = value;
+            get => CreatureHitPoints;
+            set => CreatureHitPoints = value;
         }
         /// <summary>
         /// Установить или вернуть силу атаки существа
         /// </summary>
         public override int Power
         {
-            get => power;
-            set => power = value;
+            get => CreaturePower;
+            set => CreaturePower = value;
         }
         /// <summary>
         /// Установить или вернуть выносливость
         /// </summary>
         public override int Stamina
         {
-            get => stamina;
-            set => stamina = value;
+            get => CreatureStamina;
+            set => CreatureStamina = value;
         }
         #endregion
         #region Methods
@@ -260,17 +260,17 @@ namespace WarGame.SingleGame
         public override int Step()
         { 
             //Если левый (текущий), то
-            if (player.Current == true)
+            if (CreaturePlayer.Current == true)
             {
                 //Движение вправо
-                position.X += SpeedX;
-                nowFrameNumberX++;
-                if (nowFrameNumberX == numberOfFramesX)
+                CreaturePosition.X += SpeedX;
+                CreatureNowFrameNumberX++;
+                if (CreatureNowFrameNumberX == CreatureNumberOfFramesX)
                 {
-                    nowFrameNumberX = 0;
+                    CreatureNowFrameNumberX = 0;
                 }
                 //Если достиг края экрана
-                if (position.X > player.ScreenSizeX + frameSizeX / 2)
+                if (CreaturePosition.X > CreaturePlayer.ScreenSizeX + CreatureFrameSizeX / 2)
                 {
                     return Power;
                 }
@@ -278,14 +278,14 @@ namespace WarGame.SingleGame
             else
             {
                 //Движение влево
-                position.X -= SpeedX;
-                if (nowFrameNumberX == 0)
+                CreaturePosition.X -= SpeedX;
+                if (CreatureNowFrameNumberX == 0)
                 {
-                    nowFrameNumberX = numberOfFramesX;
+                    CreatureNowFrameNumberX = CreatureNumberOfFramesX;
                 }
-                nowFrameNumberX--;
+                CreatureNowFrameNumberX--;
                 //Если достиг края экрана
-                if (position.X < 0 - frameSizeX / 2)
+                if (CreaturePosition.X < 0 - CreatureFrameSizeX / 2)
                 {
                     return Power;
                 }
@@ -301,9 +301,9 @@ namespace WarGame.SingleGame
         public override bool HitCreature(Creatures defender)
         {
             //Если атакующий еще имеет выносливость
-            if (stamina > 0)
+            if (CreatureStamina > 0)
             {
-                stamina--;
+                CreatureStamina--;
                 defender.HP -= Power;
                 //Если здоровье защищающегося ниже 0
                 if (defender.HP <= 0)
@@ -322,7 +322,7 @@ namespace WarGame.SingleGame
         {
             return new Rectangle(
                 NowFrameNumberX * FrameSizeX,
-                nowFrameNumberY * FrameSizeY,
+                CreatureNowFrameNumberY * FrameSizeY,
                 FrameSizeX,
                 FrameSizeY);
         }

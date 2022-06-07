@@ -16,7 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace WarGame.MScore
+namespace AKSU.MScore
 {
     /// <summary>
     /// Класс, отвечающий за сохранение результатов игры и вывод таблицы рекордов
@@ -26,7 +26,7 @@ namespace WarGame.MScore
         /// <summary>
         /// Файл таблицы рекордов
         /// </summary>
-        private static string filename = "scores.xml";
+        private static string Filename = "scores.xml";
         /// <summary>
         /// Только строки таблицы на вывод
         /// </summary>
@@ -45,19 +45,19 @@ namespace WarGame.MScore
         /// Конструктор класса <see cref="ScoreManager" />.
         /// </summary>
         /// <param name="inputScores">Таблица лидеров</param>
-        public ScoreManager(List<Score> inputScores)
+        public ScoreManager(List<Score> InputScores)
         {
-            Scores = inputScores;
+            Scores = InputScores;
 
             UpdateHighscores();
         }
         /// <summary>
         /// Добавить строку таблицы.
         /// </summary>
-        /// <param name="inputScore"> Строка таблицы лидеров </param>
-        public void Add(Score inputScore)
+        /// <param name="InputScore"> Строка таблицы лидеров </param>
+        public void Add(Score InputScore)
         {
-            Scores.Add(inputScore);
+            Scores.Add(InputScore);
             Scores = Scores.OrderByDescending(c => c.Value).ToList();
             UpdateHighscores();
         }
@@ -68,18 +68,18 @@ namespace WarGame.MScore
         public static ScoreManager Load()
         {
             // Если файл не существет, то создать пустой менеджер
-            if (!File.Exists(filename))
+            if (!File.Exists(Filename))
                 return new ScoreManager();
 
             //Прочитать файл
-            using (var reader = new StreamReader(new FileStream(filename, FileMode.Open)))
+            using (var Reader = new StreamReader(new FileStream(Filename, FileMode.Open)))
             {
                 //Сериализатор записи
-                var serilizer = new XmlSerializer(typeof(List<Score>));
+                var Serilizer = new XmlSerializer(typeof(List<Score>));
                 //Считать данные из формата xml
-                var scores = (List<Score>)serilizer.Deserialize(reader);
+                var Scores = (List<Score>)Serilizer.Deserialize(Reader);
 
-                return new ScoreManager(scores);
+                return new ScoreManager(Scores);
             }
         }
         /// <summary>
@@ -93,16 +93,16 @@ namespace WarGame.MScore
         /// <summary>
         /// Сохранить все результаты в файл
         /// </summary>
-        /// <param name="scoreManager">Менеджер таблицы</param>
-        public static void Save(ScoreManager scoreManager)
+        /// <param name="ScoreManager">Менеджер таблицы</param>
+        public static void Save(ScoreManager ScoreManager)
         {
             // Открыть файл для записи в режиме создания нового файла
-            using (var writer = new StreamWriter(new FileStream(filename, FileMode.Create)))
+            using (var Writer = new StreamWriter(new FileStream(Filename, FileMode.Create)))
             {
                 //Сериализатор записи
-                var serilizer = new XmlSerializer(typeof(List<Score>));
+                var Serilizer = new XmlSerializer(typeof(List<Score>));
                 //Записать данные в xml формате
-                serilizer.Serialize(writer, scoreManager.Scores);
+                Serilizer.Serialize(Writer, ScoreManager.Scores);
             }
         }
     }

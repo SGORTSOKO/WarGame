@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame.States
+namespace AKSU.States
 {
     /// <summary>
     /// Абстрактный класс. Потомки этого класса - окна приложения (game states):
@@ -27,55 +27,55 @@ namespace WarGame.States
         /// <summary>
         /// TМенеджер контента игры
         /// </summary>
-        protected ContentManager thisContent;
+        protected ContentManager CurrentContentManager;
         /// <summary>
         /// Графическое устройство
         /// </summary>
-        protected GraphicsDevice thisGraphicsDevice;
+        protected GraphicsDevice CurrentGraphicsDevice;
         /// <summary>
         /// TИнициализатор игры
         /// </summary>
-        protected Initializer thisGame;
+        protected Initializer CurrentGame;
         /// <summary>
         /// Размеры экрана
         /// </summary>
-        protected CoordinatesXY thisScreenSize;
+        protected CoordinatesXY ThisScreenSize;
         #endregion
         #region Methods
         /// <summary>
         /// Конструктор класса <see cref="State" />.
         /// </summary>
-        /// <param name="inputGame"> Класс-инициализатор</param>
-        /// <param name="inputGraphicsDevice">Графическое устройство.</param>
-        /// <param name="inputContent">Менеджер контента</param>
-        /// <param name="inputScreenSize">Размеры экрана</param>
+        /// <param name="InputGame"> Класс-инициализатор</param>
+        /// <param name="InputGraphicsDevice">Графическое устройство.</param>
+        /// <param name="InputContentManager">Менеджер контента</param>
+        /// <param name="InputScreenSize">Размеры экрана</param>
         public State(
-            Initializer inputGame,
-            GraphicsDevice inputGraphicsDevice,
-            ContentManager inputContent,
-            CoordinatesXY inputScreenSize)
+            Initializer InputGame,
+            GraphicsDevice InputGraphicsDevice,
+            ContentManager InputContentManager,
+            CoordinatesXY InputScreenSize)
         {
-            thisGame = inputGame;
-            thisGraphicsDevice = inputGraphicsDevice;
-            thisContent = inputContent;
-            thisScreenSize = inputScreenSize;
+            CurrentGame = InputGame;
+            CurrentGraphicsDevice = InputGraphicsDevice;
+            CurrentContentManager = InputContentManager;
+            ThisScreenSize = InputScreenSize;
         }
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public abstract void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch);
         /// <summary>
         /// Дейтсвие после обновления
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void PostUpdate(GameTime gameTime);
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void PostUpdate(GameTime CurrentGameTime);
         /// <summary>
         /// Обновить логику
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void Update(GameTime gameTime);
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void Update(GameTime CurrentGameTime);
         #endregion
     }
 }

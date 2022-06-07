@@ -11,21 +11,24 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using WarGame.MScore;
-using WarGame.ScreenComponent;
-using WarGame.SingleGame;
-using WarGame.States;
+
+using AKSU.MScore;
+using AKSU.ScreenComponent;
+using AKSU.SingleGame;
+using AKSU.States;
 
 
-namespace WarGame
+namespace AKSU
 {
     /// <summary>
     /// Класс одиночной игры StateSingleplayer.
@@ -36,274 +39,284 @@ namespace WarGame
     {
         #region Fields
         /// <summary>
-        /// The list of textures
+        /// Список текстур существ
         /// </summary>
-        private List<Texture2D> listOfTextures = new List<Texture2D>();
+        private List<Texture2D> ListOfTextures = new List<Texture2D>();
         /// <summary>
-        /// The music
+        /// Музыка
         /// </summary>
-        private Song music;
+        private Song Music;
         /// <summary>
-        /// The sound end
+        /// Звук окончания игры
         /// </summary>
-        private Song soundEnd;
+        private Song SoundEnd;
         /// <summary>
-        /// The back ground
+        /// Фоновое  изображение
         /// </summary>
-        private Texture2D backGround;
+        private Texture2D BackGround;
         /// <summary>
-        /// The rand
+        /// Рандомизатор
         /// </summary>
-        private Random rand = new Random();
+        private Random Rand = new Random();
         /// <summary>
-        /// The text block2
+        /// Шрифт надписей
         /// </summary>
-        private SpriteFont textBlock2;
+        private SpriteFont TextBlock2;
         /// <summary>
-        /// The last mouse state
+        /// Последнее состояние мыши
         /// </summary>
-        private MouseState lastMouseState;
+        private MouseState LastMouseState;
         /// <summary>
-        /// The mouse position
+        /// Текущее положение мыши
         /// </summary>
-        private Vector2 mousePosition;
+        private Vector2 CurrentMousePosition;
         /// <summary>
-        /// The left
+        /// Левый игрок (текущий)
         /// </summary>
-        private Player left;
+        private Player Left;
         /// <summary>
-        /// The right
+        /// Правый игрок
         /// </summary>
-        private Player right;
+        private Player Right;
         /// <summary>
-        /// The winner
+        /// Победитель
         /// </summary>
-        private Player winner;
+        private Player Winner;
         /// <summary>
-        /// The play list
+        /// Список существ
         /// </summary>
-        private CreatureList playList;
+        private CreatureList PlayList;
         /// <summary>
-        /// The game components
+        /// Компоненты экрана игры
         /// </summary>
-        private List<Component> gameComponents;
+        private List<Component> GameComponents;
         /// <summary>
-        /// The score manager
+        /// Менеджер таблицы рекордов
         /// </summary>
-        private ScoreManager scoreManager;
+        private ScoreManager CurrentScoreManager;
         /// <summary>
-        /// The timer
+        /// Таймер счёта игрока
         /// </summary>
-        private int timer, timer2, timer3;
+        private int Timer1;
         /// <summary>
-        /// The single
+        /// Таймер появления существ правого игрока
         /// </summary>
-        private bool single;
+        private int Timer2;
+        /// <summary>
+        /// Таймер появления существ левого игрока
+        /// </summary>
+        private int Timer3;
+        /// <summary>
+        /// Маркер окончания игры для единоразового исполнения кода 
+        /// </summary>
+        private bool OneDoingAfterWin;
         #endregion
         /// <summary>
         /// Конструктор класса <see cref="T:WarGame.StateSingleplayer" /> class.
         /// </summary>
-        /// <param name="inputGame">Класс-инициализатор</param>
-        /// <param name="inputGraphicsDevice">Графическое устройство</param>
-        /// <param name="inputContent">Менеджер контента</param>
-        /// <param name="inputScreenSize">Размер экрана</param>
+        /// <param name="InputGame">Класс-инициализатор</param>
+        /// <param name="InputGraphicsDevice">Графическое устройство</param>
+        /// <param name="InputContentManager">Менеджер контента</param>
+        /// <param name="InputScreenSize">Размер экрана</param>
         public StateSingleplayer(
-            Initializer inputGame,
-            GraphicsDevice inputGraphicsDevice,
-            ContentManager inputContent,
-            CoordinatesXY inputScreenSize)
+            Initializer InputGame,
+            GraphicsDevice InputGraphicsDevice,
+            ContentManager InputContentManager,
+            CoordinatesXY InputScreenSize)
             : base(
-                  inputGame,
-                  inputGraphicsDevice,
-                  inputContent,
-                  inputScreenSize)
+                  InputGame,
+                  InputGraphicsDevice,
+                  InputContentManager,
+                  InputScreenSize)
         {
 
             //счетчик очков
-            timer = 0;
+            Timer1 = 0;
 
-            //счетчики спавна существ
-            timer2 = 0;
-            timer3 = 0;
+            Timer2 = 0; //счетчик спавна существ юота
+            Timer3 = 0; //счетчик спавна существ игрока
 
-            //флаг уникального действия при окончании игры
-            single = true;
+            OneDoingAfterWin = true; //флаг уникального действия при окончании игры
 
-            scoreManager = ScoreManager.Load();
-            textBlock2 = inputContent.Load<SpriteFont>("Fonts/TimesNewRoman");
-            listOfTextures.Add(inputContent.Load<Texture2D>("Creatures/Human"));
-            backGround = inputContent.Load<Texture2D>("BackGrounds/Road");
+            CurrentScoreManager = ScoreManager.Load();
+            TextBlock2 = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman");
+            ListOfTextures.Add(InputContentManager.Load<Texture2D>("Creatures/Human"));
+            BackGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
             // Pfuheprf vepsrb
-            music = inputContent.Load<Song>("MainMusic");
-            soundEnd = inputContent.Load<Song>("LoseSound");
+            Music = InputContentManager.Load<Song>("MainMusic");
+            SoundEnd = InputContentManager.Load<Song>("LoseSound");
             // Начать проигрывание мелодии
-            MediaPlayer.Play(music);
+            MediaPlayer.Play(Music);
             // Повторять после завершения
             MediaPlayer.IsRepeating = true;
 
-            string textNamePlayer;
+            string TextNamePlayer;
 
             //Чтение имени игрока  из файла настроек
             if (File.Exists("Content/PlayerData.ini"))
-                using (StreamReader reader = new StreamReader("Content/PlayerData.ini"))
+                using (StreamReader Reader = new StreamReader("Content/PlayerData.ini"))
                 {
-                    textNamePlayer = reader.ReadLine();
-                    if (textNamePlayer.Length < 1)
+                    TextNamePlayer = Reader.ReadLine();
+                    if (TextNamePlayer.Length < 1)
                     {
-                        textNamePlayer = "PLAYER";
+                        TextNamePlayer = "PLAYER";
                     }
                 }
             else
-                using (StreamWriter writer = new StreamWriter("Content/PlayerData.ini", false))
+                using (StreamWriter Writer = new StreamWriter("Content/PlayerData.ini", false))
                 {
                     //Восстановить файл настроек при его отсутствии
-                    writer.WriteLine("PLAYER");
-                    textNamePlayer = "PLAYER";
+                    Writer.WriteLine("PLAYER");
+                    TextNamePlayer = "PLAYER";
                 }
 
             //Левый игрок (текущий)
-            left = new Player(
-                textNamePlayer,
+            Left = new Player(
+                TextNamePlayer,
                 Color.Blue,
                 1000,
                 true,
-                thisScreenSize);
+                ThisScreenSize);
 
             //Правый игрок (бот)
-            right = new Player(
+            Right = new Player(
                 "BOT",
                 Color.Red,
                 1000000,
                 false,
-                thisScreenSize);
+                ThisScreenSize);
 
             //победитель
-            winner = null;
+            Winner = null;
 
             //обработчик логики сражения
-            playList = new CreatureList(left, right);
+            PlayList = new CreatureList(Left, Right);
 
             //громкость музыки
             MediaPlayer.Volume = 0.8f;
 
             //Кнопка выхода в меню
-            Button menuButton = new Button(inputContent.Load<Texture2D>("Buttons/Menu"), inputContent.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
+            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
+                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
             {
-                Position = new Vector2(thisScreenSize.X * 0.01f, thisScreenSize.Y * 0.9f)
+                Position = new Vector2(ThisScreenSize.CoordinateIntX * 0.01f, 
+                ThisScreenSize.CoordinateIntY * 0.9f)
             };
-            menuButton.Click += MenuButton_Click;
+            MenuButton.Click += MenuButton_Click;
 
-            gameComponents = new List<Component>()
+            GameComponents = new List<Component>()
             {
-                menuButton,
+                MenuButton,
             };
         }
 
         /// <summary>
         /// Обновление логики игры
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime gameTime)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime CurrentGameTime)
         {
-            timer2++;
-            timer3++;
+            Timer2++;
+            Timer3++;
 
             //Состояние мыши
-            MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.X != lastMouseState.X || currentMouseState.Y != lastMouseState.Y)
+            MouseState CurrentMouseState = Mouse.GetState();
+            if (CurrentMouseState.X != LastMouseState.X || 
+                CurrentMouseState.Y != LastMouseState.Y)
             {
-                mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+                CurrentMousePosition = new Vector2(CurrentMouseState.X, 
+                    CurrentMouseState.Y);
             }
-            lastMouseState = currentMouseState;
+            LastMouseState = CurrentMouseState;
 
             //Если победитель определен
-            if (winner != null)
+            if (Winner != null)
             {
-                if (single)
+                if (OneDoingAfterWin)
                 {
                     //Звуки
                     MediaPlayer.Stop();
                     MediaPlayer.IsRepeating = false;
                     MediaPlayer.Volume = 0.1f;
-                    MediaPlayer.Play(soundEnd);
+                    MediaPlayer.Play(SoundEnd);
 
                     //Очистка обработчика игры
-                    single = false;
-                    playList.Clear();
+                    OneDoingAfterWin = false;
+                    PlayList.Clear();
 
                     //Обновление таблицы рекордов
-                    scoreManager.Add(new Score()
+                    CurrentScoreManager.Add(new Score()
                     {
-                        PlayerName = left.Name,
-                        Value = timer + (1000000 - right.HP) * (int)Math.Log10(timer),
+                        PlayerName = Left.Name,
+                        Value = Timer1 + (1000000 - Right.HP) * (int)Math.Log10(Timer1),
                     });
-                    ScoreManager.Save(scoreManager);
+                    ScoreManager.Save(CurrentScoreManager);
                 }
             }
             //Если победитель не определен
             else
             {
                 //Случайная сортировка
-                playList.RandSort();
+                PlayList.RandSort();
                 //Обновить характеристики существ
-                playList.ResetStats();
+                PlayList.ResetStats();
                 //Создание существ бота с уменьшащейся периодичностью
-                if (timer2 % (10 - (int)Math.Log10(timer2)) == 0)
+                if (Timer2 % (10 - (int)Math.Log10(Timer2)) == 0)
                 {
-                    playList.Add(
+                    PlayList.Add(
                         "Human",
-                        right,
-                        rand.Next(0, (int)(thisScreenSize.Y * 0.8)),
-                        listOfTextures[0]);
+                        Right,
+                        Rand.Next(0, (int)(ThisScreenSize.CoordinateIntY * 0.8)),
+                        ListOfTextures[0]);
                 }
 
                 //Раунд атак существ
-                playList.AttackRound();
+                PlayList.AttackRound();
 
                 //Если один игрок потерял всё здоровье
-                winner = playList.StepAll();
+                Winner = PlayList.StepAll();
 
                 //Создание существ игрока
-                if (currentMouseState.LeftButton == ButtonState.Pressed)
+                if (CurrentMouseState.LeftButton == ButtonState.Pressed)
                 {
                     if (
-                        0 <= currentMouseState.Y &&
-                        currentMouseState.Y <= thisScreenSize.Y * 0.8f &&
-                        timer3 > 8 - (int)Math.Log10(timer2))
+                        0 <= CurrentMouseState.Y &&
+                        CurrentMouseState.Y <= ThisScreenSize.CoordinateIntY * 0.8f &&
+                        Timer3 > 8 - (int)Math.Log10(Timer2))
                     {
-                        timer3 = 0;
-                        playList.Add(
+                        Timer3 = 0;
+                        PlayList.Add(
                             "Human",
-                            left,
-                            currentMouseState.Y,
-                            listOfTextures[0]);
+                            Left,
+                            CurrentMouseState.Y,
+                            ListOfTextures[0]);
                     }
                 }
-                timer++;
+                Timer1++;
             }
             //Обновление игровых компонентов (кнопок)
-            foreach (Component component in gameComponents)
-                component.Update(gameTime);
+            foreach (var Component in GameComponents)
+                Component.Update(CurrentGameTime);
         }
 
         /// <summary>
         /// Отрисовать экран
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            CurrentSpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
             //Отрисовать фон
-            spriteBatch.Draw(
-                backGround,
+            CurrentSpriteBatch.Draw(
+                BackGround,
                 new Vector2(0, 0),
                 new Rectangle(
                     0,
                     0,
-                    thisScreenSize.X,
-                    thisScreenSize.Y),
+                    ThisScreenSize.CoordinateIntX,
+                    ThisScreenSize.CoordinateIntY),
                 Color.White,
                 0f,
                 Vector2.Zero,
@@ -312,79 +325,84 @@ namespace WarGame
                 0f);
 
             //Отрисовать игровые компоненты
-            foreach (Component component in gameComponents)
+            foreach (var Component in GameComponents)
             {
-                component.Draw(gameTime, spriteBatch);
+                Component.Draw(CurrentGameTime, CurrentSpriteBatch);
             }
 
             //Отрисовать существ
-            for (int i = 0; i < playList.Count; i++)
+            for (int i = 0; i < PlayList.Count; i++)
             {
-                spriteBatch.Draw(
-                    playList[i].SelfTexture,
-                    playList[i].NowPosition,
-                    playList[i].GetRectangleImage(),
-                    playList[i].Player.Color,
+                CurrentSpriteBatch.Draw(
+                    PlayList[i].SelfTexture,
+                    PlayList[i].NowPosition,
+                    PlayList[i].GetRectangleImage(),
+                    PlayList[i].Player.Color,
                     0,
                     Vector2.Zero,
-                    thisScreenSize.X / 1920f
+                    ThisScreenSize.CoordinateIntX / 1920f
                     , SpriteEffects.None,
                     0);
             }
 
             //Отрисовать надпись окончания игры
-            if (winner != null)
+            if (Winner != null)
             {
-                spriteBatch.DrawString(
-                    textBlock2,
+                CurrentSpriteBatch.DrawString(
+                    TextBlock2,
                     "GAME OVER",
-                    new Vector2((thisScreenSize.X) / 2.0f - textBlock2.MeasureString("GAME OVER").X, thisScreenSize.Y * 0.8f),
-                    winner.Color);
+                    new Vector2((ThisScreenSize.CoordinateIntX) / 2.0f - 
+                    TextBlock2.MeasureString("GAME OVER").X, ThisScreenSize.CoordinateIntY * 0.8f),
+                    Winner.Color);
             }
             else
             {
                 //Отрисовывать здоровье игрока (левый)
-                spriteBatch.DrawString(
-                    textBlock2,
-                    Convert.ToString(left.HP),
-                    new Vector2(thisScreenSize.X * 0.1f, thisScreenSize.Y * 0.9f),
-                    left.Color);
+                CurrentSpriteBatch.DrawString(
+                    TextBlock2,
+                    Convert.ToString(Left.HP),
+                    new Vector2(ThisScreenSize.CoordinateIntX * 0.1f, ThisScreenSize.CoordinateIntY * 0.9f),
+                    Left.Color);
 
                 //Отрисовывать здоровье игрока (правй)
-                spriteBatch.DrawString(
-                    textBlock2,
-                    Convert.ToString(right.HP),
-                    new Vector2(thisScreenSize.X * 0.9f - textBlock2.MeasureString(Convert.ToString(right.HP)).X, thisScreenSize.Y * 0.9f),
-                    right.Color);
+                CurrentSpriteBatch.DrawString(
+                    TextBlock2,
+                    Convert.ToString(Right.HP),
+                    new Vector2(ThisScreenSize.CoordinateIntX * 0.9f - 
+                        TextBlock2.MeasureString(Convert.ToString(Right.HP)).X, 
+                        ThisScreenSize.CoordinateIntY * 0.9f),
+                    Right.Color);
 
                 //Отрисовывать текущий счёт
-                spriteBatch.DrawString(
-                    textBlock2,
-                    Convert.ToString(timer),
-                    new Vector2(thisScreenSize.X * 0.5f - textBlock2.MeasureString(Convert.ToString(playList.Count)).X, thisScreenSize.Y * 0.9f),
+                CurrentSpriteBatch.DrawString(
+                    TextBlock2,
+                    Convert.ToString(Timer1),
+                    new Vector2(ThisScreenSize.CoordinateIntX * 0.5f - 
+                        TextBlock2.MeasureString(Convert.ToString(PlayList.Count)).X, 
+                        ThisScreenSize.CoordinateIntY * 0.9f),
                     Color.Black);
             }
-            spriteBatch.End();
+            CurrentSpriteBatch.End();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки выхода в меню
         /// </summary>
-        /// <param name="sender">Источник события</param>
+        /// <param name="Sender">Источник события</param>
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
-        public void MenuButton_Click(object sender, System.EventArgs e)
+        public void MenuButton_Click(object Sender, System.EventArgs e)
         {
             MediaPlayer.Stop();
-            thisGame.ChangeState(new MenuState(
-                thisGame,
-                thisGraphicsDevice,
-                thisContent,
-                thisScreenSize));
+            CurrentGame.ChangeState(new MenuState(
+                CurrentGame,
+                CurrentGraphicsDevice,
+                CurrentContentManager,
+                ThisScreenSize));
         }
         /// <summary>
         /// Действие после обновления
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void PostUpdate(GameTime gameTime)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void PostUpdate(GameTime CurrentGameTime)
         {
         }
     }

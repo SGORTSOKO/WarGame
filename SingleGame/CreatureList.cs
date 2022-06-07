@@ -11,10 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace WarGame.SingleGame
+using Microsoft.Xna.Framework.Graphics;
+
+namespace AKSU.SingleGame
 {
     /// <summary>
     /// Класс CreatureList списка существ на поле.
@@ -26,35 +27,35 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Список существ на поле
         /// </summary>
-        private List<Creatures> mainList;
+        private List<Creatures> MainList;
         /// <summary>
         /// Список убитых за ход существ (для удаления из mainList)
         /// </summary>
-        private List<Creatures> toDelete;
+        private List<Creatures> ToDelete;
         /// <summary>
         /// Левый (текущий) игрок
         /// </summary>
-        private static Player leftPlayer;
+        private static Player LeftPlayer;
         /// <summary>
         /// Правый игрок
         /// </summary>
-        private static Player rightPlayer;
+        private static Player RightPlayer;
         /// <summary>
         /// Получить количество существ
         /// </summary>
         public int Count
         {
-            get => mainList.Count;
+            get => MainList.Count;
         }
         /// <summary>
         ///Получить или установить существо <see cref="Creatures" /> по индексу.
         /// </summary>
-        /// <param name="index1">Индекс</param>
+        /// <param name="Index">Индекс</param>
         /// <returns><see cref="Creatures" /></returns>
-        public Creatures this[int index1]
+        public Creatures this[int Index]
         {
-            get => mainList[index1];
-            set => mainList[index1] = value;
+            get => MainList[Index];
+            set => MainList[Index] = value;
         }
 
         #endregion
@@ -62,14 +63,14 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Конструктор класса <see cref="CreatureList" />.
         /// </summary>
-        /// <param name="left">Левый (текущий) игрок</param>
-        /// <param name="right">Правый игрок</param>
-        public CreatureList(Player left, Player right)
+        /// <param name="Left">Левый (текущий) игрок</param>
+        /// <param name="Right">Правый игрок</param>
+        public CreatureList(Player Left, Player Right)
         {
-            leftPlayer = left;
-            rightPlayer = right;
-            mainList = new List<Creatures>();
-            toDelete = new List<Creatures>();
+            LeftPlayer = Left;
+            RightPlayer = Right;
+            MainList = new List<Creatures>();
+            ToDelete = new List<Creatures>();
         }
         #endregion
         #region Methods
@@ -77,35 +78,35 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Добавить существо в список
         /// </summary>
-        /// <param name="input">The new creature</param>
-        public void Add(Creatures input)  //
+        /// <param name="InputCreature">The new creature</param>
+        public void Add(Creatures InputCreature)  //
         {
-            if (!mainList.Contains(input))
+            if (!MainList.Contains(InputCreature))
             {
-                mainList.Add(input);
+                MainList.Add(InputCreature);
             }
         }
 
         /// <summary>
         /// Добавить существо в список.
         /// </summary>
-        /// <param name="input">Имя (существа из предопределенных)</param>
-        /// <param name="inputPlayer">Кому принадлежит существо</param>
-        /// <param name="inputNowPositionY">Позиция существа по Y</param>
-        /// <param name="inputTexture">Текстура существа</param>
+        /// <param name="InputCreatureName">Имя (существа из предопределенных)</param>
+        /// <param name="InputPlayer">Кому принадлежит существо</param>
+        /// <param name="InputNowPositionY">Позиция существа по Y</param>
+        /// <param name="InputTexture">Текстура существа</param>
         public void Add(
-            string input,
-            Player inputPlayer,
-            int inputNowPositionY,
-            Texture2D inputTexture)  //
+            string InputCreatureName,
+            Player InputPlayer,
+            int InputNowPositionY,
+            Texture2D InputTexture)  //
         {
-            if (input == "Human")
+            if (InputCreatureName == "Human")
             {
-                mainList.Add(
+                MainList.Add(
                     new Human(
-                        inputTexture,
-                        inputPlayer,
-                        inputNowPositionY
+                        InputTexture,
+                        InputPlayer,
+                        InputNowPositionY
                         )
                     );
             }
@@ -116,24 +117,24 @@ namespace WarGame.SingleGame
         public void AttackRound()
         {
             //Атакующее существо
-            foreach (Creatures Attaker in mainList)
+            foreach (Creatures Attaker in MainList)
             {
                 //Каждое существо атакует лишь раз за фрейм
-                bool attacking = false;
+                bool Attacking = false;
                 //Если атакующий не был убит, то
-                if (!toDelete.Contains(Attaker))
+                if (!ToDelete.Contains(Attaker))
                 {
                     //Защищающееся существо
-                    foreach (Creatures Defender in mainList)
+                    foreach (Creatures Defender in MainList)
                     {
                         if (
-                            !toDelete.Contains(Defender) && //Не атаковать труп
+                            !ToDelete.Contains(Defender) && //Не атаковать труп
                             Attaker != Defender && //Не атаковать себя
                             Attaker.Player.Name != Defender.Player.Name && //Не атаковать союзника
                             Attaker.GetRectanglePos().Intersects(Defender.GetRectanglePos()) //атакующий и защищающийся рядом
                             )
                         {
-                            attacking = true;
+                            Attacking = true;
                             //Остановка на время сражения
                             Attaker.SpeedX = 0;
                             if (Attaker.HP > 0 && Defender.HP > 0)
@@ -141,43 +142,43 @@ namespace WarGame.SingleGame
                                 //Если защищающийся убит
                                 if (Attaker.HitCreature(Defender))
                                 {
-                                    toDelete.Add(Defender);
+                                    ToDelete.Add(Defender);
                                 }
                             }
                         }
                     }
                 }
                 //Если за ход не атаковал
-                if (attacking == false)
+                if (Attacking == false)
                 {
                     Attaker.SpeedX = 50;
                 }
             }
             //Очистить от убитых
-            foreach (Creatures Creature in toDelete)
+            foreach (Creatures Creature in ToDelete)
             {
-                mainList.Remove(Creature);
+                MainList.Remove(Creature);
             }
-            toDelete.Clear();
+            ToDelete.Clear();
         }
         /// <summary>
         /// Очистить список ввсех существ
         /// </summary>
         public void Clear()
         {
-            mainList.Clear();
+            MainList.Clear();
         }
         /// <summary>
         /// Удалить несколько существ по требованию
         /// </summary>
-        /// <param name="count">Количество к удалению</param>
-        public void DeleteSome(int count)
+        /// <param name="Count">Количество к удалению</param>
+        public void DeleteSome(int Count)
         {
-            if (mainList.Count > count * 5)
+            if (MainList.Count > Count * 5)
             {
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < Count; i++)
                 {
-                    mainList.RemoveAt(i);
+                    MainList.RemoveAt(i);
                 }
             }
         }
@@ -186,15 +187,15 @@ namespace WarGame.SingleGame
         /// </summary>
         public void RandSort()
         {
-            if (mainList.Count != 0)
+            if (MainList.Count != 0)
             {
-                System.Random rand = new System.Random();
-                for (int i = mainList.Count - 1; i >= 1; i--)
+                System.Random Rand = new System.Random();
+                for (int i = MainList.Count - 1; i >= 1; i--)
                 {
-                    int j = rand.Next(i + 1);
-                    var temp = mainList[j];
-                    mainList[j] = mainList[i];
-                    mainList[i] = temp;
+                    int j = Rand.Next(i + 1);
+                    var Temp = MainList[j];
+                    MainList[j] = MainList[i];
+                    MainList[i] = Temp;
                 }
             }
         }
@@ -203,7 +204,7 @@ namespace WarGame.SingleGame
         /// </summary>
         public void ResetStats()
         {
-            foreach (Creatures Creature in mainList)
+            foreach (Creatures Creature in MainList)
             {
                 Creature.Stamina++;
             }
@@ -215,33 +216,33 @@ namespace WarGame.SingleGame
         /// <returns>Победивший <c>Player</c>, если здоровье одного из них достигло 0</returns>
         public Player StepAll()
         {
-            foreach (Creatures Creature in mainList)
+            foreach (Creatures Creature in MainList)
             {
                 //Движение существа
-                int attackPower = Creature.Step();
+                int AttackPower = Creature.Step();
                 //если достиг края экрана, то атакует на attackPower
-                if (attackPower > 0)
+                if (AttackPower > 0)
                 {
-                    if (Creature.Player == leftPlayer)
+                    if (Creature.Player == LeftPlayer)
                     {
-                        rightPlayer.AttackMe(attackPower);
+                        RightPlayer.AttackMe(AttackPower);
                     }
                     else
                     {
-                        leftPlayer.AttackMe(attackPower);
+                        LeftPlayer.AttackMe(AttackPower);
                     }
                     //Удалить существо, достигшее края экрана
-                    toDelete.Add(Creature);
+                    ToDelete.Add(Creature);
 
-                    if (leftPlayer.HP <= 0)
+                    if (LeftPlayer.HP <= 0)
                     {
-                        return rightPlayer;
+                        return RightPlayer;
                     }
                     else
                     {
-                        if (rightPlayer.HP <= 0)
+                        if (RightPlayer.HP <= 0)
                         {
-                            return leftPlayer;
+                            return LeftPlayer;
                         }
                     }
                 }

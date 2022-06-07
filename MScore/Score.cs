@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace WarGame.MScore
+namespace AKSU.MScore
 {
     /// <summary>
     /// Структура строки таблицы рекордов

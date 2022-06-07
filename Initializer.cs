@@ -13,9 +13,10 @@
 // ***********************************************************************
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WarGame.States;
 
-namespace WarGame
+using AKSU.States;
+
+namespace AKSU
 {
     /// <summary>
     /// Класс GameWindow является наследником от Microsoft.Xna.Framework.Game
@@ -26,23 +27,23 @@ namespace WarGame
         /// <summary>
         /// Менеджер графического устройства приложения
         /// </summary>
-        public GraphicsDeviceManager mainGraphics;
+        public GraphicsDeviceManager MainGraphics;
         /// <summary>
         /// Объект оптимизатора графической отрисовки
         /// </summary>
-        public SpriteBatch spriteBatch;
+        public SpriteBatch CurrentSpriteBatch;
         /// <summary>
         /// Открытая страница игры
         /// </summary>
-        private State currentState;
+        private State CurrentState;
         /// <summary>
         /// Следующая страница игры
         /// </summary>
-        private State nextState;
+        private State NextState;
         /// <summary>
         /// Размер экрана
         /// </summary>
-        CoordinatesXY screenSize;
+        CoordinatesXY CurrentScreenSize;
 
         /// <summary>
         /// Конструктор класса GameWindow
@@ -57,7 +58,7 @@ namespace WarGame
                 50
                 );
 
-            mainGraphics = new GraphicsDeviceManager(this);
+            MainGraphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
         }
@@ -67,11 +68,11 @@ namespace WarGame
         /// </summary>
         protected override void Initialize()
         {
-            screenSize = new CoordinatesXY(1600, 900);
+            CurrentScreenSize = new CoordinatesXY(1600, 900);
 
-            mainGraphics.PreferredBackBufferWidth = screenSize.X;
-            mainGraphics.PreferredBackBufferHeight = screenSize.Y;
-            mainGraphics.ApplyChanges();
+            MainGraphics.PreferredBackBufferWidth = CurrentScreenSize.CoordinateIntX;
+            MainGraphics.PreferredBackBufferHeight = CurrentScreenSize.CoordinateIntY;
+            MainGraphics.ApplyChanges();
 
             IsMouseVisible = true;
 
@@ -83,56 +84,56 @@ namespace WarGame
         /// </summary>
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            CurrentSpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            currentState = new MenuState(
+            CurrentState = new MenuState(
                 this,
-                mainGraphics.GraphicsDevice,
+                MainGraphics.GraphicsDevice,
                 Content,
-                screenSize
+                CurrentScreenSize
                 );
         }
         /// <summary>
         /// Данный метод выполняется, после LoadContent() или сразу после выполнения Draw()
         /// Содержит бизнес-логику приложения
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        protected override void Update(GameTime gameTime)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        protected override void Update(GameTime CurrentGameTime)
         {
             //Если определена следующая страница, то сменить
-            if (nextState != null)
+            if (NextState != null)
             {
-                currentState = nextState;
-                nextState = null;
+                CurrentState = NextState;
+                NextState = null;
             }
             //Обновить логику
-            currentState.Update(gameTime);
+            CurrentState.Update(CurrentGameTime);
             //Очистка
-            currentState.PostUpdate(gameTime);
+            CurrentState.PostUpdate(CurrentGameTime);
 
-            base.Update(gameTime);
+            base.Update(CurrentGameTime);
         }
         /// <summary>
         /// Данный метод выполняется, после Update()
         /// Генерирует графическое содержание окна игры на основе данных метода Update()
         /// </summary>
-        /// <param name="gameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
-        protected override void Draw(GameTime gameTime)
+        /// <param name="CurrentgameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
+        protected override void Draw(GameTime CurrentgameTime)
         {
             //Настроить цвет фона
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //Отрисовать текущую страницу
-            currentState.Draw(gameTime, spriteBatch);
+            CurrentState.Draw(CurrentgameTime, CurrentSpriteBatch);
 
-            base.Draw(gameTime);
+            base.Draw(CurrentgameTime);
         }
         /// <summary>
         /// Производит переход между игровыми меню и игровыми режимами> 
         /// </summary>
-        /// <param name="state">Объект абстрактного класса режимов игры и игровых меню</param>
-        public void ChangeState(State state)
+        /// <param name="ChangeStateToNext">Объект абстрактного класса режимов игры и игровых меню</param>
+        public void ChangeState(State ChangeStateToNext)
         {
-            nextState = state;
+            NextState = ChangeStateToNext;
         }
     }
 }

@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace WarGame
+namespace AKSU
 {
     /// <summary>
     /// Класс-хранилище векторных координат
@@ -22,54 +22,54 @@ namespace WarGame
         /// <summary>
         /// Х координата в float
         /// </summary>
-        private float x;
+        private float CoordinateX;
         /// <summary>
         /// Y координата в float
         /// </summary>
-        private float y;
+        private float CoordinateY;
         #endregion
         #region Properties
         /// <summary>
         /// Установить или вернуть X
         /// </summary>
         /// <value>float x</value>
-        public float Xf
+        public float CoordinateFloatX
         {
-            get => x;
-            set => x = value;
+            get => CoordinateX;
+            set => CoordinateX = value;
         }
         /// <summary>
         /// Установить или вернуть Y
         /// </summary>
         /// <value>float y</value>
-        public float Yf
+        public float CoordinateFloatY
         {
-            get => y;
-            set => y = value;
+            get => CoordinateY;
+            set => CoordinateY = value;
         }
         /// <summary>
         /// Установить или вернуть X
         /// </summary>
         /// <value>int x</value>
-        public int X
+        public int CoordinateIntX
         {
-            get => (int)x;
-            set => x = value;
+            get => (int)CoordinateX;
+            set => CoordinateX = value;
         }
         /// <summary>
         /// Установить или вернуть Y
         /// </summary>
         /// <value>int y</value>
-        public int Y
+        public int CoordinateIntY
         {
-            get => (int)y;
-            set => y = value;
+            get => (int)CoordinateY;
+            set => CoordinateY = value;
         }
         /// <summary>
         /// Вернуть нулевую координату X
         /// </summary>
         /// <value>float x0</value>
-        public float X0
+        public float CoordinateFloatZeroX
         {
             get => 0;
         }
@@ -77,51 +77,41 @@ namespace WarGame
         /// Вернуть нулевую координату Y
         /// </summary>
         /// <value>float y0</value>
-        public float Y0
+        public float CoordinateFloatZeroY
         {
             get => 0;
         }
         /// <summary>
         /// Конструктор класса <see cref="CoordinatesXY" />.
         /// </summary>
-        /// <param name="x">Позиция x</param>
-        /// <param name="y">Позиция y</param>
-        public CoordinatesXY(float x, float y)
+        /// <param name="InputX">Позиция x</param>
+        /// <param name="InputY">Позиция y</param>
+        public CoordinatesXY(float InputX, float InputY)
         {
-            Xf = x;
-            Yf = y;
+            CoordinateFloatX = InputX;
+            CoordinateFloatY = InputY;
         }
         #endregion
         #region Operators
         /// <summary>
         /// Оператор сложения координат
         /// </summary>
-        /// <param name="first">Первый CoordinatesXY</param>
-        /// <param name="second">Второй CoordinatesXY</param>
+        /// <param name="First">Первый CoordinatesXY</param>
+        /// <param name="Second">Второй CoordinatesXY</param>
         /// <returns>CoordinatesXY</returns>
-        public static CoordinatesXY operator +(CoordinatesXY first, CoordinatesXY second)
+        public static CoordinatesXY operator +(CoordinatesXY First, CoordinatesXY Second)
         {
-            return new CoordinatesXY(first.X + second.X, first.Y + second.Y);
+            return new CoordinatesXY(First.CoordinateIntX + Second.CoordinateIntX, First.CoordinateIntY + Second.CoordinateIntY);
         }
         /// <summary>
         /// Оператор разности координат
         /// </summary>
-        /// <param name="first">Первый CoordinatesXY</param>
-        /// <param name="second">Второй CoordinatesXY</param>
+        /// <param name="First">Первый CoordinatesXY</param>
+        /// <param name="Second">Второй CoordinatesXY</param>
         /// <returns>CoordinatesXY</returns>
-        public static CoordinatesXY operator -(CoordinatesXY first, CoordinatesXY second)
+        public static CoordinatesXY operator -(CoordinatesXY First, CoordinatesXY Second)
         {
-            return new CoordinatesXY(first.X - second.X, first.Y - second.Y);
-        }
-        /// <summary>
-        /// Переопределение увеличения координаты x
-        /// </summary>
-        /// <param name="first">The CoordinatesXY</param>
-        /// <param name="X">int x</param>
-        /// <returns>CoordinatesXY</returns>
-        public static CoordinatesXY operator +(CoordinatesXY first, int X)
-        {
-            return new CoordinatesXY(first.X + X, first.Y);
+            return new CoordinatesXY(First.CoordinateIntX - Second.CoordinateIntX, First.CoordinateIntY - Second.CoordinateIntY);
         }
         #endregion
     }

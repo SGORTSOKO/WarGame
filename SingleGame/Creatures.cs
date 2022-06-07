@@ -14,7 +14,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame.SingleGame
+namespace AKSU.SingleGame
 {
     /// <summary>
     /// Класс существ Creatures.
@@ -25,59 +25,59 @@ namespace WarGame.SingleGame
         /// <summary>
         /// The creature texture
         /// </summary>
-        protected Texture2D selfTexture;
+        protected Texture2D CreatureTexture;
         /// <summary>
         /// The position of creature
         /// </summary>
-        protected Vector2 position;
+        protected Vector2 CreaturePosition;
         /// <summary>
         /// The creature frame size x
         /// </summary>
-        protected int frameSizeX;
+        protected int CreatureFrameSizeX;
         /// <summary>
         /// The creature frame size y
         /// </summary>
-        protected int frameSizeY;
+        protected int CreatureFrameSizeY;
         /// <summary>
         /// The creature number of frames x
         /// </summary>
-        protected int numberOfFramesX;
+        protected int CreatureNumberOfFramesX;
         /// <summary>
         /// The creature number of frames y
         /// </summary>
-        protected int numberOfFramesY;
+        protected int CreatureNumberOfFramesY;
         /// <summary>
         /// The creature current frame number x
         /// </summary>
-        protected int nowFrameNumberX;
+        protected int CreatureNowFrameNumberX;
         /// <summary>
         /// The creature current frame number y
         /// </summary>
-        protected int nowFrameNumberY;
+        protected int CreatureNowFrameNumberY;
         /// <summary>
         /// The creature`s speed x
         /// </summary>
-        protected float speedX;
+        protected float CreatureSpeedX;
         /// <summary>
         /// The creature`s speed y
         /// </summary>
-        protected float speedY;
+        protected float CreatureSpeedY;
         /// <summary>
         /// The creature`s player
         /// </summary>
-        protected Player player;
+        protected Player CreaturePlayer;
         /// <summary>
         /// The creature hit points
         /// </summary>
-        protected int hitPoints;
+        protected int CreatureHitPoints;
         /// <summary>
         /// The creature power
         /// </summary>
-        protected int power;
+        protected int CreaturePower;
         /// <summary>
         /// The creature stamina
         /// </summary>
-        protected int stamina;
+        protected int CreatureStamina;
         #endregion
         #region Properties
         /// <summary>
@@ -165,53 +165,53 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Конструктор класса <see cref="Creatures" />.
         /// </summary>
-        /// <param name="inputTexture">Текстура существа</param>
-        /// <param name="inputNowPositionX">Позиция Х существа</param>
-        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
-        /// <param name="inputFrameSizeX">Размер фрейма по Х</param>
-        /// <param name="inputFrameSizeY">Размер фрейма по У</param>
-        /// <param name="inputNumberOfFramesX">Всего фреймов по Х</param>
-        /// <param name="inputNumberOfFramesY">Всего фреймов по У</param>
-        /// <param name="inputNowFrameNumberX">Текущий фрейм по Х</param>
-        /// <param name="inputNowFrameNumberY">Текущий фрейм по У</param>
-        /// <param name="inputSpeedX">Скорость существа по Х</param>
-        /// <param name="inputSpeedY">Скорость сущетства по У</param>
-        /// <param name="inputPlayer">Чье существо</param>
-        /// <param name="inputHP">Здоровье существа</param>
-        /// <param name="inputPower">Сила атаки существа</param>
-        /// <param name="inputStamina">Выносливость существа</param>
+        /// <param name="InputTexture">Текстура существа</param>
+        /// <param name="InputNowPositionX">Позиция Х существа</param>
+        /// <param name="InputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="InputFrameSizeX">Размер фрейма по Х</param>
+        /// <param name="InputFrameSizeY">Размер фрейма по У</param>
+        /// <param name="InputNumberOfFramesX">Всего фреймов по Х</param>
+        /// <param name="InputNumberOfFramesY">Всего фреймов по У</param>
+        /// <param name="InputNowFrameNumberX">Текущий фрейм по Х</param>
+        /// <param name="InputNowFrameNumberY">Текущий фрейм по У</param>
+        /// <param name="InputSpeedX">Скорость существа по Х</param>
+        /// <param name="InputSpeedY">Скорость сущетства по У</param>
+        /// <param name="InputPlayer">Чье существо</param>
+        /// <param name="InputHP">Здоровье существа</param>
+        /// <param name="InputPower">Сила атаки существа</param>
+        /// <param name="InputStamina">Выносливость существа</param>
         public Creatures(
-            Texture2D inputTexture,
-            float inputNowPositionX,
-            float inputNowPositionY,
-            int inputFrameSizeX,
-            int inputFrameSizeY,
-            int inputNumberOfFramesX,
-            int inputNumberOfFramesY,
-            int inputNowFrameNumberX,
-            int inputNowFrameNumberY,
-            float inputSpeedX,
-            float inputSpeedY,
-            Player inputPlayer,
-            int inputHP,
-            int inputPower,
-            int inputStamina)
+            Texture2D InputTexture,
+            float InputNowPositionX,
+            float InputNowPositionY,
+            int InputFrameSizeX,
+            int InputFrameSizeY,
+            int InputNumberOfFramesX,
+            int InputNumberOfFramesY,
+            int InputNowFrameNumberX,
+            int InputNowFrameNumberY,
+            float InputSpeedX,
+            float InputSpeedY,
+            Player InputPlayer,
+            int InputHP,
+            int InputPower,
+            int InputStamina)
         {
-            SelfTexture = inputTexture;
-            NowPositionX = inputNowPositionX;
-            NowPositionY = inputNowPositionY;
-            FrameSizeX = inputFrameSizeX;
-            FrameSizeY = inputFrameSizeY;
-            NumberOfFramesX = inputNumberOfFramesX;
-            NumberOfFramesY = inputNumberOfFramesY;
-            NowFrameNumberX = inputNowFrameNumberX;
-            NowFrameNumberY = inputNowFrameNumberY;
-            SpeedX = inputSpeedX;
-            SpeedY = inputSpeedY;
-            Player = inputPlayer;
-            HP = inputHP;
-            Power = inputPower;
-            Stamina = inputStamina;
+            SelfTexture = InputTexture;
+            NowPositionX = InputNowPositionX;
+            NowPositionY = InputNowPositionY;
+            FrameSizeX = InputFrameSizeX;
+            FrameSizeY = InputFrameSizeY;
+            NumberOfFramesX = InputNumberOfFramesX;
+            NumberOfFramesY = InputNumberOfFramesY;
+            NowFrameNumberX = InputNowFrameNumberX;
+            NowFrameNumberY = InputNowFrameNumberY;
+            SpeedX = InputSpeedX;
+            SpeedY = InputSpeedY;
+            Player = InputPlayer;
+            HP = InputHP;
+            Power = InputPower;
+            Stamina = InputStamina;
         }
         #endregion
         #region Methods
@@ -237,9 +237,9 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Атака существа существом
         /// </summary>
-        /// <param name="defender">Кто защищается</param>
+        /// <param name="Defender">Кто защищается</param>
         /// <returns><c>true</c> если защищающийся убит, иначе <c>false</c></returns>
-        public abstract bool HitCreature(Creatures defender);
+        public abstract bool HitCreature(Creatures Defender);
         #endregion
     }
 }

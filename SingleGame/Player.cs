@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Microsoft.Xna.Framework;
 
-namespace WarGame.SingleGame
+namespace AKSU.SingleGame
 {
     /// <summary>
     /// Class Player.
@@ -24,52 +24,52 @@ namespace WarGame.SingleGame
         /// <summary>
         /// Цвет существ игрока
         /// </summary>
-        private Color preferColor;
+        private Color PreferColor;
         /// <summary>
         /// Имя игрока
         /// </summary>
-        private string name;
+        private string PlayerName;
         /// <summary>
         /// Здоровье игрока
         /// </summary>
-        private int playerHP;
+        private int PlayerHP;
         /// <summary>
         /// Тип игрока
         /// false: бот (справа)
         /// true: Текущий (слева)
         /// </summary>
-        private bool type;
+        private bool PlayerType;
         /// <summary>
         /// Положение "тела" игрока
         /// </summary>
-        private int hitBoxPosition;
+        private int HitBoxPosition;
         /// <summary>
         /// Размер экрана по х
         /// </summary>
-        private int screenSizeX;
+        private int ScreenSizeWidth;
         #endregion
         #region Constructors
         /// <summary>
         /// Конструктор класса <see cref="Player" />.
         /// </summary>
-        /// <param name="newName">Имя игрока</param>
-        /// <param name="color">Цвет существ игрока</param>
-        /// <param name="newHP">Здоровье игрока</param>
-        /// <param name="newType">Тип игрока</param>
-        /// <param name="inputScreenSize">Размер экрана по х</param>
+        /// <param name="InputPlayerName">Имя игрока</param>
+        /// <param name="InputPlayerColor">Цвет существ игрока</param>
+        /// <param name="InputPlayerHP">Здоровье игрока</param>
+        /// <param name="InputPlayerType">Тип игрока</param>
+        /// <param name="InputScreenSize">Размер экрана по х</param>
         public Player(
-            string newName,
-            Color color,
-            int newHP,
-            bool newType,
-            CoordinatesXY inputScreenSize)
+            string InputPlayerName,
+            Color InputPlayerColor,
+            int InputPlayerHP,
+            bool InputPlayerType,
+            CoordinatesXY InputScreenSize)
         {
-            Name = newName;
-            Color = color;
-            HP = newHP;
-            Current = newType;
-            HitBoxPositionX = inputScreenSize.X;
-            ScreenSizeX = inputScreenSize.X;
+            Name = InputPlayerName;
+            Color = InputPlayerColor;
+            HP = InputPlayerHP;
+            Current = InputPlayerType;
+            HitBoxPositionX = InputScreenSize.CoordinateIntX;
+            ScreenSizeX = InputScreenSize.CoordinateIntX;
         }
         #endregion
         #region Properties
@@ -78,8 +78,8 @@ namespace WarGame.SingleGame
         /// </summary>
         public Color Color
         {
-            get => preferColor;
-            set => preferColor = value;
+            get => PreferColor;
+            set => PreferColor = value;
         }
         /// <summary>
         /// Тип игрока <see cref="Player" /> (текущий или нет).
@@ -87,60 +87,60 @@ namespace WarGame.SingleGame
         /// <value><c>true</c> если текущий (левый); иначе, <c>false</c>.</value>
         public bool Current
         {
-            get => type;
-            set => type = value;
+            get => PlayerType;
+            set => PlayerType = value;
         }
         /// <summary>
         /// Позиция "тела" игрока по Х
         /// </summary>
         public int HitBoxPositionX
         {
-            get => hitBoxPosition;
+            get => HitBoxPosition;
             set
             {
                 if (Current == true)
                 {
-                    hitBoxPosition = 0;
+                    HitBoxPosition = 0;
                 }
                 else
                 {
-                    hitBoxPosition = value;
+                    HitBoxPosition = value;
                 }
             }
         }
         /// <summary>
-        /// GПолучить или вернуть здоровье игрока
+        /// Получить или вернуть здоровье игрока
         /// </summary>
         public int HP
         {
-            get => playerHP;
-            set => playerHP = value;
+            get => PlayerHP;
+            set => PlayerHP = value;
         }
         /// <summary>
         /// Установить или вернуть имя игрока
         /// </summary>
         public string Name
         {
-            get => name;
-            set => name = value;
+            get => PlayerName;
+            set => PlayerName = value;
         }
         /// <summary>
         /// Установить или вернуть размер экрана по x
         /// </summary>
         public int ScreenSizeX
         {
-            get => screenSizeX;
-            set => screenSizeX = value;
+            get => ScreenSizeWidth;
+            set => ScreenSizeWidth = value;
         }
         #endregion
         #region Methods
         /// <summary>
         /// Атаковать игрока
         /// </summary>
-        /// <param name="power">Сила существа</param>
-        public void AttackMe(int power)
+        /// <param name="Power">Сила существа</param>
+        public void AttackMe(int Power)
         {
-            HP -= power;
+            HP -= Power;
         }
         #endregion
     }

@@ -11,49 +11,50 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
-namespace WarGame.ScreenComponent
+namespace AKSU.ScreenComponent
 {
     /// <summary>
     /// Класс кнопки Button.
-    /// Унаследовано от <see cref="WarGame.Component" />
+    /// Унаследовано от <see cref="AKSU.Component" />
     /// </summary>
-    /// <seealso cref="WarGame.Component" />
+    /// <seealso cref="AKSU.Component" />
     public class Button : Component
     {
         #region Fields
         /// <summary>
         /// Текущее состояние мыши
         /// </summary>
-        private MouseState currentMouse;
+        private MouseState CurrentMouse;
         /// <summary>
         /// Шрифт текста
         /// </summary>
-        private SpriteFont font;
+        private SpriteFont Font;
         /// <summary>
         /// Состояние выделения
         /// </summary>
-        private bool isHovering;
+        private bool IsHovering;
         /// <summary>
         /// Предыдущее состояние мыши
         /// </summary>
-        private MouseState previousMouse;
+        private MouseState PreviousMouse;
         /// <summary>
         /// Текстура кнопки
         /// </summary>
-        private Texture2D texture;
+        private Texture2D Texture;
         /// <summary>
         /// Сдвиг текста по X
         /// </summary>
-        private float myX = -10;
+        private float ShiftX = -10;
         /// <summary>
         /// Сдвиг текста по Y
         /// </summary>
-        private float myY = -10;
+        private float ShiftY = -10;
         #endregion
 
         #region Properties
@@ -85,8 +86,8 @@ namespace WarGame.ScreenComponent
             get => new Rectangle(
                 (int)Position.X,
                 (int)Position.Y,
-                texture.Width,
-                texture.Height);
+                Texture.Width,
+                Texture.Height);
         }
         /// <summary>
         /// Установить или получить содержимое текста кнопки
@@ -94,46 +95,50 @@ namespace WarGame.ScreenComponent
         /// <value>string</value>
         public string Text { get; set; }
         #endregion
+
         #region Methods
         /// <summary>
         /// Конструктор класса <see cref="Button" />.
         /// </summary>
-        /// <param name="inputTexture">Текстура кнопки</param>
-        /// <param name="inputFont">Шрифт кнопки</param>
-        public Button(Texture2D inputTexture, SpriteFont inputFont)
+        /// <param name="InputTexture">Текстура кнопки</param>
+        /// <param name="InputFont">Шрифт кнопки</param>
+        public Button(Texture2D InputTexture, SpriteFont InputFont)
         {
-            texture = inputTexture;
-            font = inputFont;
+            Texture = InputTexture;
+            Font = InputFont;
             PenColour = Color.Black;
         }
         /// <summary>
         /// Отрисовать кнопку
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
         {
             var colour = Color.White;
-            if (isHovering)
+            if (IsHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(texture, Rectangle, colour);
+            CurrentSpriteBatch.Draw(Texture, Rectangle, colour);
 
             //Отрисовать текст
             if (!string.IsNullOrEmpty(Text))
             {
                 //Центрирование
-                if (myX <= 0)
-                    myX = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
-                if (myY <= 0)
-                    myY = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2);
+                if (ShiftX <= 0)
+                    ShiftX = (Rectangle.X + (Rectangle.Width / 2)) - 
+                        (Font.MeasureString(Text).X / 2);
+                if (ShiftY <= 0)
+                    ShiftY = (Rectangle.Y + (Rectangle.Height / 2)) - 
+                        (Font.MeasureString(Text).Y / 2);
 
                 //Отрисовка
-                spriteBatch.DrawString(
-                    font,
+                CurrentSpriteBatch.DrawString(
+                    Font,
                     Text,
-                    new Vector2(myX, myY),
-                    PenColour);
+                    new Vector2(ShiftX, ShiftY),
+                    PenColour
+                    );
             }
         }
         /// <summary>
@@ -143,23 +148,24 @@ namespace WarGame.ScreenComponent
         public override void Update(GameTime gameTime)
         {
             //Обновление состояния мыши
-            previousMouse = currentMouse;
-            currentMouse = Mouse.GetState();
+            PreviousMouse = CurrentMouse;
+            CurrentMouse = Mouse.GetState();
 
-            var mouseRectangle = new Rectangle(
-                currentMouse.X,
-                currentMouse.Y,
+            var MouseRectangle = new Rectangle(
+                CurrentMouse.X,
+                CurrentMouse.Y,
                 1,
                 1);
 
-            isHovering = false;
+            IsHovering = false;
             //Находится ли мышь над кнопкой
-            if (mouseRectangle.Intersects(Rectangle))
+            if (MouseRectangle.Intersects(Rectangle))
             {
                 //Выделить кнопку
-                isHovering = true;
+                IsHovering = true;
                 //Если нажата и отпущена
-                if (currentMouse.LeftButton == ButtonState.Released && previousMouse.LeftButton == ButtonState.Pressed)
+                if (CurrentMouse.LeftButton == ButtonState.Released && 
+                    PreviousMouse.LeftButton == ButtonState.Pressed)
                 {
                     //Вызвать событие
                     Click?.Invoke(this, new EventArgs());

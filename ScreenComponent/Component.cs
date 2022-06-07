@@ -14,7 +14,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarGame.ScreenComponent
+namespace AKSU.ScreenComponent
 {
     /// <summary>
     /// Абстрактный класс Component.
@@ -24,13 +24,13 @@ namespace WarGame.ScreenComponent
         /// <summary>
         /// Отрисовать компонент
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        /// <param name="spriteBatch">Объект оптимизатора графической отрисовки</param>
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        /// <param name="CurrentSpriteBatch">Объект оптимизатора графической отрисовки</param>
+        public abstract void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch);
         /// <summary>
         /// Обновить логику кнопки
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public abstract void Update(GameTime gameTime);
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public abstract void Update(GameTime CurrentGameTime);
     }
 }
