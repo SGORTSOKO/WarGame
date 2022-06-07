@@ -21,83 +21,84 @@ namespace AKSU.SingleGame
     /// Унаследовано от <see cref="AKSU.Creatures" />
     /// </summary>
     /// <seealso cref="AKSU.Creatures" />
-    public class Human : Creatures
+    public class Human : BaseCreatures
     {
         #region Constructors
         /// <summary>
-        /// Конструктор класса <see cref="Creatures" />.
+        /// Конструктор класса <see cref="BaseCreatures" />.
         /// </summary>
-        /// <param name="inputTexture">Текстура существа</param>
-        /// <param name="inputNowPositionX">Позиция Х существа</param>
-        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
-        /// <param name="inputFrameSizeX">Размер фрейма по Х</param>
-        /// <param name="inputFrameSizeY">Размер фрейма по У</param>
-        /// <param name="inputNumberOfFramesX">Всего фреймов по Х</param>
-        /// <param name="inputNumberOfFramesY">Всего фреймов по У</param>
-        /// <param name="inputNowFrameNumberX">Текущий фрейм по Х</param>
-        /// <param name="inputNowFrameNumberY">Текущий фрейм по У</param>
-        /// <param name="inputSpeedX">Скорость существа по Х</param>
-        /// <param name="inputSpeedY">Скорость сущетства по У</param>
-        /// <param name="inputPlayer">Чье существо</param>
-        /// <param name="inputHP">Здоровье существа</param>
-        /// <param name="inputPower">Сила атаки существа</param>
-        /// <param name="inputStamina">Выносливость существа</param>
+        /// <param name="InputTexture">Текстура существа</param>
+        /// <param name="InputNowPositionX">Позиция Х существа</param>
+        /// <param name="InputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="InputFrameSizeX">Размер фрейма по Х</param>
+        /// <param name="InputFrameSizeY">Размер фрейма по У</param>
+        /// <param name="InputNumberOfFramesX">Всего фреймов по Х</param>
+        /// <param name="InputNumberOfFramesY">Всего фреймов по У</param>
+        /// <param name="InputNowFrameNumberX">Текущий фрейм по Х</param>
+        /// <param name="InputNowFrameNumberY">Текущий фрейм по У</param>
+        /// <param name="InputSpeedX">Скорость существа по Х</param>
+        /// <param name="InputSpeedY">Скорость сущетства по У</param>
+        /// <param name="InputPlayer">Чье существо</param>
+        /// <param name="InputHP">Здоровье существа</param>
+        /// <param name="InputPower">Сила атаки существа</param>
+        /// <param name="InputStamina">Выносливость существа</param>
         public Human(
-            Texture2D inputTexture,
-            int inputNowPositionX,
-            int inputNowPositionY,
-            int inputFrameSizeX,
-            int inputFrameSizeY,
-            int inputNumberOfFramesX,
-            int inputNumberOfFramesY,
-            int inputNowFrameNumberX,
-            int inputNowFrameNumberY,
-            float inputSpeedX,
-            float inputSpeedY,
-            Player inputPlayer,
-            int inputHP,
-            int inputPower,
-            int inputStamina) :
+            Texture2D InputTexture,
+            int InputNowPositionX,
+            int InputNowPositionY,
+            int InputFrameSizeX,
+            int InputFrameSizeY,
+            int InputNumberOfFramesX,
+            int InputNumberOfFramesY,
+            int InputNowFrameNumberX,
+            int InputNowFrameNumberY,
+            float InputSpeedX,
+            float InputSpeedY,
+            Player InputPlayer,
+            int InputHP,
+            int InputPower,
+            int InputStamina) :
             base(
-                inputTexture,
-                inputNowPositionX,
-                inputNowPositionY,
-                inputFrameSizeX,
-                inputFrameSizeY,
-                inputNumberOfFramesX,
-                inputNumberOfFramesY,
-                inputNowFrameNumberX,
-                inputNowFrameNumberY,
-                inputSpeedX,
-                inputSpeedY,
-                inputPlayer,
-                inputHP,
-                inputPower,
-                inputStamina)
+                InputTexture,
+                InputNowPositionX,
+                InputNowPositionY,
+                InputFrameSizeX,
+                InputFrameSizeY,
+                InputNumberOfFramesX,
+                InputNumberOfFramesY,
+                InputNowFrameNumberX,
+                InputNowFrameNumberY,
+                InputSpeedX,
+                InputSpeedY,
+                InputPlayer,
+                InputHP,
+                InputPower,
+                InputStamina)
         { }
         /// <summary>
         /// Конструктор класса <see cref="Human" />.
         /// </summary>
-        /// <param name="inputTexture">Текстура существа</param>
-        /// <param name="inputPlayer">Чье существо</param>
-        /// <param name="inputNowPositionY">Позиция У сущетсва</param>
+        /// <param name="InputTexture">Текстура существа</param>
+        /// <param name="InputPlayer">Чье существо</param>
+        /// <param name="InputNowPositionY">Позиция У сущетсва</param>
         public Human(
-            Texture2D inputTexture,
-            Player inputPlayer,
-            int inputNowPositionY) :
+            Texture2D InputTexture,
+            Player InputPlayer,
+            int InputNowPositionY) :
             base(
-                inputTexture,
-                inputPlayer.HitBoxPositionX - inputTexture.Width / 16,
-                inputNowPositionY,
-                inputTexture.Width / 8,
-                inputTexture.Height / 2,
+                InputTexture,
+                InputPlayer.HitBoxPositionX - 
+                    InputTexture.Width / 16,
+                InputNowPositionY,
+                InputTexture.Width / 8,
+                InputTexture.Height / 2,
                 8,
                 2,
                 0,
                 0,
                 30,
                 0,
-                inputPlayer,
+                InputPlayer,
                 100,
                 20,
                 1)
@@ -115,72 +116,72 @@ namespace AKSU.SingleGame
         /// </summary>
         public override Texture2D SelfTexture
         {
-            get => CreatureTexture;
-            set => CreatureTexture = value;
+            get => сreatureTexture;
+            set => сreatureTexture = value;
         }
         /// <summary>
         /// Установить или вернуть зармер фрейма по Х
         /// </summary>
         public override int FrameSizeX
         {
-            get => CreatureFrameSizeX;
-            set => CreatureFrameSizeX = value;
+            get => сreatureFrameSizeX;
+            set => сreatureFrameSizeX = value;
         }
         /// <summary>
         /// Установить или вернуть размер фрейма по У
         /// </summary>
         public override int FrameSizeY
         {
-            get => CreatureFrameSizeY;
-            set => CreatureFrameSizeY = value;
+            get => сreatureFrameSizeY;
+            set => сreatureFrameSizeY = value;
         }
         /// <summary>
         /// Установить или вернуть количество фреймов по Ч
         /// </summary>
         public override int NumberOfFramesX
         {
-            get => CreatureNumberOfFramesX;
-            set => CreatureNumberOfFramesX = value;
+            get => сreatureNumberOfFramesX;
+            set => сreatureNumberOfFramesX = value;
         }
         /// <summary>
         /// Установить или вернуть количество фреймов по У
         /// </summary>
         public override int NumberOfFramesY
         {
-            get => CreatureNumberOfFramesY;
-            set => CreatureNumberOfFramesY = value;
+            get => сreatureNumberOfFramesY;
+            set => сreatureNumberOfFramesY = value;
         }
         /// <summary>
         /// Установить или вернуть номер текущего фрейма по X
         /// </summary>
         public override int NowFrameNumberX
         {
-            get => CreatureNowFrameNumberX;
-            set => CreatureNowFrameNumberX = value;
+            get => сreatureNowFrameNumberX;
+            set => сreatureNowFrameNumberX = value;
         }
         /// <summary>
         /// Установить или вернуть номер текущего фрейма по У
         /// </summary>
         public override int NowFrameNumberY
         {
-            get => CreatureNowFrameNumberY;
-            set => CreatureNowFrameNumberY = value;
+            get => сreatureNowFrameNumberY;
+            set => сreatureNowFrameNumberY = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию по Х
         /// </summary>
         public override float NowPositionX
         {
-            get => CreaturePosition.X;
-            set => CreaturePosition.X = value;
+            get => сreaturePosition.X;
+            set => сreaturePosition.X = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию по У
         /// </summary>
         public override float NowPositionY
         {
-            get => CreaturePosition.Y;
-            set => CreaturePosition.Y = value;
+            get => сreaturePosition.Y;
+            set => сreaturePosition.Y = value;
         }
         /// <summary>
         /// Установить или вернуть текущую позицию
@@ -188,36 +189,36 @@ namespace AKSU.SingleGame
         /// <value> Vector2 позиция</value>
         public override Vector2 NowPosition
         {
-            get => CreaturePosition;
-            set => CreaturePosition = value;
+            get => сreaturePosition;
+            set => сreaturePosition = value;
         }
         /// <summary>
         /// Установить или вернуть скорость по Х
         /// </summary>
         public override float SpeedX
         {
-            get => CreatureSpeedX;
-            set => CreatureSpeedX = value;
+            get => сreatureSpeedX;
+            set => сreatureSpeedX = value;
         }
         /// <summary>
         /// Установить или вернуть скорость по У
         /// </summary>
         public override float SpeedY
         {
-            get => CreatureSpeedY;
-            set => CreatureSpeedY = value;
+            get => сreatureSpeedY;
+            set => сreatureSpeedY = value;
         }
         /// <summary>
         /// Установить или вернуть игрока существа
         /// </summary>
         public override Player Player
         {
-            get => CreaturePlayer;
+            get => сreaturePlayer;
             set
             {
-                CreaturePlayer = value;
-                //Автоматически определить текущий фрейм по Y
-                if (value.Current == true)
+                сreaturePlayer = value;
+                
+                if (value.Current == true) //Автоматически определить текущий фрейм по Y
                 {
                     NowFrameNumberY = 0;
                 }
@@ -232,24 +233,24 @@ namespace AKSU.SingleGame
         /// </summary>
         public override int HP
         {
-            get => CreatureHitPoints;
-            set => CreatureHitPoints = value;
+            get => сreatureHitPoints;
+            set => сreatureHitPoints = value;
         }
         /// <summary>
         /// Установить или вернуть силу атаки существа
         /// </summary>
         public override int Power
         {
-            get => CreaturePower;
-            set => CreaturePower = value;
+            get => сreaturePower;
+            set => сreaturePower = value;
         }
         /// <summary>
         /// Установить или вернуть выносливость
         /// </summary>
         public override int Stamina
         {
-            get => CreatureStamina;
-            set => CreatureStamina = value;
+            get => сreatureStamina;
+            set => сreatureStamina = value;
         }
         #endregion
         #region Methods
@@ -259,33 +260,30 @@ namespace AKSU.SingleGame
         /// <returns>Сила атаки по игроку</returns>
         public override int Step()
         { 
-            //Если левый (текущий), то
-            if (CreaturePlayer.Current == true)
+            if (сreaturePlayer.Current == true) //Если левый (текущий), то
             {
-                //Движение вправо
-                CreaturePosition.X += SpeedX;
-                CreatureNowFrameNumberX++;
-                if (CreatureNowFrameNumberX == CreatureNumberOfFramesX)
+                сreaturePosition.X += SpeedX; //Движение вправо
+                сreatureNowFrameNumberX++; //Следующий фрейм
+                if (сreatureNowFrameNumberX == сreatureNumberOfFramesX)
                 {
-                    CreatureNowFrameNumberX = 0;
+                    сreatureNowFrameNumberX = 0;
                 }
-                //Если достиг края экрана
-                if (CreaturePosition.X > CreaturePlayer.ScreenSizeX + CreatureFrameSizeX / 2)
+                if (сreaturePosition.X > сreaturePlayer.ScreenSizeX + 
+                    сreatureFrameSizeX / 2) //Если достиг края экрана
                 {
                     return Power;
                 }
             }
             else
             {
-                //Движение влево
-                CreaturePosition.X -= SpeedX;
-                if (CreatureNowFrameNumberX == 0)
+                сreaturePosition.X -= SpeedX; //Движение влево
+                if (сreatureNowFrameNumberX == 0)
                 {
-                    CreatureNowFrameNumberX = CreatureNumberOfFramesX;
+                    сreatureNowFrameNumberX = сreatureNumberOfFramesX;
                 }
-                CreatureNowFrameNumberX--;
-                //Если достиг края экрана
-                if (CreaturePosition.X < 0 - CreatureFrameSizeX / 2)
+                сreatureNowFrameNumberX--; //Следующий фрейм
+                
+                if (сreaturePosition.X < 0 - сreatureFrameSizeX / 2) //Если достиг края экрана
                 {
                     return Power;
                 }
@@ -296,19 +294,18 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Атаковать иное существо
         /// </summary>
-        /// <param name="defender">Защищающееся существо</param>
+        /// <param name="Вefender">Защищающееся существо</param>
         /// <returns><c>true</c> если защищающийся мертв, иначе <c>false</c>.</returns>
-        public override bool HitCreature(Creatures defender)
+        public override bool HitCreature(BaseCreatures Вefender)
         {
-            //Если атакующий еще имеет выносливость
-            if (CreatureStamina > 0)
+            if (сreatureStamina > 0) //Если атакующий еще имеет выносливость
             {
-                CreatureStamina--;
-                defender.HP -= Power;
-                //Если здоровье защищающегося ниже 0
-                if (defender.HP <= 0)
+                сreatureStamina--;
+                Вefender.HP -= Power;
+                
+                if (Вefender.HP <= 0) //Если здоровье защищающегося ниже 0
                 {
-                    defender.Power = 0;
+                    Вefender.Power = 0;
                     return true;
                 }
             }
@@ -322,7 +319,7 @@ namespace AKSU.SingleGame
         {
             return new Rectangle(
                 NowFrameNumberX * FrameSizeX,
-                CreatureNowFrameNumberY * FrameSizeY,
+                сreatureNowFrameNumberY * FrameSizeY,
                 FrameSizeX,
                 FrameSizeY);
         }

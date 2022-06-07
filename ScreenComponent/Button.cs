@@ -24,37 +24,37 @@ namespace AKSU.ScreenComponent
     /// Унаследовано от <see cref="AKSU.Component" />
     /// </summary>
     /// <seealso cref="AKSU.Component" />
-    public class Button : Component
+    public class Button : BaseComponent
     {
         #region Fields
         /// <summary>
         /// Текущее состояние мыши
         /// </summary>
-        private MouseState CurrentMouse;
+        private MouseState currentMouse;
         /// <summary>
         /// Шрифт текста
         /// </summary>
-        private SpriteFont Font;
+        private SpriteFont font;
         /// <summary>
         /// Состояние выделения
         /// </summary>
-        private bool IsHovering;
+        private bool isHovering;
         /// <summary>
         /// Предыдущее состояние мыши
         /// </summary>
-        private MouseState PreviousMouse;
+        private MouseState previousMouse;
         /// <summary>
         /// Текстура кнопки
         /// </summary>
-        private Texture2D Texture;
+        private Texture2D texture;
         /// <summary>
         /// Сдвиг текста по X
         /// </summary>
-        private float ShiftX = -10;
+        private float shiftX = -10;
         /// <summary>
         /// Сдвиг текста по Y
         /// </summary>
-        private float ShiftY = -10;
+        private float shiftY = -10;
         #endregion
 
         #region Properties
@@ -86,8 +86,8 @@ namespace AKSU.ScreenComponent
             get => new Rectangle(
                 (int)Position.X,
                 (int)Position.Y,
-                Texture.Width,
-                Texture.Height);
+                texture.Width,
+                texture.Height);
         }
         /// <summary>
         /// Установить или получить содержимое текста кнопки
@@ -104,8 +104,8 @@ namespace AKSU.ScreenComponent
         /// <param name="InputFont">Шрифт кнопки</param>
         public Button(Texture2D InputTexture, SpriteFont InputFont)
         {
-            Texture = InputTexture;
-            Font = InputFont;
+            texture = InputTexture;
+            font = InputFont;
             PenColour = Color.Black;
         }
         /// <summary>
@@ -116,27 +116,25 @@ namespace AKSU.ScreenComponent
         public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
         {
             var colour = Color.White;
-            if (IsHovering)
+            if (isHovering)
                 colour = Color.Gray;
 
-            CurrentSpriteBatch.Draw(Texture, Rectangle, colour);
+            CurrentSpriteBatch.Draw(texture, Rectangle, colour);
 
-            //Отрисовать текст
-            if (!string.IsNullOrEmpty(Text))
+            
+            if (!string.IsNullOrEmpty(Text)) //Если текст есть, то 
             {
-                //Центрирование
-                if (ShiftX <= 0)
-                    ShiftX = (Rectangle.X + (Rectangle.Width / 2)) - 
-                        (Font.MeasureString(Text).X / 2);
-                if (ShiftY <= 0)
-                    ShiftY = (Rectangle.Y + (Rectangle.Height / 2)) - 
-                        (Font.MeasureString(Text).Y / 2);
+                if (shiftX <= 0) //Центрирование по X
+                    shiftX = (Rectangle.X + (Rectangle.Width / 2)) - 
+                        (font.MeasureString(Text).X / 2);
+                if (shiftY <= 0) //Центрирование по Y
+                    shiftY = (Rectangle.Y + (Rectangle.Height / 2)) - 
+                        (font.MeasureString(Text).Y / 2);
 
-                //Отрисовка
-                CurrentSpriteBatch.DrawString(
-                    Font,
+                CurrentSpriteBatch.DrawString( //Отрисовка текста
+                    font,
                     Text,
-                    new Vector2(ShiftX, ShiftY),
+                    new Vector2(shiftX, shiftY),
                     PenColour
                     );
             }
@@ -144,31 +142,28 @@ namespace AKSU.ScreenComponent
         /// <summary>
         /// Расчет состояния кнопки
         /// </summary>
-        /// <param name="gameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
-        public override void Update(GameTime gameTime)
+        /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
+        public override void Update(GameTime CurrentGameTime)
         {
-            //Обновление состояния мыши
-            PreviousMouse = CurrentMouse;
-            CurrentMouse = Mouse.GetState();
+            previousMouse = currentMouse; //Обновление состояния мыши
+            currentMouse = Mouse.GetState();
 
             var MouseRectangle = new Rectangle(
-                CurrentMouse.X,
-                CurrentMouse.Y,
+                currentMouse.X,
+                currentMouse.Y,
                 1,
                 1);
 
-            IsHovering = false;
-            //Находится ли мышь над кнопкой
-            if (MouseRectangle.Intersects(Rectangle))
+            isHovering = false;
+            
+            if (MouseRectangle.Intersects(Rectangle)) //Находится ли мышь над кнопкой
             {
-                //Выделить кнопку
-                IsHovering = true;
-                //Если нажата и отпущена
-                if (CurrentMouse.LeftButton == ButtonState.Released && 
-                    PreviousMouse.LeftButton == ButtonState.Pressed)
+                isHovering = true; //Выделить кнопку
+                
+                if (currentMouse.LeftButton == ButtonState.Released &&  //Если нажата и отпущена
+                    previousMouse.LeftButton == ButtonState.Pressed)
                 {
-                    //Вызвать событие
-                    Click?.Invoke(this, new EventArgs());
+                    Click?.Invoke(this, new EventArgs()); //Вызвать событие
                 }
             }
         }

@@ -25,19 +25,19 @@ namespace AKSU.States
 {
     /// <summary>
     /// Класс игрового меню MenuState.
-    /// Унаследовано от <see cref="AKSU.States.State" />
+    /// Унаследовано от <see cref="AKSU.States.BaseState" />
     /// </summary>
-    /// <seealso cref="AKSU.States.State" />
-    public class MenuState : State
+    /// <seealso cref="AKSU.States.BaseState" />
+    public class MenuState : BaseState
     {
         /// <summary>
         /// Компоненты экрана
         /// </summary>
-        private List<Component> Components;
+        private List<BaseComponent> components;
         /// <summary>
         /// Фоновое изображение
         /// </summary>
-        private Texture2D BackGround;
+        private Texture2D backGround;
         /// <summary>
         /// Конструктор класса <see cref="MenuState" />.
         /// </summary>
@@ -61,39 +61,34 @@ namespace AKSU.States
             Texture2D ScoreButtonTexture = InputContentManager.Load<Texture2D>("Buttons/Scores");
             Texture2D FieldTexture = InputContentManager.Load<Texture2D>("Buttons/ClearFieldBig");
             Texture2D SettingsTexture = InputContentManager.Load<Texture2D>("Buttons/Settings");
-            BackGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
+            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
             SpriteFont ButtonFont = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
 
-            //Кнопка новой игры
-            Button NewGameButton = new Button(NewGameButtonTexture, ButtonFont)
+            Button NewGameButton = new Button(NewGameButtonTexture, ButtonFont) //Кнопка новой игры
             {
                 Position = new Vector2(200, 200),
             };
             NewGameButton.Click += NewGameButton_Click;
 
-            //Кнопка перехода к таблице рекордов
-            var ScoreButton = new Button(ScoreButtonTexture, ButtonFont)
+            var ScoreButton = new Button(ScoreButtonTexture, ButtonFont) //Кнопка перехода к таблице рекордов
             {
                 Position = new Vector2(200, 250),
             };
             ScoreButton.Click += ScoreButton_Click;
 
-            //переход к настройкам
-            var SettingsButton = new Button(SettingsTexture, ButtonFont)
+            var SettingsButton = new Button(SettingsTexture, ButtonFont) //переход к настройкам
             {
                 Position = new Vector2(200, 300),
             };
             SettingsButton.Click += SettingsButton_Click;
 
-            //Выход из игры
-            var QuitGameButton = new Button(QuitButtonTexture, ButtonFont)
+            var QuitGameButton = new Button(QuitButtonTexture, ButtonFont) //Выход из игры
             {
                 Position = new Vector2(200, 350),
             };
             QuitGameButton.Click += QuitGameButton_Click;
 
-            //список компонентов экрана
-            Components = new List<Component>()
+            components = new List<BaseComponent>() //список компонентов экрана
             {
                 NewGameButton,
                 SettingsButton,
@@ -110,11 +105,10 @@ namespace AKSU.States
         {
             CurrentSpriteBatch.Begin();
 
-            //отрисовать фон
-            CurrentSpriteBatch.Draw(
-                BackGround,
+            CurrentSpriteBatch.Draw( //отрисовать фон
+                backGround,
                 new Vector2(0, 0),
-                new Rectangle(0, 0, ThisScreenSize.CoordinateIntX, ThisScreenSize.CoordinateIntY),
+                new Rectangle(0, 0, thisScreenSize.CoordinateIntX, thisScreenSize.CoordinateIntY),
                 Color.White,
                 0f,
                 Vector2.Zero,
@@ -122,8 +116,7 @@ namespace AKSU.States
                 SpriteEffects.None,
                 0f);
 
-            //Отрисовать компоненты
-            foreach (var Component in Components)
+            foreach (var Component in components) //Отрисовать компоненты
                 Component.Draw(CurrentGameTime, CurrentSpriteBatch);
 
             CurrentSpriteBatch.End();
@@ -136,11 +129,11 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void NewGameButton_Click(object Sender, EventArgs e)
         {
-            CurrentGame.ChangeState(new StateSingleplayer(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new StateSingleplayer(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize));
         }
 
 
@@ -151,11 +144,11 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void SettingsButton_Click(object Sender, EventArgs e)
         {
-            CurrentGame.ChangeState(new SettingsState(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new SettingsState(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize));
         }
 
         /// <summary>
@@ -165,11 +158,11 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void ScoreButton_Click(object Sender, EventArgs e)
         {
-            CurrentGame.ChangeState(new ScoreState(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new ScoreState(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize));
         }
 
         /// <summary>
@@ -178,7 +171,7 @@ namespace AKSU.States
         /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void Update(GameTime CurrentGameTime)
         {
-            foreach (var Component in Components)
+            foreach (var Component in components)
                 Component.Update(CurrentGameTime);
         }
 
@@ -189,7 +182,7 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         private void QuitGameButton_Click(object Sender, EventArgs e)
         {
-            CurrentGame.Exit();
+            currentGame.Exit();
         }
         /// <summary>
         /// Действие после обновления

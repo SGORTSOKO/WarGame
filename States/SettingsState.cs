@@ -26,31 +26,31 @@ namespace AKSU.States
 {
     /// <summary>
     /// Класс настроек SettingsState.
-    /// Implements the <see cref="AKSU.States.State" />
+    /// Implements the <see cref="AKSU.States.BaseState" />
     /// </summary>
-    /// <seealso cref="AKSU.States.State" />
-    class SettingsState : State
+    /// <seealso cref="AKSU.States.BaseState" />
+    class SettingsState : BaseState
     {
         /// <summary>
         /// Текстура надписи "размер экрана"
         /// </summary>
-        private Texture2D ScreenSizeTexture;
+        private Texture2D screenSizeTexture;
         /// <summary>
         /// Компоненты экрана
         /// </summary>
-        private List<Component> Components;
+        private List<BaseComponent> components;
         /// <summary>
         /// Фоновое изображение
         /// </summary>
-        private Texture2D BackGround;
+        private Texture2D backGround;
         /// <summary>
         /// Имя игрока
         /// </summary>
-        private string TextName;
+        private string textName;
         /// <summary>
         /// Шрифт кнопок
         /// </summary>
-        SpriteFont ButtonFont;
+        private SpriteFont buttonFont;
         /// <summary>
         /// Конструктор класса <see cref="MenuState" />.
         /// </summary>
@@ -77,84 +77,75 @@ namespace AKSU.States
             Texture2D fullscreenTexture = InputContentManager.Load<Texture2D>("Buttons/Fullscreen");
             Texture2D windowedTexture = InputContentManager.Load<Texture2D>("Buttons/Windowed");
             Texture2D newGameButtonTexture = InputContentManager.Load<Texture2D>("Buttons/NewGame");
-            ScreenSizeTexture = InputContentManager.Load<Texture2D>("Buttons/ScreenSize");
-            BackGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
-            ButtonFont = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman");
+            screenSizeTexture = InputContentManager.Load<Texture2D>("Buttons/ScreenSize");
+            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
+            buttonFont = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman");
 
-            //Если существует файл настроек, прочитать имя
-            if (File.Exists("./Content/PlayerData.ini"))
+            if (File.Exists("./Content/PlayerData.ini")) //Если существует файл настроек, прочитать имя
                 using (StreamReader Reader = new StreamReader("Content/PlayerData.ini"))
                 {
-                    TextName = Reader.ReadLine();
-                    if (TextName.Length < 1)
+                    textName = Reader.ReadLine();
+                    if (textName.Length < 1)
                     {
-                        TextName = "Player";
+                        textName = "Player";
                     }
                 }
             else //иначе принять по умолчанию
             {
-                TextName = "Player";
+                textName = "Player";
             }
-            CurrentGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 100);
+            currentGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 100);
 
-            //Кнопки изменения размера экрана
-            Button S1280x1024Button = new Button(S1280x1024Texture, ButtonFont)
+            Button S1280x1024Button = new Button(S1280x1024Texture, buttonFont) //Кнопки изменения размера экрана
             {
                 Position = new Vector2(200, 150),
             };
             S1280x1024Button.Click += S1280x1024Button_Click;
-
-            //Кнопки изменения размера экрана
-            Button S1366x768Button = new Button(S1366x768Texture, ButtonFont)
+            
+            Button S1366x768Button = new Button(S1366x768Texture, buttonFont) //Кнопки изменения размера экрана
             {
                 Position = new Vector2(200, 200),
             };
             S1366x768Button.Click += S1366x768Button_Click;
 
-            //Кнопки изменения размера экрана
-            Button S1440x900Button = new Button(S1440x900Texture, ButtonFont)
+            Button S1440x900Button = new Button(S1440x900Texture, buttonFont) //Кнопки изменения размера экрана
             {
                 Position = new Vector2(200, 250),
             };
             S1440x900Button.Click += S1440x900Button_Click;
 
-            //Кнопки изменения размера экрана
-            Button S1600x900Button = new Button(S1600x900Texture, ButtonFont)
+            Button S1600x900Button = new Button(S1600x900Texture, buttonFont) //Кнопки изменения размера экрана
             {
                 Position = new Vector2(200, 300),
             };
             S1600x900Button.Click += S1600x900Button_Click;
 
-            //Кнопки изменения размера экрана
-            Button S1920x1080Button = new Button(S1920x1080Texture, ButtonFont)
+            Button S1920x1080Button = new Button(S1920x1080Texture, buttonFont) //Кнопки изменения размера экрана
             {
                 Position = new Vector2(200, 350),
             };
             S1920x1080Button.Click += S1920x1080Button_Click;
 
-            //Кнопка полноэкранного режима
-            Button FullscreenButton = new Button(fullscreenTexture, ButtonFont)
+            Button FullscreenButton = new Button(fullscreenTexture, buttonFont) //Кнопка полноэкранного режима
             {
                 Position = new Vector2(200, 400),
             };
             FullscreenButton.Click += FullscreenButton_Click;
 
-            //Кнопка оконного игрока
-            Button WindowedButton = new Button(windowedTexture, ButtonFont)
+            Button WindowedButton = new Button(windowedTexture, buttonFont) //Кнопка оконного игрока
             {
                 Position = new Vector2(200, 450),
             };
             WindowedButton.Click += WindowedButton_Click;
 
-            //Кнопка выхода в меню
-            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
-            {
-                Position = new Vector2(ThisScreenSize.CoordinateIntX * 0.01f, ThisScreenSize.CoordinateIntY * 0.1f)
+            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
+                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка выхода в меню
+            { 
+                Position = new Vector2(thisScreenSize.CoordinateIntX * 0.01f, thisScreenSize.CoordinateIntY * 0.1f)
             };
             MenuButton.Click += MenuButton_Click;
 
-            //Компоненты экрана
-            Components = new List<Component>()
+            components = new List<BaseComponent>() //Компоненты экрана
             {
                 S1280x1024Button,
                 S1366x768Button,
@@ -174,22 +165,19 @@ namespace AKSU.States
         /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void Update(GameTime CurrentGameTime)
         {
-            //Получить состояние клавиатуры
-            KeyboardState CurrentKeyboardState = Keyboard.GetState();
+            KeyboardState CurrentKeyboardState = Keyboard.GetState(); //Получить состояние клавиатуры
             string Timed;
-            //Если имя не стерто поностью
-            if (TextName.Length > 0)
+            
+            if (textName.Length > 0) //Если имя не стерто поностью
             {
-                //Ползволить стереть символ
-                if (CurrentKeyboardState.IsKeyDown(Keys.Back))
+                if (CurrentKeyboardState.IsKeyDown(Keys.Back)) //Ползволить стереть символ
                 {
-                    TextName = TextName.Substring(0, TextName.Length - 1);
+                    textName = textName.Substring(0, textName.Length - 1);
                 }
             }
-            //Получить нажатые клавиши
-            foreach (Keys G in CurrentKeyboardState.GetPressedKeys())
+
+            foreach (Keys G in CurrentKeyboardState.GetPressedKeys()) //Получить нажатые клавиши
             {
-                //Если однаиз букв, то
                 if (
                     G == Keys.A ||
                     G == Keys.B ||
@@ -218,21 +206,20 @@ namespace AKSU.States
                     G == Keys.Y ||
                     G == Keys.Z ||
                     G == Keys.Space
-                    )
+                    ) //Если однаиз букв, то
                 {
-                    //Если нажата shift, то
-                    if (CurrentKeyboardState.IsKeyDown(Keys.LeftShift))
+                    if (CurrentKeyboardState.IsKeyDown(Keys.LeftShift)) //Если нажата shift, то
                     {
-                        TextName += G;
+                        textName += G;
                     }
                     else
                     {
                         Timed = "" + G;
-                        TextName += Timed.ToLower();
+                        textName += Timed.ToLower();
                     }
                 }
             }
-            foreach (var Component in Components)
+            foreach (var Component in components)
                 Component.Update(CurrentGameTime);
         }
 
@@ -245,30 +232,33 @@ namespace AKSU.States
         {
             CurrentSpriteBatch.Begin();
 
-            //Отрисовать фон
             CurrentSpriteBatch.Draw(
-                BackGround,
+                backGround,
                 new Vector2(0, 0),
-                new Rectangle(0, 0, ThisScreenSize.CoordinateIntX, ThisScreenSize.CoordinateIntY),
+                new Rectangle(0, 0, thisScreenSize.CoordinateIntX, thisScreenSize.CoordinateIntY),
                 Color.White,
                 0f,
                 Vector2.Zero,
                 1.0f,
                 SpriteEffects.None,
-                0f);
+                0f); //Отрисовать фон
 
-            //Отрисовать надпись "размер экрана"
-            CurrentSpriteBatch.Draw(ScreenSizeTexture, new Vector2(150, 50), Color.White);
+            CurrentSpriteBatch.Draw(
+                screenSizeTexture, 
+                new Vector2(150, 50), 
+                Color.White); //Отрисовать надпись "размер экрана"
 
-            //Отрисовать имя
-            CurrentSpriteBatch.DrawString(ButtonFont, TextName, new Vector2(600, 170), Color.Blue);
+            
+            CurrentSpriteBatch.DrawString(
+                buttonFont, 
+                textName, 
+                new Vector2(600, 170), 
+                Color.Blue); //Отрисовать имя
 
-            //Отрисовать компоненты
-            foreach (var Component in Components)
+            foreach (var Component in components) //Отрисовать компоненты
                 Component.Draw(CurrentGameTime, CurrentSpriteBatch);
 
-            //Принять изменения экрана
-            CurrentGame.MainGraphics.ApplyChanges();
+            currentGame.MainGraphics.ApplyChanges(); //Принять изменения экрана
 
             CurrentSpriteBatch.End();
         }
@@ -281,23 +271,25 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void MenuButton_Click(object Sender, System.EventArgs e)
         {
-            //Сохранить имя при выходе
-            using (StreamWriter Writer = new StreamWriter("Content/PlayerData.ini", false))
+            using (StreamWriter Writer = new StreamWriter("Content/PlayerData.ini", false)) //Сохранить имя при выходе
             {
-                if (TextName.Length > 0)
-                    Writer.Write(TextName);
-                Writer.Write("Player");
+                if (textName.Length > 0)
+                {
+                    Writer.Write(textName);
+                }
+                else
+                {
+                    Writer.Write("Player");
+                }
             }
 
-            //Изменить частоту обновления экрана
-            CurrentGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 50);
+            currentGame.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 50); //Изменить частоту обновления экрана
 
-            //Сменить экран
-            CurrentGame.ChangeState(new MenuState(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new MenuState(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize)); //Сменить экран
         }
 
         /// <summary>
@@ -307,10 +299,10 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void S1280x1024Button_Click(object Sender, System.EventArgs e)
         {
-            ThisScreenSize = new CoordinatesXY(1280, 1024);
-            CurrentGame.MainGraphics.PreferredBackBufferWidth = ThisScreenSize.CoordinateIntX;
-            CurrentGame.MainGraphics.PreferredBackBufferHeight = ThisScreenSize.CoordinateIntY;
-            CurrentGame.MainGraphics.ApplyChanges();
+            thisScreenSize = new CoordinatesXY(1280, 1024);
+            currentGame.MainGraphics.PreferredBackBufferWidth = thisScreenSize.CoordinateIntX;
+            currentGame.MainGraphics.PreferredBackBufferHeight = thisScreenSize.CoordinateIntY;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки смены размера экрана
@@ -319,10 +311,10 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void S1366x768Button_Click(object Sender, System.EventArgs e)
         {
-            ThisScreenSize = new CoordinatesXY(1366, 768);
-            CurrentGame.MainGraphics.PreferredBackBufferWidth = ThisScreenSize.CoordinateIntX;
-            CurrentGame.MainGraphics.PreferredBackBufferHeight = ThisScreenSize.CoordinateIntY;
-            CurrentGame.MainGraphics.ApplyChanges();
+            thisScreenSize = new CoordinatesXY(1366, 768);
+            currentGame.MainGraphics.PreferredBackBufferWidth = thisScreenSize.CoordinateIntX;
+            currentGame.MainGraphics.PreferredBackBufferHeight = thisScreenSize.CoordinateIntY;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки смены размера экрана
@@ -331,10 +323,10 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void S1440x900Button_Click(object Sender, System.EventArgs e)
         {
-            ThisScreenSize = new CoordinatesXY(1440, 900);
-            CurrentGame.MainGraphics.PreferredBackBufferWidth = ThisScreenSize.CoordinateIntX;
-            CurrentGame.MainGraphics.PreferredBackBufferHeight = ThisScreenSize.CoordinateIntY;
-            CurrentGame.MainGraphics.ApplyChanges();
+            thisScreenSize = new CoordinatesXY(1440, 900);
+            currentGame.MainGraphics.PreferredBackBufferWidth = thisScreenSize.CoordinateIntX;
+            currentGame.MainGraphics.PreferredBackBufferHeight = thisScreenSize.CoordinateIntY;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки смены размера экрана
@@ -343,10 +335,10 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void S1600x900Button_Click(object Sender, System.EventArgs e)
         {
-            ThisScreenSize = new CoordinatesXY(1600, 900);
-            CurrentGame.MainGraphics.PreferredBackBufferWidth = ThisScreenSize.CoordinateIntX;
-            CurrentGame.MainGraphics.PreferredBackBufferHeight = ThisScreenSize.CoordinateIntY;
-            CurrentGame.MainGraphics.ApplyChanges();
+            thisScreenSize = new CoordinatesXY(1600, 900);
+            currentGame.MainGraphics.PreferredBackBufferWidth = thisScreenSize.CoordinateIntX;
+            currentGame.MainGraphics.PreferredBackBufferHeight = thisScreenSize.CoordinateIntY;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки смены размера экрана
@@ -355,10 +347,10 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void S1920x1080Button_Click(object Sender, System.EventArgs e)
         {
-            ThisScreenSize = new CoordinatesXY(1920, 1080);
-            CurrentGame.MainGraphics.PreferredBackBufferWidth = ThisScreenSize.CoordinateIntX;
-            CurrentGame.MainGraphics.PreferredBackBufferHeight = ThisScreenSize.CoordinateIntY;
-            CurrentGame.MainGraphics.ApplyChanges();
+            thisScreenSize = new CoordinatesXY(1920, 1080);
+            currentGame.MainGraphics.PreferredBackBufferWidth = thisScreenSize.CoordinateIntX;
+            currentGame.MainGraphics.PreferredBackBufferHeight = thisScreenSize.CoordinateIntY;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки перехода в полноэкранный режим
@@ -367,8 +359,8 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void FullscreenButton_Click(object Sender, System.EventArgs e)
         {
-            CurrentGame.MainGraphics.IsFullScreen = true;
-            CurrentGame.MainGraphics.ApplyChanges();
+            currentGame.MainGraphics.IsFullScreen = true;
+            currentGame.MainGraphics.ApplyChanges();
         }
         /// <summary>
         /// Обработчик события нажатия кнопки перехода в оконный режим
@@ -377,8 +369,8 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void WindowedButton_Click(object Sender, System.EventArgs e)
         {
-            CurrentGame.MainGraphics.IsFullScreen = false;
-            CurrentGame.MainGraphics.ApplyChanges();
+            currentGame.MainGraphics.IsFullScreen = false;
+            currentGame.MainGraphics.ApplyChanges();
         }
 
         /// <summary>

@@ -32,84 +32,84 @@ namespace AKSU
 {
     /// <summary>
     /// Класс одиночной игры StateSingleplayer.
-    /// Унаследовано от <see cref="State" />
+    /// Унаследовано от <see cref="BaseState" />
     /// </summary>
-    /// <seealso cref="State" />
-    class StateSingleplayer : State
+    /// <seealso cref="BaseState" />
+    class StateSingleplayer : BaseState
     {
         #region Fields
         /// <summary>
         /// Список текстур существ
         /// </summary>
-        private List<Texture2D> ListOfTextures = new List<Texture2D>();
+        private List<Texture2D> listOfTextures = new List<Texture2D>();
         /// <summary>
         /// Музыка
         /// </summary>
-        private Song Music;
+        private Song music;
         /// <summary>
         /// Звук окончания игры
         /// </summary>
-        private Song SoundEnd;
+        private Song soundEnd;
         /// <summary>
         /// Фоновое  изображение
         /// </summary>
-        private Texture2D BackGround;
+        private Texture2D backGround;
         /// <summary>
         /// Рандомизатор
         /// </summary>
-        private Random Rand = new Random();
+        private Random rand = new Random();
         /// <summary>
         /// Шрифт надписей
         /// </summary>
-        private SpriteFont TextBlock2;
+        private SpriteFont textBlock2;
         /// <summary>
         /// Последнее состояние мыши
         /// </summary>
-        private MouseState LastMouseState;
+        private MouseState lastMouseState;
         /// <summary>
         /// Текущее положение мыши
         /// </summary>
-        private Vector2 CurrentMousePosition;
+        private Vector2 currentMousePosition;
         /// <summary>
         /// Левый игрок (текущий)
         /// </summary>
-        private Player Left;
+        private Player leftPlayer;
         /// <summary>
         /// Правый игрок
         /// </summary>
-        private Player Right;
+        private Player rightPlayer;
         /// <summary>
         /// Победитель
         /// </summary>
-        private Player Winner;
+        private Player winner;
         /// <summary>
         /// Список существ
         /// </summary>
-        private CreatureList PlayList;
+        private CreatureList playList;
         /// <summary>
         /// Компоненты экрана игры
         /// </summary>
-        private List<Component> GameComponents;
+        private List<BaseComponent> gameComponents;
         /// <summary>
         /// Менеджер таблицы рекордов
         /// </summary>
-        private ScoreManager CurrentScoreManager;
+        private ScoreManager currentScoreManager;
         /// <summary>
         /// Таймер счёта игрока
         /// </summary>
-        private int Timer1;
+        private int timer1;
         /// <summary>
         /// Таймер появления существ правого игрока
         /// </summary>
-        private int Timer2;
+        private int timer2;
         /// <summary>
         /// Таймер появления существ левого игрока
         /// </summary>
-        private int Timer3;
+        private int timer3;
         /// <summary>
         /// Маркер окончания игры для единоразового исполнения кода 
         /// </summary>
-        private bool OneDoingAfterWin;
+        private bool oneDoingAfterWin;
         #endregion
         /// <summary>
         /// Конструктор класса <see cref="T:WarGame.StateSingleplayer" /> class.
@@ -131,80 +131,71 @@ namespace AKSU
         {
 
             //счетчик очков
-            Timer1 = 0;
+            timer1 = 0;
 
-            Timer2 = 0; //счетчик спавна существ юота
-            Timer3 = 0; //счетчик спавна существ игрока
+            timer2 = 0; //счетчик спавна существ юота
+            timer3 = 0; //счетчик спавна существ игрока
 
-            OneDoingAfterWin = true; //флаг уникального действия при окончании игры
+            oneDoingAfterWin = true; //флаг уникального действия при окончании игры
 
-            CurrentScoreManager = ScoreManager.Load();
-            TextBlock2 = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman");
-            ListOfTextures.Add(InputContentManager.Load<Texture2D>("Creatures/Human"));
-            BackGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
-            // Pfuheprf vepsrb
-            Music = InputContentManager.Load<Song>("MainMusic");
-            SoundEnd = InputContentManager.Load<Song>("LoseSound");
-            // Начать проигрывание мелодии
-            MediaPlayer.Play(Music);
-            // Повторять после завершения
-            MediaPlayer.IsRepeating = true;
+            currentScoreManager = ScoreManager.Load();
+
+            textBlock2 = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRoman"); //Загрузка шрифта
+            
+            listOfTextures.Add(InputContentManager.Load<Texture2D>("Creatures/Human")); //Инициализаия списка существ с текстурами
+            
+            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road"); //Загрузка фона
+            
+            music = InputContentManager.Load<Song>("MainMusic"); // Загрузка музыки
+
+            soundEnd = InputContentManager.Load<Song>("LoseSound"); //Загрузка звука окончания игры
+            
+            MediaPlayer.Play(music); // Начать проигрывание мелодии
+            
+            MediaPlayer.IsRepeating = true; // Повторять после завершения
 
             string TextNamePlayer;
 
-            //Чтение имени игрока  из файла настроек
-            if (File.Exists("Content/PlayerData.ini"))
+            if (File.Exists("Content/PlayerData.ini")) //Чтение имени игрока из файла настроек
                 using (StreamReader Reader = new StreamReader("Content/PlayerData.ini"))
                 {
                     TextNamePlayer = Reader.ReadLine();
-                    if (TextNamePlayer.Length < 1)
-                    {
-                        TextNamePlayer = "PLAYER";
-                    }
                 }
             else
                 using (StreamWriter Writer = new StreamWriter("Content/PlayerData.ini", false))
                 {
-                    //Восстановить файл настроек при его отсутствии
-                    Writer.WriteLine("PLAYER");
                     TextNamePlayer = "PLAYER";
                 }
 
-            //Левый игрок (текущий)
-            Left = new Player(
+            leftPlayer = new Player(
                 TextNamePlayer,
                 Color.Blue,
                 1000,
                 true,
-                ThisScreenSize);
+                thisScreenSize); //Левый игрок (текущий)
 
-            //Правый игрок (бот)
-            Right = new Player(
+            rightPlayer = new Player(
                 "BOT",
                 Color.Red,
                 1000000,
                 false,
-                ThisScreenSize);
+                thisScreenSize); //Правый игрок (бот)
 
-            //победитель
-            Winner = null;
+            winner = null; //победитель
 
-            //обработчик логики сражения
-            PlayList = new CreatureList(Left, Right);
+            playList = new CreatureList(leftPlayer, rightPlayer); //обработчик логики сражения
 
-            //громкость музыки
-            MediaPlayer.Volume = 0.8f;
+            MediaPlayer.Volume = 0.8f; //громкость музыки
 
-            //Кнопка выхода в меню
             Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
-                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
+                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка выхода в меню
             {
-                Position = new Vector2(ThisScreenSize.CoordinateIntX * 0.01f, 
-                ThisScreenSize.CoordinateIntY * 0.9f)
+                Position = new Vector2(thisScreenSize.CoordinateIntX * 0.01f, 
+                thisScreenSize.CoordinateIntY * 0.9f)
             };
             MenuButton.Click += MenuButton_Click;
 
-            GameComponents = new List<Component>()
+            gameComponents = new List<BaseComponent>()
             {
                 MenuButton,
             };
@@ -216,86 +207,75 @@ namespace AKSU
         /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void Update(GameTime CurrentGameTime)
         {
-            Timer2++;
-            Timer3++;
+            timer2++;
+            timer3++;
 
-            //Состояние мыши
-            MouseState CurrentMouseState = Mouse.GetState();
-            if (CurrentMouseState.X != LastMouseState.X || 
-                CurrentMouseState.Y != LastMouseState.Y)
+            MouseState CurrentMouseState = Mouse.GetState(); //Состояние мыши
+            if (CurrentMouseState.X != lastMouseState.X || 
+                CurrentMouseState.Y != lastMouseState.Y)
             {
-                CurrentMousePosition = new Vector2(CurrentMouseState.X, 
+                currentMousePosition = new Vector2(CurrentMouseState.X, 
                     CurrentMouseState.Y);
             }
-            LastMouseState = CurrentMouseState;
+            lastMouseState = CurrentMouseState;
 
-            //Если победитель определен
-            if (Winner != null)
+            if (winner != null) //Если победитель определен
             {
-                if (OneDoingAfterWin)
+                if (oneDoingAfterWin)
                 {
-                    //Звуки
-                    MediaPlayer.Stop();
+                    MediaPlayer.Stop(); //Звуки
                     MediaPlayer.IsRepeating = false;
                     MediaPlayer.Volume = 0.1f;
-                    MediaPlayer.Play(SoundEnd);
+                    MediaPlayer.Play(soundEnd);
 
-                    //Очистка обработчика игры
-                    OneDoingAfterWin = false;
-                    PlayList.Clear();
+                    oneDoingAfterWin = false; //Очистка обработчика игры
+                    playList.Clear();
 
-                    //Обновление таблицы рекордов
-                    CurrentScoreManager.Add(new Score()
+                    currentScoreManager.Add(new Score() //Обновление таблицы рекордов
                     {
-                        PlayerName = Left.Name,
-                        Value = Timer1 + (1000000 - Right.HP) * (int)Math.Log10(Timer1),
+                        PlayerName = leftPlayer.Name,
+                        Value = timer1 + (1000000 - rightPlayer.HP) * (int)Math.Log10(timer1),
                     });
-                    ScoreManager.Save(CurrentScoreManager);
+                    ScoreManager.Save(currentScoreManager);
                 }
             }
-            //Если победитель не определен
-            else
+            else //Если победитель не определен
             {
-                //Случайная сортировка
-                PlayList.RandSort();
-                //Обновить характеристики существ
-                PlayList.ResetStats();
-                //Создание существ бота с уменьшащейся периодичностью
-                if (Timer2 % (10 - (int)Math.Log10(Timer2)) == 0)
+                playList.RandSort(); //Случайная сортировка
+                
+                playList.ResetStats(); //Обновить характеристики существ
+                
+                if (timer2 % (10 - (int)Math.Log10(timer2)) == 0) //Создание существ бота с уменьшащейся периодичностью
                 {
-                    PlayList.Add(
+                    playList.Add(
                         "Human",
-                        Right,
-                        Rand.Next(0, (int)(ThisScreenSize.CoordinateIntY * 0.8)),
-                        ListOfTextures[0]);
+                        rightPlayer,
+                        rand.Next(0, (int)(thisScreenSize.CoordinateIntY * 0.8)),
+                        listOfTextures[0]);
                 }
 
-                //Раунд атак существ
-                PlayList.AttackRound();
+                playList.AttackRound(); //Раунд атак существ
 
-                //Если один игрок потерял всё здоровье
-                Winner = PlayList.StepAll();
+                winner = playList.StepAll(); //Если один игрок потерял всё здоровье
 
-                //Создание существ игрока
-                if (CurrentMouseState.LeftButton == ButtonState.Pressed)
+                if (CurrentMouseState.LeftButton == ButtonState.Pressed) //Создание существ игрока
                 {
                     if (
                         0 <= CurrentMouseState.Y &&
-                        CurrentMouseState.Y <= ThisScreenSize.CoordinateIntY * 0.8f &&
-                        Timer3 > 8 - (int)Math.Log10(Timer2))
+                        CurrentMouseState.Y <= thisScreenSize.CoordinateIntY * 0.8f &&
+                        timer3 > 8 - (int)Math.Log10(timer2))
                     {
-                        Timer3 = 0;
-                        PlayList.Add(
+                        timer3 = 0;
+                        playList.Add(
                             "Human",
-                            Left,
+                            leftPlayer,
                             CurrentMouseState.Y,
-                            ListOfTextures[0]);
+                            listOfTextures[0]);
                     }
                 }
-                Timer1++;
+                timer1++;
             }
-            //Обновление игровых компонентов (кнопок)
-            foreach (var Component in GameComponents)
+            foreach (var Component in gameComponents) //Обновление игровых компонентов (кнопок)
                 Component.Update(CurrentGameTime);
         }
 
@@ -308,79 +288,72 @@ namespace AKSU
         {
             CurrentSpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
-            //Отрисовать фон
             CurrentSpriteBatch.Draw(
-                BackGround,
+                backGround,
                 new Vector2(0, 0),
                 new Rectangle(
                     0,
                     0,
-                    ThisScreenSize.CoordinateIntX,
-                    ThisScreenSize.CoordinateIntY),
+                    thisScreenSize.CoordinateIntX,
+                    thisScreenSize.CoordinateIntY),
                 Color.White,
                 0f,
                 Vector2.Zero,
                 1.0f,
                 SpriteEffects.None,
-                0f);
+                0f); //Отрисовать фон
 
-            //Отрисовать игровые компоненты
-            foreach (var Component in GameComponents)
+            foreach (var Component in gameComponents) //Отрисовать игровые компоненты
             {
                 Component.Draw(CurrentGameTime, CurrentSpriteBatch);
             }
 
-            //Отрисовать существ
-            for (int i = 0; i < PlayList.Count; i++)
+            for (int i = 0; i < playList.Count; i++) //Отрисовать существ
             {
                 CurrentSpriteBatch.Draw(
-                    PlayList[i].SelfTexture,
-                    PlayList[i].NowPosition,
-                    PlayList[i].GetRectangleImage(),
-                    PlayList[i].Player.Color,
+                    playList[i].SelfTexture,
+                    playList[i].NowPosition,
+                    playList[i].GetRectangleImage(),
+                    playList[i].Player.Color,
                     0,
                     Vector2.Zero,
-                    ThisScreenSize.CoordinateIntX / 1920f
+                    thisScreenSize.CoordinateIntX / 1920f
                     , SpriteEffects.None,
                     0);
             }
 
-            //Отрисовать надпись окончания игры
-            if (Winner != null)
+            if (winner != null) //Отрисовать надпись окончания игры
             {
                 CurrentSpriteBatch.DrawString(
-                    TextBlock2,
+                    textBlock2,
                     "GAME OVER",
-                    new Vector2((ThisScreenSize.CoordinateIntX) / 2.0f - 
-                    TextBlock2.MeasureString("GAME OVER").X, ThisScreenSize.CoordinateIntY * 0.8f),
-                    Winner.Color);
+                    new Vector2((thisScreenSize.CoordinateIntX) / 2.0f - 
+                    textBlock2.MeasureString("GAME OVER").X, thisScreenSize.CoordinateIntY * 0.8f),
+                    winner.Color);
             }
             else
             {
-                //Отрисовывать здоровье игрока (левый)
                 CurrentSpriteBatch.DrawString(
-                    TextBlock2,
-                    Convert.ToString(Left.HP),
-                    new Vector2(ThisScreenSize.CoordinateIntX * 0.1f, ThisScreenSize.CoordinateIntY * 0.9f),
-                    Left.Color);
+                    textBlock2,
+                    Convert.ToString(leftPlayer.HP),
+                    new Vector2(thisScreenSize.CoordinateIntX * 0.1f, thisScreenSize.CoordinateIntY * 0.9f),
+                    leftPlayer.Color); //Отрисовывать здоровье игрока (левый)
 
-                //Отрисовывать здоровье игрока (правй)
                 CurrentSpriteBatch.DrawString(
-                    TextBlock2,
-                    Convert.ToString(Right.HP),
-                    new Vector2(ThisScreenSize.CoordinateIntX * 0.9f - 
-                        TextBlock2.MeasureString(Convert.ToString(Right.HP)).X, 
-                        ThisScreenSize.CoordinateIntY * 0.9f),
-                    Right.Color);
+                    textBlock2,
+                    Convert.ToString(rightPlayer.HP),
+                    new Vector2(thisScreenSize.CoordinateIntX * 0.9f - 
+                        textBlock2.MeasureString(Convert.ToString(rightPlayer.HP)).X, 
+                        thisScreenSize.CoordinateIntY * 0.9f),
+                    rightPlayer.Color); //Отрисовывать здоровье игрока (правй)
 
-                //Отрисовывать текущий счёт
                 CurrentSpriteBatch.DrawString(
-                    TextBlock2,
-                    Convert.ToString(Timer1),
-                    new Vector2(ThisScreenSize.CoordinateIntX * 0.5f - 
-                        TextBlock2.MeasureString(Convert.ToString(PlayList.Count)).X, 
-                        ThisScreenSize.CoordinateIntY * 0.9f),
-                    Color.Black);
+                    textBlock2,
+                    Convert.ToString(timer1),
+                    new Vector2(thisScreenSize.CoordinateIntX * 0.5f - 
+                        textBlock2.MeasureString(Convert.ToString(playList.Count)).X, 
+                        thisScreenSize.CoordinateIntY * 0.9f),
+                    Color.Black); //Отрисовывать текущий счёт
             }
             CurrentSpriteBatch.End();
         }
@@ -392,11 +365,11 @@ namespace AKSU
         public void MenuButton_Click(object Sender, System.EventArgs e)
         {
             MediaPlayer.Stop();
-            CurrentGame.ChangeState(new MenuState(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new MenuState(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize));
         }
         /// <summary>
         /// Действие после обновления

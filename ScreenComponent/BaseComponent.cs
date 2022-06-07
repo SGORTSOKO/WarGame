@@ -19,7 +19,7 @@ namespace AKSU.ScreenComponent
     /// <summary>
     /// Абстрактный класс Component.
     /// </summary>
-    public abstract class Component
+    public abstract class BaseComponent
     {
         /// <summary>
         /// Отрисовать компонент

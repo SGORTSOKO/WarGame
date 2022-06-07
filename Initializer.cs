@@ -35,15 +35,15 @@ namespace AKSU
         /// <summary>
         /// Открытая страница игры
         /// </summary>
-        private State CurrentState;
+        private BaseState CurrentState;
         /// <summary>
         /// Следующая страница игры
         /// </summary>
-        private State NextState;
+        private BaseState NextState;
         /// <summary>
         /// Размер экрана
         /// </summary>
-        CoordinatesXY CurrentScreenSize;
+        public CoordinatesXY CurrentScreenSize;
 
         /// <summary>
         /// Конструктор класса GameWindow
@@ -100,16 +100,15 @@ namespace AKSU
         /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         protected override void Update(GameTime CurrentGameTime)
         {
-            //Если определена следующая страница, то сменить
-            if (NextState != null)
+            if (NextState != null) //Если определена следующая страница, то сменить
             {
                 CurrentState = NextState;
                 NextState = null;
             }
-            //Обновить логику
-            CurrentState.Update(CurrentGameTime);
-            //Очистка
-            CurrentState.PostUpdate(CurrentGameTime);
+            
+            CurrentState.Update(CurrentGameTime); //Обновить логику
+            
+            CurrentState.PostUpdate(CurrentGameTime); //Очистка
 
             base.Update(CurrentGameTime);
         }
@@ -120,10 +119,9 @@ namespace AKSU
         /// <param name="CurrentgameTime">A <see cref="T:Microsoft.Xna.Framework.GameTime" /> Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Draw(Microsoft.Xna.Framework.GameTime)" /> и время от старта игры</param>
         protected override void Draw(GameTime CurrentgameTime)
         {
-            //Настроить цвет фона
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            //Отрисовать текущую страницу
-            CurrentState.Draw(CurrentgameTime, CurrentSpriteBatch);
+            GraphicsDevice.Clear(Color.CornflowerBlue); //Настроить цвет фона
+            
+            CurrentState.Draw(CurrentgameTime, CurrentSpriteBatch); //Отрисовать текущую страницу
 
             base.Draw(CurrentgameTime);
         }
@@ -131,7 +129,7 @@ namespace AKSU
         /// Производит переход между игровыми меню и игровыми режимами> 
         /// </summary>
         /// <param name="ChangeStateToNext">Объект абстрактного класса режимов игры и игровых меню</param>
-        public void ChangeState(State ChangeStateToNext)
+        public void ChangeState(BaseState ChangeStateToNext)
         {
             NextState = ChangeStateToNext;
         }

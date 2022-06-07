@@ -22,11 +22,11 @@ namespace AKSU
         /// <summary>
         /// Х координата в float
         /// </summary>
-        private float CoordinateX;
+        private float coordinateX;
         /// <summary>
         /// Y координата в float
         /// </summary>
-        private float CoordinateY;
+        private float coordinateY;
         #endregion
         #region Properties
         /// <summary>
@@ -35,8 +35,8 @@ namespace AKSU
         /// <value>float x</value>
         public float CoordinateFloatX
         {
-            get => CoordinateX;
-            set => CoordinateX = value;
+            get => coordinateX;
+            set => coordinateX = value;
         }
         /// <summary>
         /// Установить или вернуть Y
@@ -44,8 +44,8 @@ namespace AKSU
         /// <value>float y</value>
         public float CoordinateFloatY
         {
-            get => CoordinateY;
-            set => CoordinateY = value;
+            get => coordinateY;
+            set => coordinateY = value;
         }
         /// <summary>
         /// Установить или вернуть X
@@ -53,8 +53,8 @@ namespace AKSU
         /// <value>int x</value>
         public int CoordinateIntX
         {
-            get => (int)CoordinateX;
-            set => CoordinateX = value;
+            get => (int)coordinateX;
+            set => coordinateX = value;
         }
         /// <summary>
         /// Установить или вернуть Y
@@ -62,8 +62,8 @@ namespace AKSU
         /// <value>int y</value>
         public int CoordinateIntY
         {
-            get => (int)CoordinateY;
-            set => CoordinateY = value;
+            get => (int)coordinateY;
+            set => coordinateY = value;
         }
         /// <summary>
         /// Вернуть нулевую координату X

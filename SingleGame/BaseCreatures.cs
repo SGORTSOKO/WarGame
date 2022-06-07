@@ -19,65 +19,65 @@ namespace AKSU.SingleGame
     /// <summary>
     /// Класс существ Creatures.
     /// </summary>
-    public abstract class Creatures
+    public abstract class BaseCreatures
     {
         #region Fields
         /// <summary>
         /// The creature texture
         /// </summary>
-        protected Texture2D CreatureTexture;
+        protected Texture2D сreatureTexture;
         /// <summary>
         /// The position of creature
         /// </summary>
-        protected Vector2 CreaturePosition;
+        protected Vector2 сreaturePosition;
         /// <summary>
         /// The creature frame size x
         /// </summary>
-        protected int CreatureFrameSizeX;
+        protected int сreatureFrameSizeX;
         /// <summary>
         /// The creature frame size y
         /// </summary>
-        protected int CreatureFrameSizeY;
+        protected int сreatureFrameSizeY;
         /// <summary>
         /// The creature number of frames x
         /// </summary>
-        protected int CreatureNumberOfFramesX;
+        protected int сreatureNumberOfFramesX;
         /// <summary>
         /// The creature number of frames y
         /// </summary>
-        protected int CreatureNumberOfFramesY;
+        protected int сreatureNumberOfFramesY;
         /// <summary>
         /// The creature current frame number x
         /// </summary>
-        protected int CreatureNowFrameNumberX;
+        protected int сreatureNowFrameNumberX;
         /// <summary>
         /// The creature current frame number y
         /// </summary>
-        protected int CreatureNowFrameNumberY;
+        protected int сreatureNowFrameNumberY;
         /// <summary>
         /// The creature`s speed x
         /// </summary>
-        protected float CreatureSpeedX;
+        protected float сreatureSpeedX;
         /// <summary>
         /// The creature`s speed y
         /// </summary>
-        protected float CreatureSpeedY;
+        protected float сreatureSpeedY;
         /// <summary>
         /// The creature`s player
         /// </summary>
-        protected Player CreaturePlayer;
+        protected Player сreaturePlayer;
         /// <summary>
         /// The creature hit points
         /// </summary>
-        protected int CreatureHitPoints;
+        protected int сreatureHitPoints;
         /// <summary>
         /// The creature power
         /// </summary>
-        protected int CreaturePower;
+        protected int сreaturePower;
         /// <summary>
         /// The creature stamina
         /// </summary>
-        protected int CreatureStamina;
+        protected int сreatureStamina;
         #endregion
         #region Properties
         /// <summary>
@@ -163,7 +163,7 @@ namespace AKSU.SingleGame
         #endregion
         #region Constructors
         /// <summary>
-        /// Конструктор класса <see cref="Creatures" />.
+        /// Конструктор класса <see cref="BaseCreatures" />.
         /// </summary>
         /// <param name="InputTexture">Текстура существа</param>
         /// <param name="InputNowPositionX">Позиция Х существа</param>
@@ -180,7 +180,7 @@ namespace AKSU.SingleGame
         /// <param name="InputHP">Здоровье существа</param>
         /// <param name="InputPower">Сила атаки существа</param>
         /// <param name="InputStamina">Выносливость существа</param>
-        public Creatures(
+        public BaseCreatures(
             Texture2D InputTexture,
             float InputNowPositionX,
             float InputNowPositionY,
@@ -216,9 +216,9 @@ namespace AKSU.SingleGame
         #endregion
         #region Methods
         /// <summary>
-        /// Конструктор класса <see cref="Creatures" />.
+        /// Конструктор класса <see cref="BaseCreatures" />.
         /// </summary>
-        public Creatures() { }
+        public BaseCreatures() { }
         /// <summary>
         /// Сдвинуть существ
         /// </summary>
@@ -239,7 +239,7 @@ namespace AKSU.SingleGame
         /// </summary>
         /// <param name="Defender">Кто защищается</param>
         /// <returns><c>true</c> если защищающийся убит, иначе <c>false</c></returns>
-        public abstract bool HitCreature(Creatures Defender);
+        public abstract bool HitCreature(BaseCreatures Defender);
         #endregion
     }
 }

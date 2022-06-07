@@ -27,35 +27,35 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Список существ на поле
         /// </summary>
-        private List<Creatures> MainList;
+        private List<BaseCreatures> mainList;
         /// <summary>
         /// Список убитых за ход существ (для удаления из mainList)
         /// </summary>
-        private List<Creatures> ToDelete;
+        private List<BaseCreatures> toDelete;
         /// <summary>
         /// Левый (текущий) игрок
         /// </summary>
-        private static Player LeftPlayer;
+        private static Player leftPlayer;
         /// <summary>
         /// Правый игрок
         /// </summary>
-        private static Player RightPlayer;
+        private static Player rightPlayer;
         /// <summary>
         /// Получить количество существ
         /// </summary>
         public int Count
         {
-            get => MainList.Count;
+            get => mainList.Count;
         }
         /// <summary>
-        ///Получить или установить существо <see cref="Creatures" /> по индексу.
+        ///Получить или установить существо <see cref="BaseCreatures" /> по индексу.
         /// </summary>
         /// <param name="Index">Индекс</param>
-        /// <returns><see cref="Creatures" /></returns>
-        public Creatures this[int Index]
+        /// <returns><see cref="BaseCreatures" /></returns>
+        public BaseCreatures this[int Index]
         {
-            get => MainList[Index];
-            set => MainList[Index] = value;
+            get => mainList[Index];
+            set => mainList[Index] = value;
         }
 
         #endregion
@@ -67,10 +67,10 @@ namespace AKSU.SingleGame
         /// <param name="Right">Правый игрок</param>
         public CreatureList(Player Left, Player Right)
         {
-            LeftPlayer = Left;
-            RightPlayer = Right;
-            MainList = new List<Creatures>();
-            ToDelete = new List<Creatures>();
+            leftPlayer = Left;
+            rightPlayer = Right;
+            mainList = new List<BaseCreatures>();
+            toDelete = new List<BaseCreatures>();
         }
         #endregion
         #region Methods
@@ -79,11 +79,11 @@ namespace AKSU.SingleGame
         /// Добавить существо в список
         /// </summary>
         /// <param name="InputCreature">The new creature</param>
-        public void Add(Creatures InputCreature)  //
+        public void Add(BaseCreatures InputCreature)
         {
-            if (!MainList.Contains(InputCreature))
+            if (!mainList.Contains(InputCreature)) //Запрет дублирования  существ
             {
-                MainList.Add(InputCreature);
+                mainList.Add(InputCreature);
             }
         }
 
@@ -98,11 +98,11 @@ namespace AKSU.SingleGame
             string InputCreatureName,
             Player InputPlayer,
             int InputNowPositionY,
-            Texture2D InputTexture)  //
+            Texture2D InputTexture)
         {
             if (InputCreatureName == "Human")
             {
-                MainList.Add(
+                mainList.Add(
                     new Human(
                         InputTexture,
                         InputPlayer,
@@ -116,57 +116,53 @@ namespace AKSU.SingleGame
         /// </summary>
         public void AttackRound()
         {
-            //Атакующее существо
-            foreach (Creatures Attaker in MainList)
+            foreach (BaseCreatures Attaker in mainList) //Атакующее существо
             {
-                //Каждое существо атакует лишь раз за фрейм
-                bool Attacking = false;
-                //Если атакующий не был убит, то
-                if (!ToDelete.Contains(Attaker))
+                bool Attacking = false; //Каждое существо атакует лишь раз за фрейм
+                
+                if (!toDelete.Contains(Attaker)) //Если атакующий не был убит, то
                 {
-                    //Защищающееся существо
-                    foreach (Creatures Defender in MainList)
+                    foreach (BaseCreatures Defender in mainList) //Защищающееся существо
                     {
                         if (
-                            !ToDelete.Contains(Defender) && //Не атаковать труп
+                            !toDelete.Contains(Defender) && //Не атаковать труп
                             Attaker != Defender && //Не атаковать себя
                             Attaker.Player.Name != Defender.Player.Name && //Не атаковать союзника
                             Attaker.GetRectanglePos().Intersects(Defender.GetRectanglePos()) //атакующий и защищающийся рядом
                             )
                         {
                             Attacking = true;
-                            //Остановка на время сражения
-                            Attaker.SpeedX = 0;
+                            
+                            Attaker.SpeedX = 0; //Остановка на время сражения
                             if (Attaker.HP > 0 && Defender.HP > 0)
                             {
-                                //Если защищающийся убит
-                                if (Attaker.HitCreature(Defender))
+                                if (Attaker.HitCreature(Defender)) //Если защищающийся убит
                                 {
-                                    ToDelete.Add(Defender);
+                                    toDelete.Add(Defender); //Удалить убитого
                                 }
                             }
                         }
                     }
                 }
-                //Если за ход не атаковал
-                if (Attacking == false)
+                
+                if (Attacking == false) //Если за ход не атаковал
                 {
                     Attaker.SpeedX = 50;
                 }
             }
-            //Очистить от убитых
-            foreach (Creatures Creature in ToDelete)
+            
+            foreach (BaseCreatures Creature in toDelete) //Очистить от убитых
             {
-                MainList.Remove(Creature);
+                mainList.Remove(Creature);
             }
-            ToDelete.Clear();
+            toDelete.Clear();
         }
         /// <summary>
         /// Очистить список ввсех существ
         /// </summary>
         public void Clear()
         {
-            MainList.Clear();
+            mainList.Clear();
         }
         /// <summary>
         /// Удалить несколько существ по требованию
@@ -174,11 +170,11 @@ namespace AKSU.SingleGame
         /// <param name="Count">Количество к удалению</param>
         public void DeleteSome(int Count)
         {
-            if (MainList.Count > Count * 5)
+            if (mainList.Count > Count * 5)
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    MainList.RemoveAt(i);
+                    mainList.RemoveAt(i);
                 }
             }
         }
@@ -187,15 +183,15 @@ namespace AKSU.SingleGame
         /// </summary>
         public void RandSort()
         {
-            if (MainList.Count != 0)
+            if (mainList.Count != 0)
             {
                 System.Random Rand = new System.Random();
-                for (int i = MainList.Count - 1; i >= 1; i--)
+                for (int i = mainList.Count - 1; i >= 1; i--)
                 {
                     int j = Rand.Next(i + 1);
-                    var Temp = MainList[j];
-                    MainList[j] = MainList[i];
-                    MainList[i] = Temp;
+                    var Temp = mainList[j];
+                    mainList[j] = mainList[i];
+                    mainList[i] = Temp;
                 }
             }
         }
@@ -204,7 +200,7 @@ namespace AKSU.SingleGame
         /// </summary>
         public void ResetStats()
         {
-            foreach (Creatures Creature in MainList)
+            foreach (BaseCreatures Creature in mainList)
             {
                 Creature.Stamina++;
             }
@@ -216,33 +212,32 @@ namespace AKSU.SingleGame
         /// <returns>Победивший <c>Player</c>, если здоровье одного из них достигло 0</returns>
         public Player StepAll()
         {
-            foreach (Creatures Creature in MainList)
+            foreach (BaseCreatures Creature in mainList)
             {
-                //Движение существа
-                int AttackPower = Creature.Step();
-                //если достиг края экрана, то атакует на attackPower
-                if (AttackPower > 0)
+                int AttackPower = Creature.Step(); //Движение существа
+                
+                if (AttackPower > 0) //если достиг края экрана, то атакует на attackPower
                 {
-                    if (Creature.Player == LeftPlayer)
+                    if (Creature.Player == leftPlayer)
                     {
-                        RightPlayer.AttackMe(AttackPower);
+                        rightPlayer.AttackMe(AttackPower);
                     }
                     else
                     {
-                        LeftPlayer.AttackMe(AttackPower);
+                        leftPlayer.AttackMe(AttackPower);
                     }
-                    //Удалить существо, достигшее края экрана
-                    ToDelete.Add(Creature);
+                    
+                    toDelete.Add(Creature); //Удалить существо, достигшее края экрана
 
-                    if (LeftPlayer.HP <= 0)
+                    if (leftPlayer.HP <= 0) //Вернуть погибшего игрока
                     {
-                        return RightPlayer;
+                        return rightPlayer;
                     }
                     else
                     {
-                        if (RightPlayer.HP <= 0)
+                        if (rightPlayer.HP <= 0)
                         {
-                            return LeftPlayer;
+                            return leftPlayer;
                         }
                     }
                 }

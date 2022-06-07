@@ -26,27 +26,27 @@ namespace AKSU.States
 {
     /// <summary>
     /// Класс таблицы рекордов ScoreState.
-    /// Унаследовано от <see cref="AKSU.States.State" />
+    /// Унаследовано от <see cref="AKSU.States.BaseState" />
     /// </summary>
-    /// <seealso cref="AKSU.States.State" />
-    class ScoreState : State
+    /// <seealso cref="AKSU.States.BaseState" />
+    class ScoreState : BaseState
     {
         /// <summary>
         /// Шрифт текста
         /// </summary>
-        private SpriteFont Font;
+        private SpriteFont font;
         /// <summary>
         /// Список компонентов (кнопки)
         /// </summary>
-        private List<Component> Components;
+        private List<BaseComponent> components;
         /// <summary>
         /// Фоновое изображение
         /// </summary>
-        private Texture2D BackGround;
+        private Texture2D backGround;
         /// <summary>
         /// Менеджер таблицы рекордов
         /// </summary>
-        private ScoreManager CurrentScoreManager;
+        private ScoreManager currentScoreManager;
         /// <summary>
         /// Конструктор класса <see cref="ScoreState" />.
         /// </summary>
@@ -65,19 +65,18 @@ namespace AKSU.States
               InputContentManager,
               InputScreenSize)
         {
-            BackGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
-            Font = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
-            CurrentScoreManager = ScoreManager.Load();
+            backGround = InputContentManager.Load<Texture2D>("BackGrounds/Road");
+            font = InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall");
+            currentScoreManager = ScoreManager.Load();
 
-            //Кнопка меню
-            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall"))
+            Button MenuButton = new Button(InputContentManager.Load<Texture2D>("Buttons/Menu"), 
+                InputContentManager.Load<SpriteFont>("Fonts/TimesNewRomanSmall")) //Кнопка меню
             {
-                Position = new Vector2(ThisScreenSize.CoordinateIntX * 0.01f, ThisScreenSize.CoordinateIntY * 0.9f)
+                Position = new Vector2(thisScreenSize.CoordinateIntX * 0.01f, thisScreenSize.CoordinateIntY * 0.9f)
             };
             MenuButton.Click += MenuButton_Click;
 
-            ///Список компонентов
-            Components = new List<Component>()
+            components = new List<BaseComponent>() //Список компонентов
             {
             MenuButton,
             };
@@ -90,14 +89,14 @@ namespace AKSU.States
         public override void Draw(GameTime CurrentGameTime, SpriteBatch CurrentSpriteBatch)
         {
             CurrentSpriteBatch.Begin();
-             //Отрисовать фон
-            CurrentSpriteBatch.Draw(
-                BackGround,
+             
+            CurrentSpriteBatch.Draw( //Отрисовать фон
+                backGround,
                 new Vector2(0, 0),
                 new Rectangle(0,
                     0,
-                    ThisScreenSize.CoordinateIntX,
-                    ThisScreenSize.CoordinateIntY),
+                    thisScreenSize.CoordinateIntX,
+                    thisScreenSize.CoordinateIntY),
                 Color.White,
                 0f,
                 Vector2.Zero,
@@ -105,17 +104,15 @@ namespace AKSU.States
                 SpriteEffects.None,
                 0f);
 
-            //Отрисовать компоненты
-            foreach (var Component in Components)
+            foreach (var Component in components) //Отрисовать компоненты
                 Component.Draw(CurrentGameTime, CurrentSpriteBatch);
 
-            //Отрисовать таблицу рекордов
-            CurrentSpriteBatch.DrawString(
-                Font,
+            CurrentSpriteBatch.DrawString( //Отрисовать таблицу рекордов
+                font,
                 "Highscores:\n" + 
                 string.Join(
                     "\n", 
-                    CurrentScoreManager.Highscores.Select(
+                    currentScoreManager.HighScores.Select(
                         C => C.PlayerName + 
                         ": " + 
                         C.Value
@@ -131,7 +128,7 @@ namespace AKSU.States
         /// <param name="CurrentGameTime">Время с последнего вызова <see cref="M:Microsoft.Xna.Framework.Game.Update(Microsoft.Xna.Framework.GameTime)" />.</param>
         public override void Update(GameTime CurrentGameTime)
         {
-            foreach (var Component in Components)
+            foreach (var Component in components)
                 Component.Update(CurrentGameTime);
         }
         /// <summary>
@@ -148,11 +145,11 @@ namespace AKSU.States
         /// <param name="e"><see cref="EventArgs" /> содержащий данные события</param>
         public void MenuButton_Click(object Sender, System.EventArgs e)
         {
-            CurrentGame.ChangeState(new MenuState(
-                CurrentGame,
-                CurrentGraphicsDevice,
-                CurrentContentManager,
-                ThisScreenSize));
+            currentGame.ChangeState(new MenuState(
+                currentGame,
+                currentGraphicsDevice,
+                currentContentManager,
+                thisScreenSize));
         }
     }
 }

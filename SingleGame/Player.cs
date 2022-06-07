@@ -24,29 +24,29 @@ namespace AKSU.SingleGame
         /// <summary>
         /// Цвет существ игрока
         /// </summary>
-        private Color PreferColor;
+        private Color preferColor;
         /// <summary>
         /// Имя игрока
         /// </summary>
-        private string PlayerName;
+        private string playerName;
         /// <summary>
         /// Здоровье игрока
         /// </summary>
-        private int PlayerHP;
+        private int playerHP;
         /// <summary>
         /// Тип игрока
         /// false: бот (справа)
         /// true: Текущий (слева)
         /// </summary>
-        private bool PlayerType;
+        private bool playerType;
         /// <summary>
         /// Положение "тела" игрока
         /// </summary>
-        private int HitBoxPosition;
+        private int hitBoxPosition;
         /// <summary>
         /// Размер экрана по х
         /// </summary>
-        private int ScreenSizeWidth;
+        private int screenSizeWidth;
         #endregion
         #region Constructors
         /// <summary>
@@ -78,8 +78,8 @@ namespace AKSU.SingleGame
         /// </summary>
         public Color Color
         {
-            get => PreferColor;
-            set => PreferColor = value;
+            get => preferColor;
+            set => preferColor = value;
         }
         /// <summary>
         /// Тип игрока <see cref="Player" /> (текущий или нет).
@@ -87,24 +87,24 @@ namespace AKSU.SingleGame
         /// <value><c>true</c> если текущий (левый); иначе, <c>false</c>.</value>
         public bool Current
         {
-            get => PlayerType;
-            set => PlayerType = value;
+            get => playerType;
+            set => playerType = value;
         }
         /// <summary>
         /// Позиция "тела" игрока по Х
         /// </summary>
         public int HitBoxPositionX
         {
-            get => HitBoxPosition;
+            get => hitBoxPosition;
             set
             {
                 if (Current == true)
                 {
-                    HitBoxPosition = 0;
+                    hitBoxPosition = 0;
                 }
                 else
                 {
-                    HitBoxPosition = value;
+                    hitBoxPosition = value;
                 }
             }
         }
@@ -113,24 +113,24 @@ namespace AKSU.SingleGame
         /// </summary>
         public int HP
         {
-            get => PlayerHP;
-            set => PlayerHP = value;
+            get => playerHP;
+            set => playerHP = value;
         }
         /// <summary>
         /// Установить или вернуть имя игрока
         /// </summary>
         public string Name
         {
-            get => PlayerName;
-            set => PlayerName = value;
+            get => playerName;
+            set => playerName = value;
         }
         /// <summary>
         /// Установить или вернуть размер экрана по x
         /// </summary>
         public int ScreenSizeX
         {
-            get => ScreenSizeWidth;
-            set => ScreenSizeWidth = value;
+            get => screenSizeWidth;
+            set => screenSizeWidth = value;
         }
         #endregion
         #region Methods

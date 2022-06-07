@@ -26,11 +26,11 @@ namespace AKSU.MScore
         /// <summary>
         /// Файл таблицы рекордов
         /// </summary>
-        private static string Filename = "scores.xml";
+        private static string fileName = "scores.xml";
         /// <summary>
         /// Только строки таблицы на вывод
         /// </summary>
-        public List<Score> Highscores { get; private set; }
+        public List<Score> HighScores { get; private set; }
         /// <summary>
         /// Все строки таблицы
         /// </summary>
@@ -44,7 +44,7 @@ namespace AKSU.MScore
         /// <summary>
         /// Конструктор класса <see cref="ScoreManager" />.
         /// </summary>
-        /// <param name="inputScores">Таблица лидеров</param>
+        /// <param name="InputScores">Таблица лидеров</param>
         public ScoreManager(List<Score> InputScores)
         {
             Scores = InputScores;
@@ -67,17 +67,15 @@ namespace AKSU.MScore
         /// <returns>Менеджер таблицы</returns>
         public static ScoreManager Load()
         {
-            // Если файл не существет, то создать пустой менеджер
-            if (!File.Exists(Filename))
+            if (!File.Exists(fileName)) // Если файл не существет, то создать пустой менеджер
                 return new ScoreManager();
 
-            //Прочитать файл
-            using (var Reader = new StreamReader(new FileStream(Filename, FileMode.Open)))
+            using (var Reader = new StreamReader(
+                new FileStream(fileName, FileMode.Open))) //Прочитать файл
             {
-                //Сериализатор записи
-                var Serilizer = new XmlSerializer(typeof(List<Score>));
-                //Считать данные из формата xml
-                var Scores = (List<Score>)Serilizer.Deserialize(Reader);
+                var Serilizer = new XmlSerializer(typeof(List<Score>)); //Сериализатор записи
+
+                var Scores = (List<Score>)Serilizer.Deserialize(Reader); //Считать данные из формата xml
 
                 return new ScoreManager(Scores);
             }
@@ -87,7 +85,7 @@ namespace AKSU.MScore
         /// </summary>
         public void UpdateHighscores()
         {
-            Highscores = Scores.Take(25).ToList();
+            HighScores = Scores.Take(25).ToList();
         }
 
         /// <summary>
@@ -96,13 +94,12 @@ namespace AKSU.MScore
         /// <param name="ScoreManager">Менеджер таблицы</param>
         public static void Save(ScoreManager ScoreManager)
         {
-            // Открыть файл для записи в режиме создания нового файла
-            using (var Writer = new StreamWriter(new FileStream(Filename, FileMode.Create)))
+            using (var Writer = new StreamWriter(
+                new FileStream(fileName, FileMode.Create))) // Открыть файл для записи в режиме создания нового файла
             {
-                //Сериализатор записи
-                var Serilizer = new XmlSerializer(typeof(List<Score>));
-                //Записать данные в xml формате
-                Serilizer.Serialize(Writer, ScoreManager.Scores);
+                var Serilizer = new XmlSerializer(typeof(List<Score>)); //Сериализатор записи
+                
+                Serilizer.Serialize(Writer, ScoreManager.Scores); //Записать данные в xml формате
             }
         }
     }

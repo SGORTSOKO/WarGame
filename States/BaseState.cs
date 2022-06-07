@@ -21,44 +21,44 @@ namespace AKSU.States
     /// Абстрактный класс. Потомки этого класса - окна приложения (game states):
     /// окно одиночной игры, таблица рекордов, меню
     /// </summary>
-    public abstract class State
+    public abstract class BaseState
     {
         #region Fields
         /// <summary>
         /// TМенеджер контента игры
         /// </summary>
-        protected ContentManager CurrentContentManager;
+        protected ContentManager currentContentManager;
         /// <summary>
         /// Графическое устройство
         /// </summary>
-        protected GraphicsDevice CurrentGraphicsDevice;
+        protected GraphicsDevice currentGraphicsDevice;
         /// <summary>
         /// TИнициализатор игры
         /// </summary>
-        protected Initializer CurrentGame;
+        protected Initializer currentGame;
         /// <summary>
         /// Размеры экрана
         /// </summary>
-        protected CoordinatesXY ThisScreenSize;
+        protected CoordinatesXY thisScreenSize;
         #endregion
         #region Methods
         /// <summary>
-        /// Конструктор класса <see cref="State" />.
+        /// Конструктор класса <see cref="BaseState" />.
         /// </summary>
         /// <param name="InputGame"> Класс-инициализатор</param>
         /// <param name="InputGraphicsDevice">Графическое устройство.</param>
         /// <param name="InputContentManager">Менеджер контента</param>
         /// <param name="InputScreenSize">Размеры экрана</param>
-        public State(
+        public BaseState(
             Initializer InputGame,
             GraphicsDevice InputGraphicsDevice,
             ContentManager InputContentManager,
             CoordinatesXY InputScreenSize)
         {
-            CurrentGame = InputGame;
-            CurrentGraphicsDevice = InputGraphicsDevice;
-            CurrentContentManager = InputContentManager;
-            ThisScreenSize = InputScreenSize;
+            currentGame = InputGame;
+            currentGraphicsDevice = InputGraphicsDevice;
+            currentContentManager = InputContentManager;
+            thisScreenSize = InputScreenSize;
         }
         /// <summary>
         /// Отрисовать экран
